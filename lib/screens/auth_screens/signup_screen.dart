@@ -111,13 +111,13 @@ class Sign_up extends GetView<SignupController> {
                       TextFormField(
                           keyboardType: TextInputType.text,
                           controller: controller.email_controller,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: 'example@gmail.com',
                               hintStyle: TextStyle(
                                 color: AppColors.customLightGrey,
                               ),
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius : const BorderRadius.all(Radius.circular(30.0)),
+                                  borderRadius : BorderRadius.all(Radius.circular(30.0)),
                                   borderSide: BorderSide(
                                     color: AppColors.customLightGrey,
                                     width: 2.0,
@@ -157,7 +157,7 @@ class Sign_up extends GetView<SignupController> {
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             hintText: '**************',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: AppColors.customLightGrey,
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -225,7 +225,7 @@ class Sign_up extends GetView<SignupController> {
                     text: 'Sign up',
                     width: Get.width*0.7.w,
                     onPressed: (){
-                  print('Pressd Button');
+
                 }),
               ],
             ),

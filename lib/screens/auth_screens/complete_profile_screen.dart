@@ -3,34 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
+import 'package:virtual_try_on/core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_TextField.dart';
 import '../../widgets/custom_button.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-class CompleteProfile extends StatefulWidget {
-  @override
-  State<CompleteProfile> createState() => _CompleteProfileState();
-}
-
-class _CompleteProfileState extends State<CompleteProfile> {
-  CompleteProfileController ProfileController = Get.put(CompleteProfileController());
-
-  String initialCountry = 'PK';
-  PhoneNumber number = PhoneNumber(isoCode: 'PK');
-  String fullNumber = '';
-
-  void getPhoneNumber(String phoneNumber) async {
-    PhoneNumber number =
-    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'PK');
-
-    setState(() {
-      this.number = number;
-    });
-  }
+class CompleteProfile extends GetView<CompleteProfileController> {
+  const CompleteProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.putOrFind(() => CompleteProfileController());
     return Scaffold(
 
         body:SingleChildScrollView(
@@ -72,8 +56,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
             children: [
               const CircleAvatar(
                 radius: 50, // Adjust the size of the avatar as needed
-                backgroundColor: Colors.blue, // Background color of the avatar
-                backgroundImage: AssetImage('assets/images/apple.png'), // Replace with your image URL
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.grey,// Background color of the avatar
+                backgroundImage: AssetImage('assets/images/avatar.jpg'), // Replace with your image URL
               ),
               Positioned(
                 bottom: 0,
@@ -81,7 +66,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 child: IconButton(
                   icon: const Icon(
                     Icons.edit,
-                    color: Colors.white,
+                    color: AppColors.primary,
                   ),
                   onPressed: () {
                     // Handle the action to change the profile picture here
@@ -93,7 +78,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
           ),
                     SizedBox(height: 20.h),
                     Form(
-                      key:  ProfileController.formkey,
+                      key:  controller.formkey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:[
@@ -111,7 +96,26 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             ),
                             Padding(padding: EdgeInsets.only(left: 20,right: 20),
                                 child:
-                                NameInputTextFieldWidget(ProfileController.nameController, 'John Doe')),
+                                TextFormField(
+                                  controller: controller.nameController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    //alignLabelWithHint: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(color: Colors.grey), // Border when the field is not focused
+                                      borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                    ),
+                                    fillColor: Colors.white54,
+                                    hintText: 'John Doe',
+                                    hintStyle: const TextStyle(color: Colors.grey),
+                                    contentPadding: const EdgeInsets.only(bottom: 15,left: 10),
+                                    focusColor: Colors.white60,
+                                  ),
+                                ),),
                             SizedBox(height: 20.h),
                             Padding(padding: EdgeInsets.only(left: 20,right: 20),
                               child:
@@ -129,6 +133,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             Padding(padding:  EdgeInsets.only(left: 20,right: 20),
                                 child:InternationalPhoneNumberInput(
                                   maxLength: 12,
+                                  inputBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                  ),
                                   spaceBetweenSelectorAndTextField: 0,
                                   onInputChanged: (PhoneNumber number) {
                                     // You can handle input changes here if needed
@@ -138,30 +146,17 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                     // You can handle validation here if needed
                                   },
                                   selectorConfig: const SelectorConfig(
-                                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                                    showFlags: false,
+                                    selectorType: PhoneInputSelectorType.DROPDOWN,
                                   ),
                                   ignoreBlank: false,
                                   autoValidateMode: AutovalidateMode.disabled,
                                   selectorTextStyle: TextStyle(color: Colors.black),
-                                  initialValue: number,
-                                  textFieldController: ProfileController.phoneController,
+                                  //initialValue: number,
+                                  textFieldController: controller.phoneController,
                                   formatInput: true,
                                   keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
-                                  inputBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Theme.of(context).colorScheme.surface,
-                                    ),
-                                  ),
                                   onSaved: (PhoneNumber number) {
-                                    setState(() {
-                                      String dialCode = number.dialCode ?? ""; // Get the dial code
-                                      String phoneNumber = number.phoneNumber ?? ""; // Get the phone number
-                                      fullNumber = dialCode + phoneNumber; // Concatenate them
-                                      ProfileController.nameController.text = fullNumber;
-                                      print(ProfileController.nameController);
-                                      print('On Saved: $fullNumber');
-                                    });
                                     // Concatenate dial code and phone number and save it to the controller
                                     // Save it to the controller
 
@@ -170,14 +165,35 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
                             ),
 
+                            SizedBox(height: 20.h),
+                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                              child:
+                              Text(
+                                'Gender',
+                                textAlign: TextAlign.center,
+                                style: globalTextStyle(
+                                  fontSize: 12.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                            child:
                             DropDownTextField(
                               // initialValue: "name4",
                               //controller: _cnt,
+
                               clearOption: true,
                               // enableSearch: true,
                               // dropdownColor: Colors.green,
-                              searchDecoration: const InputDecoration(
-                                  hintText: "enter your custom hint text here"),
+                              textFieldDecoration: InputDecoration(
+                                hintText: "Gender",
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                ),
+                              ),
                               validator: (value) {
                                 if (value == null) {
                                   return "Required field";
@@ -188,11 +204,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               dropDownItemCount: 3,
 
                               dropDownList: const [
-                                DropDownValueModel(name: 'name1', value: "value1"),
-                                DropDownValueModel(name: 'name3', value: "value3"),
-                                DropDownValueModel(name: 'name5', value: "value5"),
+                                DropDownValueModel(name: 'Male', value: "value1"),
+                                DropDownValueModel(name: 'Female', value: "value3"),
+                                DropDownValueModel(name: 'Other', value: "value5"),
                               ],
                               onChanged: (val) {},
+                            ),
                             ),
 
                           ]
