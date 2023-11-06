@@ -236,3 +236,35 @@ class Sign_up extends GetView<SignupController> {
     ));
   }
 }
+class CircularLogoContainer extends StatelessWidget {
+  final String logoPath;
+
+  CircularLogoContainer(this.logoPath);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60, // Adjust the size of the circular container as needed
+      height:60,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle, // Makes it a circular container
+        border: Border.all(
+          color: Colors.black, // Border color
+          width: 1.0, // Border width
+        ),
+      ),
+      child: ClipOval(
+        child: Container(
+          //color: Colors.grey, // Background color for the circular container
+          child: Center(
+            child: Image.asset(
+              logoPath,
+              width: 40, // Adjust the size of the logo as needed
+              height: 40,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
