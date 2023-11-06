@@ -164,16 +164,33 @@ const LoginScreen({super.key});
                       Get.offAll(() => CompleteProfile());
                     }),),
                 SizedBox(height: 20.h),
-                Center(
-                  child:
-                Text('Or Sign In With',
-                  textAlign: TextAlign.center,
-                  style: globalTextStyle(
-                    fontSize: 12.sp,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Divider(
+                        indent: 30,
+                        thickness: 1,
+                        color: AppColors.customLightGrey,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'or sign in with',
+                      style: TextStyle(
+                          color: AppColors.customGrey,
+                          fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Divider(
+                        endIndent: 30,
+                        thickness: 1,
+                        color: AppColors.customLightGrey,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20.h),
                 Row(
@@ -190,7 +207,7 @@ const LoginScreen({super.key});
           children: [
             const Text('Don\'t have Account?',),
             TextButton(onPressed: () {
-              Get.offAll(() => Sign_up());
+              Get.to(() => Sign_up());
             }, child: const Text('Sign Up',
               style: TextStyle(
                   color: AppColors.primary

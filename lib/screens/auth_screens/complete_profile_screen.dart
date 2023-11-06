@@ -12,6 +12,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 class CompleteProfile extends GetView<CompleteProfileController> {
   const CompleteProfile({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => CompleteProfileController());
