@@ -121,7 +121,7 @@ class OnBoardingScreen extends GetView<OnboardingController> {
                           () => GestureDetector(
                             onTap: controller.currentPage.value ==
                                     controller.pages.length - 1
-                                ? () => Get.to(() => const LoginScreen())
+                                ? () => Get.to(() => LoginScreen())
                                 : () => controller.next(),
                             child: Container(
                               height: Get.height * 0.12,
