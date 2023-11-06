@@ -31,12 +31,12 @@ class CustomButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width,
-        height: height ?? 55.sp,
+        height: height ?? 40.sp,
         alignment: Alignment.center,
         margin: EdgeInsets.only(bottom: marginBottom),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(50),
         ),
         child: text == null
             ? icon
@@ -50,22 +50,18 @@ class CustomButton extends StatelessWidget {
                       ),
                       Text(
                         text ?? '',
-                        style: context.theme.textTheme.labelMedium!.copyWith(
-                          color: color != context.theme.cardColor
-                              ? context.theme.textTheme.labelMedium!.color
-                              : Colors.white,
+                        style: TextStyle(
+                          color:  Colors.white,
                         ),
                       ),
                     ],
                   )
-                : Text(
-                    text ?? '',
-                    style: context.theme.textTheme.labelMedium!.copyWith(
-                      color: color != context.theme.cardColor
-                          ? context.theme.textTheme.labelMedium!.color
-                          : Colors.white,
-                    ),
-                  ),
+                :  Text(
+          text ?? '',
+          style: TextStyle(
+            color:  Colors.white,
+          ),
+        ),
       ),
     );
   }
