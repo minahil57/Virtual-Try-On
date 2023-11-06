@@ -28,40 +28,40 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: width,
-        height: height ?? 40.sp,
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(bottom: marginBottom),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: text == null
-            ? icon
-            : hasIcon
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      icon,
-                      SizedBox(
-                        width: 20.sp,
-                      ),
-                      Text(
-                        text ?? '',
-                        style: TextStyle(
-                          color:  Colors.white,
-                        ),
-                      ),
-                    ],
-                  )
-                :Text(
-              text ?? '',
-              style: const TextStyle(
-                color:  Colors.white,
+        onTap: onPressed,
+        child: Container(
+          width: width,
+          height: height ?? 40.sp,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(bottom: marginBottom),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: text == null
+              ? icon
+              : hasIcon
+              ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              icon,
+              SizedBox(
+                width: 20.sp,
               ),
+              Text(
+                text ?? '',
+                style: TextStyle(
+                  color:  Colors.white,
+                ),
+              ),
+            ],
+          )
+              :Text(
+            text ?? '',
+            style: const TextStyle(
+              color:  Colors.white,
             ),
+          ),
         )
 
     );

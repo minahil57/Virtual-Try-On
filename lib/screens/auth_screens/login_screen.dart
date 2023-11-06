@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/Login_Controller.dart';
@@ -11,16 +12,12 @@ import '../../widgets/custom_TextField.dart';
 import '../../widgets/custom_button.dart';
 
 
-class LoginScreen extends StatefulWidget {
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  LoginController loginController = Get.put(LoginController());
+class LoginScreen extends  GetView<LoginController> {
+const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.putOrFind(() => LoginController());
     return Scaffold(
 
       body:SingleChildScrollView(
@@ -57,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 70.h),
                 Form(
-                  key: loginController.formkey,
+                  key: controller.formkey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
@@ -75,7 +72,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 Padding(padding: EdgeInsets.only(left: 20,right: 20),
                 child:
-                InputTextFieldWidget(loginController.emailController, 'example@gmail.com')),
+                TextFormField(
+                  controller: controller.emailController,
+                  decoration: InputDecoration(
+                    //alignLabelWithHint: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey), // Border when the field is not focused
+                      borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                    ),
+                    fillColor: Colors.white54,
+                    hintText: 'example@gmail.com',
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    contentPadding: const EdgeInsets.only(bottom: 15,left: 10),
+                    focusColor: Colors.white60,
+                  ),
+                ),
+                ),
                 SizedBox(height: 20.h),
           Padding(padding: EdgeInsets.only(left: 20,right: 20),
             child:
@@ -91,7 +107,37 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
                 Padding(padding: EdgeInsets.only(left: 20,right: 20),
                  child:
-                PasswordInputTextFieldWidget(loginController.passwordController, '************',)),
+                     Obx(
+                       ()=>
+                 TextFormField(
+                   controller: controller.passwordController,
+                   obscureText: controller.obscureText.value,
+                   decoration: InputDecoration(
+                     //alignLabelWithHint: true,
+                     focusedBorder: OutlineInputBorder(
+                       borderSide: const BorderSide(color: Colors.black),
+                       borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                     ),
+                     enabledBorder: OutlineInputBorder(
+                       borderSide: const BorderSide(color: Colors.grey), // Border when the field is not focused
+                       borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                     ),
+                     fillColor: Colors.white54,
+                     hintText: '*********',
+                     hintStyle: const TextStyle(color: Colors.grey),
+                     contentPadding: const EdgeInsets.only(bottom: 15,left: 10),
+                     focusColor: Colors.white60,
+                     suffixIcon: IconButton(
+                       icon: Icon(
+                         controller.obscureText.value ? FlutterRemix.eye_off_line : FlutterRemix.eye_2_line,
+                         color: AppColors.customBlack,
+                       ),
+                       onPressed: controller.toggleObscureText,
+                     ),
+                   ),
+                 ),
+                ),
+                )
                 ]
                   ),
                 ),
@@ -118,10 +164,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'Login',
                     width: Get.width*0.7.w,
                     onPressed: (){
-                      Get.offAll(() => CompleteProfile());
+
                     }),),
                 SizedBox(height: 20.h),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(
