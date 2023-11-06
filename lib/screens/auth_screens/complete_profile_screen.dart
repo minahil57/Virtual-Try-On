@@ -1,3 +1,4 @@
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,7 @@ import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_TextField.dart';
 import '../../widgets/custom_button.dart';
-
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class CompleteProfile extends StatefulWidget {
   @override
@@ -14,6 +15,19 @@ class CompleteProfile extends StatefulWidget {
 
 class _CompleteProfileState extends State<CompleteProfile> {
   CompleteProfileController ProfileController = Get.put(CompleteProfileController());
+
+  String initialCountry = 'PK';
+  PhoneNumber number = PhoneNumber(isoCode: 'PK');
+  String fullNumber = '';
+
+  void getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'PK');
+
+    setState(() {
+      this.number = number;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,14 +137,14 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                   onInputValidated: (bool value) {
                                     // You can handle validation here if needed
                                   },
-                                  selectorConfig: SelectorConfig(
+                                  selectorConfig: const SelectorConfig(
                                     selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                                   ),
                                   ignoreBlank: false,
                                   autoValidateMode: AutovalidateMode.disabled,
                                   selectorTextStyle: TextStyle(color: Colors.black),
                                   initialValue: number,
-                                  textFieldController: phone,
+                                  textFieldController: ProfileController.phoneController,
                                   formatInput: true,
                                   keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
                                   inputBorder: OutlineInputBorder(
@@ -144,17 +158,41 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       String dialCode = number.dialCode ?? ""; // Get the dial code
                                       String phoneNumber = number.phoneNumber ?? ""; // Get the phone number
                                       fullNumber = dialCode + phoneNumber; // Concatenate them
-                                      phone.text = fullNumber;
-                                      print(phone);
+                                      ProfileController.nameController.text = fullNumber;
+                                      print(ProfileController.nameController);
                                       print('On Saved: $fullNumber');
                                     });
                                     // Concatenate dial code and phone number and save it to the controller
-                                    print(phone);
                                     // Save it to the controller
 
                                   },
                                 )
 
+                            ),
+
+                            DropDownTextField(
+                              // initialValue: "name4",
+                              //controller: _cnt,
+                              clearOption: true,
+                              // enableSearch: true,
+                              // dropdownColor: Colors.green,
+                              searchDecoration: const InputDecoration(
+                                  hintText: "enter your custom hint text here"),
+                              validator: (value) {
+                                if (value == null) {
+                                  return "Required field";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              dropDownItemCount: 3,
+
+                              dropDownList: const [
+                                DropDownValueModel(name: 'name1', value: "value1"),
+                                DropDownValueModel(name: 'name3', value: "value3"),
+                                DropDownValueModel(name: 'name5', value: "value5"),
+                              ],
+                              onChanged: (val) {},
                             ),
 
                           ]

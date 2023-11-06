@@ -50,7 +50,7 @@ class CustomButton extends StatelessWidget {
             ),
             Text(
               text ?? '',
-              style: const TextStyle(
+              style: TextStyle(
                 color:  Colors.white,
               ),
             ),
@@ -58,7 +58,7 @@ class CustomButton extends StatelessWidget {
         )
             :  Text(
           text ?? '',
-          style: const TextStyle(
+          style: TextStyle(
             color:  Colors.white,
           ),
         ),
