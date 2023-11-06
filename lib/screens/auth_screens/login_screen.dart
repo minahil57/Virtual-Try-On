@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/Login_Controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
+import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
@@ -99,7 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Padding(padding: EdgeInsets.only(left: 20,right: 20),
                     child:
-                    TextButton(onPressed: (){}, child: const Text('Forgot Password?',
+                    TextButton(onPressed: (){
+                      Get.to(() => OtpScreen());
+                    }, child: const Text('Forgot Password?',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: AppColors.primary

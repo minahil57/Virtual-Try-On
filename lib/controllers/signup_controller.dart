@@ -18,6 +18,8 @@ import 'package:get/get.dart';
      email_controller.dispose();
      password_controller.dispose();
      name_controller.dispose();
+     agreedToTerms.dispose();
+     obscureText.dispose();
     super.onClose();
 
   }

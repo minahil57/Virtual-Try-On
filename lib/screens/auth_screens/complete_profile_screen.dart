@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
+import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_TextField.dart';
 import '../../widgets/custom_button.dart';
@@ -70,6 +71,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                     color: Colors.white,
                   ),
                   onPressed: () {
+
                     // Handle the action to change the profile picture here
                   },
                 ),
