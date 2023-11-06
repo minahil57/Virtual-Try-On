@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
+import 'package:virtual_try_on/screens/auth_screens/new_password.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
@@ -236,7 +237,8 @@ class Sign_up extends GetView<SignupController> {
                         text: 'Sign up',
                         width: Get.width*0.7.w,
                         onPressed: (){
-                          print('Pressd Button');
+                          // Get.to(() => NewPasswordScreen());
+                          //controller.
                         }),
                     SizedBox(height: 20.h),
                     const Row(

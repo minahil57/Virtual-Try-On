@@ -1,5 +1,6 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
@@ -26,6 +27,26 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Padding(padding: EdgeInsets.only(left: 10),
+                  child:
+                  Container(
+                  width: 40, // Adjust the size of the circular container as needed
+                  height:40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle, // Makes it a circular container
+                    border: Border.all(
+                      color: Colors.black, // Border color
+                      width: 1.0, // Border width
+                    ),
+                  ),
+                  child:IconButton(icon:Icon(FlutterRemix.arrow_left_fill), onPressed: () {
+
+                    Get.back();
+                  },
+                  ),
+                    ),
+                    ),
+
                     Center(
                       child:
                       Text(
