@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class CompleteProfileController extends GetxController {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController GenderController = TextEditingController();
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   RxBool agreedToTerms = false.obs;
@@ -19,8 +20,8 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     // TODO: implement onClose
-    emailController.dispose();
-    passwordController.dispose();
+    nameController.dispose();
+    phoneController.dispose();
     super.onClose();
 
   }

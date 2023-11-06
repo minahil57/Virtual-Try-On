@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/Login_Controller.dart';
+import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_TextField.dart';
@@ -15,9 +16,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   LoginController loginController = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
 
       body:SingleChildScrollView(
@@ -53,8 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 ),
                 SizedBox(height: 70.h),
-          Padding(padding: EdgeInsets.only(left: 20,right: 20),
-            child:
+                Form(
+                  key: loginController.formkey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                children:[
+                  Padding(padding: EdgeInsets.only(left: 20),
+                child:
                 Text(
                   'Email',
                   textAlign: TextAlign.center,
@@ -64,10 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-          ),
+                  ),
                 Padding(padding: EdgeInsets.only(left: 20,right: 20),
                 child:
-                InputTextFieldWidget(loginController.emailController, 'Enter Your Email Address')),
+                InputTextFieldWidget(loginController.emailController, 'example@gmail.com')),
                 SizedBox(height: 20.h),
           Padding(padding: EdgeInsets.only(left: 20,right: 20),
             child:
@@ -83,8 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
                 Padding(padding: EdgeInsets.only(left: 20,right: 20),
                  child:
-                PasswordInputTextFieldWidget(loginController.passwordController, 'Enter Password',)),
-
+                PasswordInputTextFieldWidget(loginController.passwordController, '************',)),
+                ]
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -106,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'Login',
                     width: Get.width*0.7.w,
                     onPressed: (){
-                      print('Pressd Button');
+                      Get.offAll(() => CompleteProfile());
                     }),),
                 SizedBox(height: 20.h),
                 Center(
