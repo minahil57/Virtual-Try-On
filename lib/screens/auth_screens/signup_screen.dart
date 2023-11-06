@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/signup_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:virtual_try_on/core/colors.dart';
+import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
@@ -26,7 +28,7 @@ class Sign_up extends GetView<SignupController> {
                 Center(
                   child: Text(
                   'Create Account',
-                    style: TextStyle(
+                    style: globalTextStyle(
                       fontSize: 30.sp,
                       fontWeight: FontWeight.w500
                     ),
@@ -37,7 +39,7 @@ class Sign_up extends GetView<SignupController> {
                 ),
                 Text(
                   'Fill your information below or register',
-                  style: TextStyle(
+                  style: globalTextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w300,
                       color: AppColors.customGrey
@@ -45,14 +47,14 @@ class Sign_up extends GetView<SignupController> {
                 ),
                 Text(
                   'with your social account',
-                  style: TextStyle(
+                  style: globalTextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w300,
                       color: AppColors.customGrey
                   ),
                 ),
                 Padding(
-                  padding:  EdgeInsets.only(left:30.w,right: 30.w,top: 30.w),
+                  padding:  EdgeInsets.only(left:20.w,right:20.w,top: 30.w),
                   child: Form(
                   key:controller.formkey,
                   child: Column(
@@ -60,7 +62,7 @@ class Sign_up extends GetView<SignupController> {
                     children: [
                       Text(
                           'Name',
-                        style: TextStyle(
+                        style: globalTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.customBlack
@@ -77,12 +79,15 @@ class Sign_up extends GetView<SignupController> {
                           hintStyle: TextStyle(
                             color: AppColors.customLightGrey,
                           ),
-                          enabledBorder: OutlineInputBorder(
-                           borderRadius : const BorderRadius.all(Radius.circular(30.0)),
-                              borderSide: BorderSide(
-                                color: AppColors.customLightGrey,
-                            width: 2.0,
-                          ))
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          contentPadding:  EdgeInsets.only(bottom: 15.h,left: 10.w),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
                         ),
                         validator: (value){
                           if(value!.isEmpty){
@@ -99,7 +104,7 @@ class Sign_up extends GetView<SignupController> {
                       ),
                       Text(
                         'Email',
-                        style: TextStyle(
+                        style: globalTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.customBlack
@@ -113,15 +118,18 @@ class Sign_up extends GetView<SignupController> {
                           controller: controller.email_controller,
                           decoration: InputDecoration(
                               hintText: 'example@gmail.com',
+                            contentPadding:  EdgeInsets.only(bottom: 15.h,left: 10.w),
                               hintStyle: TextStyle(
                                 color: AppColors.customLightGrey,
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.black),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius : const BorderRadius.all(Radius.circular(30.0)),
-                                  borderSide: BorderSide(
-                                    color: AppColors.customLightGrey,
-                                    width: 2.0,
-                                  ))
+                                borderSide: const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                           ),
                           validator: (value){
                             if(value!.isEmpty){
@@ -141,7 +149,7 @@ class Sign_up extends GetView<SignupController> {
                       ),
                       Text(
                         'Password',
-                        style: TextStyle(
+                        style: globalTextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.customBlack
@@ -157,15 +165,18 @@ class Sign_up extends GetView<SignupController> {
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             hintText: '**************',
+                            contentPadding:  EdgeInsets.only(bottom: 15.h,left: 10.w),
                             hintStyle: TextStyle(
                               color: AppColors.customLightGrey,
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                              borderSide: BorderSide(
-                                color: AppColors.customLightGrey,
-                                width: 2.0.sp,
-                              ),
+                              borderSide: const BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(30),
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -193,7 +204,7 @@ class Sign_up extends GetView<SignupController> {
                 ),
                 Obx(
                       () => Padding(
-                    padding: EdgeInsets.only(left: 30.0.w,right: 30.0.w,top: 10.w,bottom: 10.w),
+                    padding: EdgeInsets.only(left: 20.0.w,right: 20.0.w,top: 10.w,bottom: 10.w),
                     child: Row(
                       children: [
                         Checkbox(
@@ -221,12 +232,65 @@ class Sign_up extends GetView<SignupController> {
                 ),
 
 
-    CustomButton(
+          CustomButton(
                     text: 'Sign up',
                     width: Get.width*0.7.w,
                     onPressed: (){
                   print('Pressd Button');
                 }),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Divider(
+                        indent: 30,
+                        thickness: 1,
+                        color: AppColors.customLightGrey,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'or sign up with',
+                      style: TextStyle(
+                          color: AppColors.customGrey,
+                          fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Divider(
+                        endIndent: 30,
+                        thickness: 1,
+                        color: AppColors.customLightGrey,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircularLogoContainer("assets/images/apple.png"),
+                    CircularLogoContainer("assets/images/Google logo.png"),
+                    CircularLogoContainer("assets/images/facebook logo.png"),
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account?',),
+                    TextButton(onPressed: () {
+                      Get.to(() => LoginScreen());
+                    }, child: const Text('Sign In',
+                      style: TextStyle(
+                          color: AppColors.primary,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ))
+                  ],
+                ),
               ],
             ),
           ),

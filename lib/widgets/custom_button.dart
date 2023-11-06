@@ -56,13 +56,14 @@ class CustomButton extends StatelessWidget {
                       ),
                     ],
                   )
-                :  Text(
-          text ?? '',
-          style: TextStyle(
-            color:  Colors.white,
-          ),
-        ),
-      ),
+                :Text(
+              text ?? '',
+              style: const TextStyle(
+                color:  Colors.white,
+              ),
+            ),
+        )
+
     );
   }
 }

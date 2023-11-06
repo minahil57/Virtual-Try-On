@@ -18,6 +18,7 @@ dependencies:
   supabase_flutter: ^1.10.24
   smooth_page_indicator: ^1.1.0
   flutter_remix: ^0.0.3
+  dropdown_textfield: ^1.0.8
 
 dev_dependencies:
   flutter_test:
