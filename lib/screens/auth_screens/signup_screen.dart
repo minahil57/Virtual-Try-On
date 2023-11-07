@@ -1,13 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/signup_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
-import 'package:virtual_try_on/screens/auth_screens/new_password.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
@@ -39,15 +37,8 @@ class Sign_up extends GetView<SignupController> {
                       height: 10.0.h,
                     ),
                     Text(
-                      'Fill your information below or register',
-                      style: globalTextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w300,
-                          color: AppColors.customGrey
-                      ),
-                    ),
-                    Text(
-                      'with your social account',
+                      'Fill your information below or register\n with your social account',
+                      textAlign: TextAlign.center,
                       style: globalTextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w300,
@@ -237,8 +228,7 @@ class Sign_up extends GetView<SignupController> {
                         text: 'Sign up',
                         width: Get.width*0.7.w,
                         onPressed: (){
-                          // Get.to(() => NewPasswordScreen());
-                          //controller.
+                          Get.offAll(() => CompleteProfile());
                         }),
                     SizedBox(height: 20.h),
                     const Row(

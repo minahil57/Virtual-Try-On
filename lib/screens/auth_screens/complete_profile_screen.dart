@@ -4,6 +4,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
+import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_TextField.dart';
@@ -21,32 +22,37 @@ class CompleteProfile extends GetView<CompleteProfileController> {
 
         body:SingleChildScrollView(
             child:Padding(
-              padding: EdgeInsets.only(top: 100,),
+              padding: EdgeInsets.only(top: 10.h,),
 
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(padding: EdgeInsets.only(left: 10),
-                  child:
-                  Container(
-                  width: 40, // Adjust the size of the circular container as needed
-                  height:40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle, // Makes it a circular container
-                    border: Border.all(
-                      color: Colors.black, // Border color
-                      width: 1.0, // Border width
-                    ),
-                  ),
-                  child:IconButton(icon:Icon(FlutterRemix.arrow_left_fill), onPressed: () {
 
-                    Get.back();
-                  },
-                  ),
+                    Padding(
+                      padding:  EdgeInsets.fromLTRB(15.0.h,32.0.h,32.0.h,32.0.h),
+                      child: GestureDetector(
+                        onTap: (){
+                          print('done');
+                          Get.back();
+                        },
+                        child: Container(
+                          width: 50, // Set the width and height to make it circular
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle, // Make it circular
+                            border: Border.all(
+                              color: AppColors.customLightGrey, // Set the border color to grey
+                              //width: 1.0, // Set the border width
+                            ),
+                          ),
+                          child: const Icon(
+                            FlutterRemix.arrow_left_line,
+                            color: Colors.black, // Set the icon color to black
+                          ),
+                        ),
+                      ),
                     ),
-                    ),
-
                     Center(
                       child:
                       Text(
@@ -85,15 +91,24 @@ class CompleteProfile extends GetView<CompleteProfileController> {
               Positioned(
                 bottom: 0,
                 right: 0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.edit,
-                    color: AppColors.primary,
+                  child:Container(
+                    height: 35,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle, // Make it circular
+                      color: AppColors.primary, // Set the background color
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                       FlutterRemix.edit_line,
+                        size: 20,
+                        color: AppColors.customLightGrey,
+                      ),
+                      onPressed: () {
+                        // Handle the action to change the profile picture here
+                      },
+                    ),
                   ),
-                  onPressed: () {
-                    // Handle the action to change the profile picture here
-                  },
-                ),
+
               ),
             ],
           ),
@@ -128,7 +143,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                       borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(color: Colors.grey), // Border when the field is not focused
+                                      borderSide: const BorderSide(color: AppColors.customGrey), // Border when the field is not focused
                                       borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
                                     ),
                                     fillColor: Colors.white54,
@@ -179,8 +194,6 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                   formatInput: true,
                                   keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
                                   onSaved: (PhoneNumber number) {
-                                    // Concatenate dial code and phone number and save it to the controller
-                                    // Save it to the controller
 
                                   },
                                 )
@@ -203,17 +216,12 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                             Padding(padding: EdgeInsets.only(left: 20,right: 20),
                             child:
                             DropDownTextField(
-                              // initialValue: "name4",
-                              //controller: _cnt,
-
                               clearOption: true,
-                              // enableSearch: true,
-                              // dropdownColor: Colors.green,
                               textFieldDecoration: InputDecoration(
                                 hintText: "Gender",
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                  borderSide:  BorderSide(color: AppColors.customGrey),
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
                               validator: (value) {

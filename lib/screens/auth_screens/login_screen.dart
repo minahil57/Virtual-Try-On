@@ -3,13 +3,12 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/Login_Controller.dart';
-import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
+import 'package:virtual_try_on/screens/auth_screens/confirm_email.dart';
+import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
-import '../../widgets/custom_TextField.dart';
 import '../../widgets/custom_button.dart';
-
 
 class LoginScreen extends  GetView<LoginController> {
 const LoginScreen({super.key});
@@ -145,7 +144,10 @@ const LoginScreen({super.key});
                   children: [
                     Padding(padding: EdgeInsets.only(left: 20,right: 20),
                     child:
-                    TextButton(onPressed: (){}, child: const Text('Forgot Password?',
+                    TextButton(onPressed: (){
+
+                      Get.to(() => ConfirmEmailScreeen());
+                    }, child: const Text('Forgot Password?',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: AppColors.primary
@@ -161,7 +163,7 @@ const LoginScreen({super.key});
                     text: 'Login',
                     width: Get.width*0.7.w,
                     onPressed: (){
-                      Get.offAll(() => CompleteProfile());
+
                     }),),
                 SizedBox(height: 20.h),
                 const Row(
