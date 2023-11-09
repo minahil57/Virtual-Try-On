@@ -7,7 +7,7 @@ import 'package:pinput/pinput.dart';
 import 'package:virtual_try_on/controllers/otp_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
+import 'package:virtual_try_on/screens/auth_screens/new_password.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 class OtpScreen extends GetView<OtpController>{
@@ -26,7 +26,6 @@ class OtpScreen extends GetView<OtpController>{
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Padding(
             padding:  EdgeInsets.fromLTRB(15.0.h,32.0.h,32.0.h,32.0.h),
             child: GestureDetector(
@@ -153,7 +152,7 @@ class OtpScreen extends GetView<OtpController>{
                     text: 'Verify',
                     width: Get.width*0.7.w,
                     onPressed: (){
-                      Get.offAll(() => CompleteProfile());
+                      Get.offAll(() => NewPasswordScreen());
                     }),
 
         ],

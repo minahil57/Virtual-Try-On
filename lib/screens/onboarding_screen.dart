@@ -86,7 +86,7 @@ class OnBoardingScreen extends GetView<OnboardingController> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Obx(
-                              () => GestureDetector(
+                          () => GestureDetector(
                             onTap: () => controller.currentPage.value == 0
                                 ? () {}
                                 : controller.previous(),
@@ -119,9 +119,9 @@ class OnBoardingScreen extends GetView<OnboardingController> {
                           onDotClicked: (index) {},
                         ),
                         Obx(
-                              () => GestureDetector(
+                          () => GestureDetector(
                             onTap: controller.currentPage.value ==
-                                controller.pages.length - 1
+                                    controller.pages.length - 1
                                 ? () => Get.to(() => LoginScreen())
                                 : () => controller.next(),
                             child: Container(

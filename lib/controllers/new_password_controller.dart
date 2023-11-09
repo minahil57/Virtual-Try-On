@@ -10,9 +10,13 @@ class NewPasswordController extends GetxController {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   RxBool agreedToTerms = false.obs;
   RxBool obscureText = true.obs;
+  RxBool obscureText1 = true.obs;
 
   void toggleObscureText() {
     obscureText.value = !obscureText.value;
+  }
+  void toggleObscureTexts() {
+    obscureText1.value = !obscureText1.value;
   }
   bool passwordVisible = false;
   void initState() {
