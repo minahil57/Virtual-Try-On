@@ -65,10 +65,10 @@ class Sign_up extends GetView<SignupController> {
                               ),
                               TextFormField(
                                   keyboardType: TextInputType.text,
-                                  controller: controller.email_controller,
+                                  controller: controller.name_controller,
                                   decoration: InputDecoration(
                                     hintText: 'John Doe',
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: AppColors.customLightGrey,
                                     ),
                                     focusedBorder: OutlineInputBorder(
@@ -111,7 +111,7 @@ class Sign_up extends GetView<SignupController> {
                                   decoration: InputDecoration(
                                     hintText: 'example@gmail.com',
                                     contentPadding:  EdgeInsets.only(bottom: 15.h,left: 10.w),
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: AppColors.customLightGrey,
                                     ),
                                     focusedBorder: OutlineInputBorder(
@@ -154,11 +154,12 @@ class Sign_up extends GetView<SignupController> {
                               Obx(
                                     () => TextFormField(
                                   obscureText: controller.obscureText.value,
+                                  controller: controller.password_controller,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
                                     hintText: '**************',
                                     contentPadding:  EdgeInsets.only(bottom: 15.h,left: 10.w),
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: AppColors.customLightGrey,
                                     ),
                                     focusedBorder: OutlineInputBorder(
@@ -206,12 +207,12 @@ class Sign_up extends GetView<SignupController> {
                                 controller.agreedToTerms.value = value!;
                               },
                             ),
-                            Text('Agree with '),
+                            const Text('Agree with '),
                             TextButton(
                               onPressed: () {
                                 // Handle the action when the "Terms and Conditions" button is pressed.
                               },
-                              child: Text(
+                              child: const Text(
                                 'Terms & Conditions',
                                 style: TextStyle(
                                   decoration: TextDecoration.underline,
@@ -228,7 +229,12 @@ class Sign_up extends GetView<SignupController> {
                         text: 'Sign up',
                         width: Get.width*0.7.w,
                         onPressed: (){
-                          Get.offAll(() => CompleteProfile());
+                          controller.registerUser(
+                            controller.email_controller.text,
+                            controller.password_controller.text,
+                            context,
+                            controller.name_controller.text,
+                          );
                         }),
                     SizedBox(height: 20.h),
                     const Row(
@@ -274,7 +280,7 @@ class Sign_up extends GetView<SignupController> {
                       children: [
                         const Text('Already have an account?',),
                         TextButton(onPressed: () {
-                          Get.to(() => LoginScreen());
+                          Get.to(() => const LoginScreen());
                         }, child: const Text('Sign In',
                           style: TextStyle(
                             color: AppColors.primary,

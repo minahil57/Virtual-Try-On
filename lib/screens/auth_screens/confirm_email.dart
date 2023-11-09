@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:virtual_try_on/controllers/Login_Controller.dart';
 import 'package:virtual_try_on/controllers/confirm_email_controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
-import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_button.dart';
@@ -20,7 +18,7 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
 
         body:SingleChildScrollView(
             child:Padding(
-              padding: EdgeInsets.only(top:20 ,),
+              padding:  EdgeInsets.only(top:20.h ,),
 
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +51,7 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                     Center(
                       child:
                       Text(
-                        'Comfirm Your Email',
+                        'Confirm Your Email',
                         textAlign: TextAlign.center,
                         style: globalTextStyle(
                           fontSize: 25.sp,
@@ -80,7 +78,7 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:[
-                            Padding(padding: EdgeInsets.only(left: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20),
                               child:
                               Text(
                                 'Email',
@@ -92,18 +90,18 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                                 ),
                               ),
                             ),
-                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20,right: 20),
                               child:
                               TextFormField(
                                 controller: controller.emailController,
                                 decoration: InputDecoration(
                                   //alignLabelWithHint: true,
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black),
+                                    borderSide: const BorderSide(color: Colors.black),
                                     borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey), // Border when the field is not focused
+                                    borderSide: const BorderSide(color: Colors.grey), // Border when the field is not focused
                                     borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
                                   ),
                                   fillColor: Colors.white54,
@@ -114,7 +112,6 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                                 ),
                               ),
                             ),
-
                   ]
               ),
                               ),
@@ -125,7 +122,7 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                           text: 'Confirm Email',
                           width: Get.width*0.7.w,
                           onPressed: (){
-                            Get.to(() => OtpScreen());
+                            Get.to(() => const OtpScreen());
                           }),),
 
                 ]

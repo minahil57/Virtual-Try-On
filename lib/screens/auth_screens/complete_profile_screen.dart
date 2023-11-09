@@ -93,12 +93,12 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                 right: 0,
                   child:Container(
                     height: 35,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle, // Make it circular
                       color: AppColors.primary, // Set the background color
                     ),
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                        FlutterRemix.edit_line,
                         size: 20,
                         color: AppColors.customLightGrey,
@@ -119,7 +119,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:[
-                            Padding(padding: EdgeInsets.only(left: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20),
                               child:
                               Text(
                                 'Name',
@@ -131,7 +131,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                 ),
                               ),
                             ),
-                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20,right: 20),
                                 child:
                                 TextFormField(
                                   controller: controller.nameController,
@@ -154,7 +154,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                   ),
                                 ),),
                             SizedBox(height: 20.h),
-                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20,right: 20),
                               child:
                               Text(
                                 'Phone Number',
@@ -167,7 +167,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                               ),
                             ),
 
-                            Padding(padding:  EdgeInsets.only(left: 20,right: 20),
+                            Padding(padding:  const EdgeInsets.only(left: 20,right: 20),
                                 child:InternationalPhoneNumberInput(
                                   maxLength: 12,
                                   inputBorder: OutlineInputBorder(
@@ -188,11 +188,11 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                   ),
                                   ignoreBlank: false,
                                   autoValidateMode: AutovalidateMode.disabled,
-                                  selectorTextStyle: TextStyle(color: Colors.black),
+                                  selectorTextStyle: const TextStyle(color: Colors.black),
                                   //initialValue: number,
                                   textFieldController: controller.phoneController,
                                   formatInput: true,
-                                  keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
+                                  keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
                                   onSaved: (PhoneNumber number) {
 
                                   },
@@ -201,7 +201,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                             ),
 
                             SizedBox(height: 20.h),
-                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20,right: 20),
                               child:
                               Text(
                                 'Gender',
@@ -213,14 +213,14 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                 ),
                               ),
                             ),
-                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                            Padding(padding: const EdgeInsets.only(left: 20,right: 20),
                             child:
                             DropDownTextField(
                               clearOption: true,
                               textFieldDecoration: InputDecoration(
                                 hintText: "Gender",
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide:  BorderSide(color: AppColors.customGrey),
+                                  borderSide:  const BorderSide(color: AppColors.customGrey),
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),

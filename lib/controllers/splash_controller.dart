@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:virtual_try_on/config/supabase.dart';
+import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/screens/onboarding_screen.dart';
 
@@ -11,7 +12,7 @@ class SplashController extends GetxController {
   void onInit() {
     timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (supabase.auth.currentSession != null) {
-        Get.offAll(() => const BottomNavScreen());
+        Get.offAll(() => CompleteProfile());
       } else {
         Get.offAll(() => const OnBoardingScreen());
       }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
+import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 
  class SignupController extends GetxController {
    final TextEditingController email_controller = TextEditingController();
@@ -15,6 +16,31 @@ import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
    void toggleObscureText() {
        obscureText.value = !obscureText.value;
    }
+
+   Future<void> registerUser(String email, String password,context,String name) async {
+      print(password);
+     try {
+       AuthResponse response = await supabase.auth.signUp(email: email, password: password,);
+       String UserId = response.user!.id;
+       if (response.user != null) {
+         // Registration successful
+         print('registration successfull');
+         Get.to(() => LoginScreen());
+       } else {
+         // Handle the error
+         throw Exception('Registration failed');
+       }
+     } catch (e) {
+       // Handle exceptions
+       String errorMessage = 'An unknown error occurred';
+       if (e is Exception) {
+         errorMessage = e.toString();
+       }
+       print(errorMessage);
+       //Fluttertoast.showToast(msg: errorMessage,);
+     }
+   }
+
    @override
   void onClose() {
     // TODO: implement onClose
