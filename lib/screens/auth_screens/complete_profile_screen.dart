@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import 'package:virtual_try_on/core/colors.dart';
+import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_TextField.dart';
 import '../../widgets/custom_button.dart';
@@ -34,7 +35,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                       child: GestureDetector(
                         onTap: (){
                           print('done');
-                          Get.back();
+                         Get.to(() => Sign_up());
                         },
                         child: Container(
                           width: 50, // Set the width and height to make it circular

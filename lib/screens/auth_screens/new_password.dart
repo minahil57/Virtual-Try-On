@@ -3,6 +3,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/new_password_controller.dart';
+import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 
@@ -17,38 +18,38 @@ class NewPasswordScreen extends  GetView<NewPasswordController> {
     Get.putOrFind(() => NewPasswordController());
     return Scaffold(
 
-        body:SingleChildScrollView(
-            child:Padding(
-              padding: EdgeInsets.only(top: 100,),
-
-              child: Column(
+        body: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
 
-                    Padding(padding: EdgeInsets.only(left: 10),
-                      child:
-                      Container(
-                        width: 40, // Adjust the size of the circular container as needed
-                        height:40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle, // Makes it a circular container
-                          border: Border.all(
-                            color: Colors.black, // Border color
-                            width: 1.0, // Border width
-                          ),
-                        ),
-                        child:IconButton(icon:Icon(FlutterRemix.arrow_left_fill), onPressed: () {
-
-                          Get.back();
+                    Padding(
+                      padding:  EdgeInsets.fromLTRB(15.0.h,42.0.h,32.0.h,32.0.h),
+                      child: GestureDetector(
+                        onTap: (){
+                          Get.to(() => LoginScreen());
                         },
+                        child: Container(
+                          width: 50, // Set the width and height to make it circular
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle, // Make it circular
+                            border: Border.all(
+                              color: AppColors.customLightGrey, // Set the border color to grey
+                              width: 2.0, // Set the border width
+                            ),
+                          ),
+                          child: const Icon(
+                            FlutterRemix.arrow_left_line,
+                            color: Colors.black, // Set the icon color to black
+                          ),
                         ),
                       ),
                     ),
                     Center(
                       child:
                       Text(
-                        'New PAssword',
+                        'New Password',
                         textAlign: TextAlign.center,
                         style: globalTextStyle(
                           fontSize: 25.sp,
@@ -139,7 +140,7 @@ class NewPasswordScreen extends  GetView<NewPasswordController> {
                                     ()=>
                                     TextFormField(
                                       controller: controller.confirmpasswordController,
-                                      obscureText: controller.obscureText.value,
+                                      obscureText: controller.obscureText1.value,
                                       decoration: InputDecoration(
                                         //alignLabelWithHint: true,
                                         focusedBorder: OutlineInputBorder(
@@ -157,10 +158,10 @@ class NewPasswordScreen extends  GetView<NewPasswordController> {
                                         focusColor: Colors.white60,
                                         suffixIcon: IconButton(
                                           icon: Icon(
-                                            controller.obscureText.value ? FlutterRemix.eye_off_line : FlutterRemix.eye_2_line,
+                                            controller.obscureText1.value ? FlutterRemix.eye_off_line : FlutterRemix.eye_2_line,
                                             color: AppColors.customBlack,
                                           ),
-                                          onPressed: controller.toggleObscureText,
+                                          onPressed: controller.toggleObscureTexts,
                                         ),
                                       ),
                                     ),
@@ -176,12 +177,11 @@ class NewPasswordScreen extends  GetView<NewPasswordController> {
                           text: 'Create New Password',
                           width: Get.width*0.7.w,
                           onPressed: (){
+                            controller.updateUser.UpdateUser(controller.newpasswordlController.text);
                             //Get.offAll(() => CompleteProfile());
                           }),),
                   ]
               ),
-            )
-        )
     );
   }
 }

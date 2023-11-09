@@ -6,9 +6,12 @@ import 'package:virtual_try_on/controllers/Login_Controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/confirm_email.dart';
 import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
+
 import 'package:virtual_try_on/screens/index_page/index_screen.dart';
+import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
+import '../../services/user_authentication_services.dart';
 import '../../widgets/custom_button.dart';
 
 class LoginScreen extends  GetView<LoginController> {
@@ -164,7 +167,7 @@ const LoginScreen({super.key});
                     text: 'Login',
                     width: Get.width*0.7.w,
                     onPressed: (){
-                      Get.to(() => IndexScreen());
+                      controller.userAuthentication.loginUser(controller.emailController.text, controller.passwordController.text, context);
                     }),),
                 SizedBox(height: 20.h),
                 const Row(
@@ -213,7 +216,8 @@ const LoginScreen({super.key});
               Get.to(() => Sign_up());
             }, child: const Text('Sign Up',
               style: TextStyle(
-                  color: AppColors.primary
+                  color: AppColors.primary,
+                  decoration: TextDecoration.underline,
               ),
             ))
                 ],

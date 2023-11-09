@@ -122,7 +122,7 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                           text: 'Confirm Email',
                           width: Get.width*0.7.w,
                           onPressed: (){
-                            Get.to(() => const OtpScreen());
+                            controller.confirmEmail.sendPasswordResetEmail(controller.emailController.text,context);
                           }),),
 
                 ]

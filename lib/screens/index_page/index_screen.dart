@@ -350,11 +350,11 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -366,8 +366,8 @@ class IndexScreen extends  GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => IndexController());
-    return Scaffold(
-        body: Container(
+    return SingleChildScrollView(
+        child: Container(
             child: Padding(padding: EdgeInsets.fromLTRB(20.h, 50.h, 20.h, 20.h),
               child:
             Column(
@@ -413,13 +413,14 @@ class IndexScreen extends  GetView<IndexController> {
                   TextField(
                     decoration: InputDecoration(
                       //alignLabelWithHint: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey), // Border when the field is not focused
+                          borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                        ),
                       fillColor: Colors.white54,
                       hintText: "Search",
                       prefixIcon:  const Icon(FlutterRemix.search_2_line,
@@ -519,12 +520,17 @@ class IndexScreen extends  GetView<IndexController> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const Text('View all',
+                    TextButton(onPressed: (){
+                      Get.to(() => ProductDetailsScreen3State());
+                    },
+
+                        child:const Text('View all',
                       style: TextStyle(
                           color: AppColors.primary,
-                        decoration: TextDecoration.underline
+                          decoration: TextDecoration.underline
                       ),
-                    )
+                    ) )
+
                   ],
                 ),
                 SizedBox(height: 10.h,),
@@ -609,75 +615,97 @@ class IndexScreen extends  GetView<IndexController> {
                     )
                   ],
                 ),
-                Expanded(child:
-              DefaultTabController(
-                length: controller.tabs.length,
-                child:
 
-                TabBar(
-                  tabs: controller.tabs,
-                  indicatorColor: AppColors.primary,
-                  labelColor: AppColors.primary,
-                ),
-              ),
-              ),
-                Expanded(
-                  child: TabBarView(
-                    controller: controller.tabController,
-                    children: [
-                      GridView.builder(
+                GridView.builder(
+                  shrinkWrap: true, // Important to allow the GridView to be placed inside SingleChildScrollView
+                  dragStartBehavior: DragStartBehavior.start,
+                  physics: const ScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 2, // Set the number of columns you want
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
                   ),
+                  itemCount: 10, // Set the number of items in your GridView
                   itemBuilder: (BuildContext context, int index) {
+                    // Your item widgets go here
                     return Card(
-                      margin: const EdgeInsets.all(10),
                       child: Center(
-                        child: Text(
-                          "Card $index - Tab $index",
-                          style: const TextStyle(fontSize: 18),
-                        ),
+                        child: Text('Item $index'),
                       ),
                     );
                   },
                 ),
 
-                      GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            margin: const EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                "Card $index - Tab $index",
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-
-                      GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            margin: const EdgeInsets.all(10),
-                            child: Center(
-                              child: Text(
-                                "Card $index - Tab $index",
-                                style: const TextStyle(fontSize: 18),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ]
-                  ),
-                ),
+              Text('Hello'),
+              //   Expanded(child:
+              // DefaultTabController(
+              //   length: controller.tabs.length,
+              //   child:
+              //
+              //   TabBar(
+              //     tabs: controller.tabs,
+              //     indicatorColor: AppColors.primary,
+              //     labelColor: AppColors.primary,
+              //   ),
+              // ),
+              // ),
+              //   Expanded(
+              //     child: TabBarView(
+              //       controller: controller.tabController,
+              //       children: [
+              //         GridView.builder(
+              //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //       crossAxisCount: 2,
+              //     ),
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return Card(
+              //         margin: const EdgeInsets.all(10),
+              //         child: Center(
+              //           child: Text(
+              //             "Card $index - Tab $index",
+              //             style: const TextStyle(fontSize: 18),
+              //           ),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              //
+              //         GridView.builder(
+              //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //             crossAxisCount: 2,
+              //           ),
+              //           itemBuilder: (BuildContext context, int index) {
+              //             return Card(
+              //               margin: const EdgeInsets.all(10),
+              //               child: Center(
+              //                 child: Text(
+              //                   "Card $index - Tab $index",
+              //                   style: const TextStyle(fontSize: 18),
+              //                 ),
+              //               ),
+              //             );
+              //           },
+              //         ),
+              //
+              //         GridView.builder(
+              //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //             crossAxisCount: 2,
+              //           ),
+              //           itemBuilder: (BuildContext context, int index) {
+              //             return Card(
+              //               margin: const EdgeInsets.all(10),
+              //               child: Center(
+              //                 child: Text(
+              //                   "Card $index - Tab $index",
+              //                   style: const TextStyle(fontSize: 18),
+              //                 ),
+              //               ),
+              //             );
+              //           },
+              //         ),
+              //       ]
+              //     ),
+              //   ),
 
               ],
             ),
@@ -686,51 +714,3 @@ class IndexScreen extends  GetView<IndexController> {
     );
   }
 }
-class TabContent extends StatelessWidget {
-  final  tabNumber;
-
-  const TabContent(this.tabNumber, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          margin: const EdgeInsets.all(10),
-          child: Center(
-            child: Text(
-              "Card $index - Tab $tabNumber",
-              style: const TextStyle(fontSize: 18),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-// class InfiniteListPage extends StatelessWidget {
-//   final Color color;
-//   final ScrollController controler;
-//   const InfiniteListPage(
-//       {required this.color, required this.controler, Key? key})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       controller: controler,
-//       // reverse: true,
-//       itemBuilder: (context, index) {
-//         return ListTile(
-//           onTap: () {},
-//           tileColor: color,
-//           title: Text("$index"),
-//         );
-//       },
-//     );
-//   }
-// }

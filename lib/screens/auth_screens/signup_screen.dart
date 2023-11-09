@@ -9,12 +9,15 @@ import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 
+import '../../services/user_authentication_services.dart';
+
 class Sign_up extends GetView<SignupController> {
   const Sign_up({super.key});
 
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => SignupController());
+
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -228,8 +231,8 @@ class Sign_up extends GetView<SignupController> {
                     CustomButton(
                         text: 'Sign up',
                         width: Get.width*0.7.w,
-                        onPressed: (){
-                          controller.registerUser(
+                        onPressed: () async {
+                         await controller.userAuthentication.registerUser(
                             controller.email_controller.text,
                             controller.password_controller.text,
                             context,
