@@ -1,10 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 import 'package:virtual_try_on/services/cart_services.dart';
 
 class Cart_Controller extends GetxController {
-  final List<CartItemModel> _items = [
+  RxDouble startX = 0.0.obs;
+  RxList<CartItemModel> _items = [
     CartItemModel(
       id: '1',
       quantity: 1,
@@ -26,9 +29,58 @@ class Cart_Controller extends GetxController {
       size: 'xl',
       color: Colors.black,
     ),
-  ];
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+    CartItemModel(
+      id: '3',
+      quantity: 1,
+      productId: '3',
+      size: 'xl',
+      color: Colors.black,
+    ),
+  ].obs;
 
-  RxList<CartItemModel> get items => _items.obs;
+  Rx<RxList<CartItemModel>> get items => _items.obs;
   int itemCount = 0;
 
   @override
@@ -68,51 +120,77 @@ class Cart_Controller extends GetxController {
     }
   }
 
-  void decreaseQuantity(String itemId) {
-    print('Item Id:$itemId');
-    final cartItemIndex = _items.indexWhere((item) => item.id == itemId);
-    print('cart Index:$cartItemIndex');
-    if (cartItemIndex != -1) {
-      print('Quantity:${_items[cartItemIndex].quantity}');
-      if (_items[cartItemIndex].quantity != null &&
-          _items[cartItemIndex].quantity! > 1) {
-        print('items:$_items');
-
-        _items[cartItemIndex].quantity = (_items[cartItemIndex].quantity! - 1)!;
-        print('Quantity:${_items[cartItemIndex].quantity}');
-        return;
-      } else {
-        _items.removeAt(cartItemIndex);
-      }
+  void decreaseQuantity(CartItemModel item) {
+    print('Item Id:$item');
+    // If quantity is one, remove item from cart
+    if (item.quantity! <= 1) {
+      removeFromCart(item.id!);
+      _items.refresh();
     } else {
-      _items.removeAt(cartItemIndex);
+      // else decrease the quantity
+      item.quantity = item.quantity! - 1;
+      _items.refresh();
     }
+
+    // final cartItemIndex = _items.indexWhere((item) => item.id == itemId);
+    // print('cart Index:$cartItemIndex');
+    // if (cartItemIndex != -1) {
+    //   print('Quantity:${_items[cartItemIndex].quantity}');
+    //   if (_items[cartItemIndex].quantity != null &&
+    //       _items[cartItemIndex].quantity! > 1) {
+    //     print('items:$_items');
+
+    //     _items[cartItemIndex].quantity = (_items[cartItemIndex].quantity! - 1)!;
+    //     print('Quantity:${_items[cartItemIndex].quantity}');
+    //     return;
+    //   } else {
+    //     _items.removeAt(cartItemIndex);
+    //   }
+    // } else {
+    //   _items.removeAt(cartItemIndex);
+    // }
+    // _items.refresh();
   }
 
-  void increaseQuantity(String itemId) {
+  void increaseQuantity(CartItemModel item) {
+    if (item.quantity! != 10) {
+      item.quantity = item.quantity! + 1;
+      _items.refresh();
+    }
     // print("object");
-    // CartModel cartItem = _items.firstWhere((item) => item.id == itemId);
+    // final cartItemIndex = _items.indexWhere((item) => item.id == itemId);
 
-    // if (cartItem != null) {
-    //   if (cartItem.quantity < 10) {
-    //     cartItem.quantity += 1;
+    // if (cartItemIndex != null) {
+    //   if (_items[cartItemIndex].quantity! < 10) {
+    //     _items[cartItemIndex].quantity = (_items[cartItemIndex].quantity! + 1);
     //     print('Item Id: $itemId');
-    //     print('New Quantity: ${cartItem.quantity}');
+    //     print('New Quantity: ${_items[cartItemIndex].quantity}');
     //   } else {
     //     print('Quantity limit reached for item with Id: $itemId');
     //   }
     // } else {
     //   print('Item with Id: $itemId not found in cart');
     // }
+    // _items.refresh();
   }
 
   void removeFromCart(String id) {
     _items.removeWhere((item) => item.id == id);
+    _items.refresh();
     print("item:${_items.length}");
-    print(items.length);
+    print(items);
   }
 
+  void doNothing(BuildContext context) {}
   void clearCart() {
-    items.clear();
+    items.value.clear();
+  }
+
+  @override
+  void onClose() {
+    _items.dispose();
+    startX.dispose();
+    items.dispose();
+    super.onClose();
   }
 }

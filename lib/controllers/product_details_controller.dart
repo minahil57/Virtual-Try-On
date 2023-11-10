@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Product_details_controller extends GetxController{
+class Product_details_controller extends GetxController {
   final ScrollController scrollController = ScrollController();
   RxInt selectedImageIndex = 0.obs;
   RxInt selectedSizeIndex = 0.obs;
@@ -45,4 +45,15 @@ class Product_details_controller extends GetxController{
       'value': Colors.black,
     },
   ].obs;
+  @override
+  void onClose() {
+    colors.dispose();
+    images.dispose();
+    sizes.dispose();
+    selectedImageIndex.dispose();
+    selectedSizeIndex.dispose();
+    selectedColorIndex.dispose();
+    scrollPosition.dispose();
+    super.onClose();
+  }
 }

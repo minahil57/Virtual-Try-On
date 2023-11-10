@@ -10,7 +10,7 @@ import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/new_password.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
-class OtpScreen extends GetView<OtpController>{
+class OtpScreen extends GetView<OtpController> {
   const OtpScreen({super.key});
 
   @override
@@ -20,48 +20,45 @@ class OtpScreen extends GetView<OtpController>{
     const focusedBorderColor = AppColors.customGrey;
     const fillColor = Color.fromRGBO(243, 246, 249, 0);
 
-
-
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding:  EdgeInsets.fromLTRB(15.0.h,32.0.h,32.0.h,32.0.h),
-            child: GestureDetector(
-              onTap: (){
-                Get.back();
-              },
-              child: Container(
-                width: 50, // Set the width and height to make it circular
-                height: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle, // Make it circular
-                  border: Border.all(
-                    color: AppColors.customLightGrey, // Set the border color to grey
-                    width: 2.0, // Set the border width
-                  ),
-                ),
-                child: const Icon(
-                 FlutterRemix.arrow_left_line,
-                  color: Colors.black, // Set the icon color to black
-                ),
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
+        child: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Container(
+            width: 50, // Set the width and height to make it circular
+            height: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle, // Make it circular
+              border: Border.all(
+                color:
+                    AppColors.customLightGrey, // Set the border color to grey
+                width: 2.0, // Set the border width
               ),
             ),
+            child: const Icon(
+              FlutterRemix.arrow_left_line,
+              color: Colors.black, // Set the icon color to black
+            ),
           ),
-          Center(
-            child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                  Text(
-                    'Verify Code',
-                    textAlign: TextAlign.center,
-                    style: globalTextStyle(
-                      fontSize: 23.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-          SizedBox(height: 12.h),
+        ),
+      ),
+      Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Verify Code',
+              textAlign: TextAlign.center,
+              style: globalTextStyle(
+                fontSize: 23.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 12.h),
             Text(
               'Please enter the code we have just sent to you on',
               textAlign: TextAlign.center,
@@ -71,7 +68,7 @@ class OtpScreen extends GetView<OtpController>{
                 fontWeight: FontWeight.w600,
               ),
             ),
-              Text(
+            Text(
               'email',
               textAlign: TextAlign.center,
               style: globalTextStyle(
@@ -80,12 +77,12 @@ class OtpScreen extends GetView<OtpController>{
                 fontWeight: FontWeight.w600,
               ),
             ),
-          SizedBox(height: 20.h),
-             Pinput(
+            SizedBox(height: 20.h),
+            Pinput(
+              length: 6,
               controller: controller.otp,
               keyboardType: TextInputType.number,
               focusNode: controller.focusNode,
-
               defaultPinTheme: controller.defaultPinTheme,
               separatorBuilder: (index) => const SizedBox(width: 8),
               hapticFeedbackType: HapticFeedbackType.lightImpact,
@@ -123,9 +120,8 @@ class OtpScreen extends GetView<OtpController>{
                 border: Border.all(color: Colors.redAccent),
               ),
             ),
-
-          SizedBox(height: 30.h),
-         Text(
+            SizedBox(height: 30.h),
+            Text(
               'Didn\'t recive a code?',
               textAlign: TextAlign.center,
               style: globalTextStyle(
@@ -134,8 +130,8 @@ class OtpScreen extends GetView<OtpController>{
                 fontWeight: FontWeight.w400,
               ),
             ),
-       TextButton(
-              onPressed: () {  },
+            TextButton(
+              onPressed: () {},
               child: Text(
                 'Resend',
                 textAlign: TextAlign.center,
@@ -147,16 +143,16 @@ class OtpScreen extends GetView<OtpController>{
                 ),
               ),
             ),
-                SizedBox(height: 20.h),
-                CustomButton(
-                    text: 'Verify',
-                    width: Get.width*0.7.w,
-                    onPressed: (){
-                      Get.offAll(() => NewPasswordScreen());
-                    }),
-
-        ],
-      ),
-    )]));
+            SizedBox(height: 20.h),
+            CustomButton(
+                text: 'Verify',
+                width: Get.width * 0.7.w,
+                onPressed: () {
+                  Get.offAll(() => NewPasswordScreen());
+                }),
+          ],
+        ),
+      )
+    ]));
   }
 }

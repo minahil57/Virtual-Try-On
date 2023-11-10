@@ -8,17 +8,17 @@ class OnboardingController extends GetxController {
   final RxInt currentPage = 0.obs;
   final List<OnboardModel> pages = [
     OnboardModel(
-      image: 'assets/images/slide_1.png',
+      image: 'assets/images/onboard_image_1.png',
       title: 'Seamless Try On\nExperience',
       description: 'Get your perfect look with our easy-to-use app',
     ),
     OnboardModel(
-      image: 'assets/images/slide_1.png',
+      image: 'assets/images/onboard_image_2.png',
       title: 'Wishlist: Where Fashion Meets Comfort',
       description: 'Save your favorite items in your wishlist',
     ),
     OnboardModel(
-      image: 'assets/images/slide_1.png',
+      image: 'assets/images/onboard_image_3.png',
       title: 'Swift and Reliable Delivery',
       description:
           'Get your order within hours with our reliable delivery service',
@@ -66,7 +66,7 @@ class OnboardingController extends GetxController {
     );
   }
 
- @override
+  @override
   void onClose() {
     pageController.dispose();
     super.onClose();
