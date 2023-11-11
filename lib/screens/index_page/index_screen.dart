@@ -352,6 +352,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/screens/categories_screen.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
@@ -523,7 +524,7 @@ class IndexScreen extends GetView<IndexController> {
                     ),
                     TextButton(
                         onPressed: () {
-                          Get.to(() => ProductDetailsScreen3State());
+                          Get.to(() => Categories_Screen());
                         },
                         child: const Text(
                           'View all',

@@ -6,8 +6,8 @@ import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
-import 'package:virtual_try_on/screens/cart/components/cart_list.dart';
-import 'package:virtual_try_on/screens/cart/components/bottom_buttons.dart';
+import 'package:virtual_try_on/components/cart_list.dart';
+import 'package:virtual_try_on/components/bottom_buttons.dart';
 
 // ignore: camel_case_types
 class Cart_screen extends GetView<Cart_Controller> {
