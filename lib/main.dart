@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
@@ -10,6 +11,18 @@ import 'config/supabase.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await supabaseInit();
+
+  // Loading configurations
+  EasyLoading.instance
+    ..textStyle = globalTextStyle(fontSize: 12, color: Colors.white)
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..backgroundColor = AppColors.primary
+    ..radius = 12
+    ..textColor = Colors.white
+    ..indicatorColor = Colors.white
+    ..userInteractions = false
+    ..displayDuration = const Duration(seconds: 1)
+    ..dismissOnTap = false;
 
   runApp(const MyApp());
 }
@@ -48,6 +61,7 @@ class MyApp extends StatelessWidget {
                   displayColor: Colors.black,
                 ),
           ),
+          builder: EasyLoading.init(),
           home: const SplashScreen(),
         ),
       ),

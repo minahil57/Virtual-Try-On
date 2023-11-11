@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:virtual_try_on/controllers/Login_Controller.dart';
 import 'package:virtual_try_on/controllers/confirm_email_controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
-import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_button.dart';
@@ -19,8 +17,8 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
     return Scaffold(
       body: SingleChildScrollView(
           child: Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
+              padding: EdgeInsets.only(
+                top: 20.h,
               ),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +52,7 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
                     ),
                     Center(
                       child: Text(
-                        'Comfirm Your Email',
+                        'Confirm Your Email',
                         textAlign: TextAlign.center,
                         style: globalTextStyle(
                           fontSize: 25.sp,
@@ -93,8 +91,7 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
+                              padding: EdgeInsets.only(left: 20.w, right: 20.w),
                               child: TextFormField(
                                 controller: controller.emailController,
                                 decoration: InputDecoration(
@@ -102,15 +99,12 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
                                   focusedBorder: OutlineInputBorder(
                                     borderSide:
                                         const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(
-                                        30), // Adjust the value to control the roundness
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors
-                                            .grey), // Border when the field is not focused
-                                    borderRadius: BorderRadius.circular(
-                                        30), // Adjust the value to control the roundness
+                                    borderSide:
+                                        const BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                   fillColor: Colors.white54,
                                   hintText: 'example@gmail.com',
@@ -130,7 +124,8 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
                           text: 'Confirm Email',
                           width: Get.width * 0.7.w,
                           onPressed: () {
-                            Get.to(() => const OtpScreen());
+                            controller.confirmEmail.sendPasswordResetEmail(
+                                controller.emailController.text, context);
                           }),
                     ),
                   ]))),

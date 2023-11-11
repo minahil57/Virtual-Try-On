@@ -146,8 +146,9 @@ class OtpScreen extends GetView<OtpController> {
             CustomButton(
                 text: 'Verify',
                 width: Get.width * 0.7.w,
-                onPressed: () {
-                  Get.offAll(() => const NewPasswordScreen());
+                onPressed: () async {
+                  await controller.checkOTP
+                      .CheckOTP(controller.otp.text, controller.email);
                 }),
           ],
         ),

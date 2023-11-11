@@ -7,7 +7,7 @@ class CompleteProfileController extends GetxController {
   // ignore: non_constant_identifier_names
   final TextEditingController GenderController = TextEditingController();
 
-  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formkeey = GlobalKey<FormState>();
   RxBool agreedToTerms = false.obs;
   RxBool obscureText = true.obs;
 

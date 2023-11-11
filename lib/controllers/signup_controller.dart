@@ -2,16 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:virtual_try_on/config/supabase.dart';
-import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
+import '../services/user_authentication_services.dart';
 
-// ignore: duplicate_ignore
 class SignupController extends GetxController {
-  // ignore: non_constant_identifier_names
   final TextEditingController email_controller = TextEditingController();
   final TextEditingController password_controller = TextEditingController();
   final TextEditingController name_controller = TextEditingController();
+  final UserAuthentication userAuthentication = UserAuthentication();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   RxBool agreedToTerms = false.obs;
   RxBool obscureText = true.obs;

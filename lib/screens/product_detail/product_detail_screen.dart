@@ -6,11 +6,13 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
+import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/controllers/product_details_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
+import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/screens/cart/cart_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
@@ -60,7 +62,6 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
           Padding(
             padding: const EdgeInsets.only(bottom: 80),
             child: SingleChildScrollView(
-              controller: controller.scrollController,
               child: Column(
                 children: [
                   Obx(
@@ -441,27 +442,33 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                   CustomButton(
                     text: 'Try on 3D',
                     width: 150,
-                    onPressed: () => null,
+                    onPressed: () {},
                   ),
                   CustomButton(
                       text: 'Add to Cart',
                       width: 150,
-                      onPressed: () => {
-                            Get.to(() => const Cart_screen()),
-                            cartController.addToCart(
-                              cart: CartItemModel(
-                                id: '1',
-                                quantity: 1,
-                                size: controller.sizes
-                                    .value[controller.selectedSizeIndex.value],
-                                color: controller.colors.value[controller
-                                    .selectedColorIndex.value]['value'],
-                                name: 'Brown Jacket',
-                                image: controller.images.value[1],
-                                price: 300,
-                              ),
-                            ),
-                          }),
+                      onPressed: () {
+                        Get.to(() => BottomNavScreen());
+                        final BottomBarController bottomBarController =
+                            Get.find();
+
+                        bottomBarController.selectedIndex.value = 2;
+
+                        cartController.addToCart(
+                          cart: CartItemModel(
+                            id: '1',
+                            quantity: 1,
+                            size: controller.sizes
+                                .value[controller.selectedSizeIndex.value],
+                            color: controller.colors
+                                    .value[controller.selectedColorIndex.value]
+                                ['value'],
+                            name: 'Brown Jacket',
+                            image: controller.images.value[1],
+                            price: 300,
+                          ),
+                        );
+                      }),
                 ],
               ),
             ),

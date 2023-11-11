@@ -31,7 +31,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
               padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => const Sign_up());
+                  Get.back();
                 },
                 child: Container(
                   width: 50, // Set the width and height to make it circular
@@ -111,7 +111,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
             ),
             SizedBox(height: 20.h),
             Form(
-              key: controller.formkey,
+              key: controller.formkeey,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -240,6 +240,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                         onChanged: (val) {},
                       ),
                     ),
+                    SizedBox(height: 20.h),
                   ]),
             ),
             SizedBox(height: 40.h),
