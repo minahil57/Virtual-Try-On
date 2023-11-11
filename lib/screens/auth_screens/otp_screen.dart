@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -148,7 +147,7 @@ class OtpScreen extends GetView<OtpController> {
                 text: 'Verify',
                 width: Get.width * 0.7.w,
                 onPressed: () {
-                  Get.offAll(() => NewPasswordScreen());
+                  Get.offAll(() => const NewPasswordScreen());
                 }),
           ],
         ),

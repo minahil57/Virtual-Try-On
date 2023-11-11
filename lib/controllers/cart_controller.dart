@@ -1,86 +1,85 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 import 'package:virtual_try_on/services/cart_services.dart';
 
+// ignore: camel_case_types
 class Cart_Controller extends GetxController {
   RxDouble startX = 0.0.obs;
-  RxList<CartItemModel> _items = [
-    CartItemModel(
-      id: '1',
-      quantity: 1,
-      productId: '1',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '2',
-      quantity: 1,
-      productId: '2',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-    CartItemModel(
-      id: '3',
-      quantity: 1,
-      productId: '3',
-      size: 'xl',
-      color: Colors.black,
-    ),
-  ].obs;
+  RxList _items = [].obs;
+  //   CartItemModel(
+  //     id: '1',
+  //     quantity: 1,
+  //     productId: '1',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '2',
+  //     quantity: 1,
+  //     productId: '2',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  //   CartItemModel(
+  //     id: '3',
+  //     quantity: 1,
+  //     productId: '3',
+  //     size: 'xl',
+  //     color: Colors.black,
+  //   ),
+  // ;
 
-  Rx<RxList<CartItemModel>> get items => _items.obs;
+  Rx<RxList> get items => _items.obs;
   int itemCount = 0;
 
   @override
@@ -93,9 +92,8 @@ class Cart_Controller extends GetxController {
 
   void addToCart({required CartItemModel cart}) async {
     final itemExists = _items.any((item) => item.id == item.id);
-    print('Mano');
+
     if (!itemExists) {
-      print('hello moto');
       // Add Cart items service call here
       // final CartItemModel newItem = await CartServices.addToCartItem(
       //   cart: cart,
@@ -108,12 +106,10 @@ class Cart_Controller extends GetxController {
         cart,
       );
     } else {
-      print('Hello moto 2');
       CartItemModel? existingItem =
           _items.firstWhere((item) => item.id == cart.id);
 
-      if (existingItem.id != null) {
-        print('mein yahan hun');
+      if (existingItem!.id != null) {
         existingItem.quantity = existingItem.quantity! + cart.quantity!;
         // Call update quantity service here
       }
@@ -121,7 +117,6 @@ class Cart_Controller extends GetxController {
   }
 
   void decreaseQuantity(CartItemModel item) {
-    print('Item Id:$item');
     // If quantity is one, remove item from cart
     if (item.quantity! <= 1) {
       removeFromCart(item.id!);
@@ -177,8 +172,6 @@ class Cart_Controller extends GetxController {
   void removeFromCart(String id) {
     _items.removeWhere((item) => item.id == id);
     _items.refresh();
-    print("item:${_items.length}");
-    print(items);
   }
 
   void doNothing(BuildContext context) {}

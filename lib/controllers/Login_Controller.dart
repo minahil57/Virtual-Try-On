@@ -12,17 +12,16 @@ class LoginController extends GetxController {
   void toggleObscureText() {
     obscureText.value = !obscureText.value;
   }
+
   bool passwordVisible = false;
   void initState() {
     passwordVisible = true;
   }
+
   @override
   void onClose() {
-    // TODO: implement onClose
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
-
   }
-
 }

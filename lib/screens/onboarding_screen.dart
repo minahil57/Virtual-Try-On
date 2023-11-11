@@ -7,7 +7,6 @@ import 'package:virtual_try_on/controllers/onboarding_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
-import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 
 class OnBoardingScreen extends GetView<OnboardingController> {
   const OnBoardingScreen({super.key});
@@ -122,7 +121,7 @@ class OnBoardingScreen extends GetView<OnboardingController> {
                           () => GestureDetector(
                             onTap: controller.currentPage.value ==
                                     controller.pages.length - 1
-                                ? () => Get.to(() => LoginScreen())
+                                ? () => Get.to(() => const LoginScreen())
                                 : () => controller.next(),
                             child: Container(
                               height: Get.height * 0.12,

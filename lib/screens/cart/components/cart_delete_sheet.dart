@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
@@ -50,8 +49,8 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: Image.network(
-                      'https://picsum.photos/250?image=9',
+                    child: Image.asset(
+                      '${item.image}',
                       fit: BoxFit
                           .fill, // Ensure the image covers the entire container
                     ),
@@ -62,7 +61,7 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${item.color}',
+                    '${item.name}',
                     style: globalTextStyle(fontSize: 20.sp),
                   ),
                   Text(
@@ -70,11 +69,29 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                     style: globalTextStyle(
                         fontSize: 13.sp, color: AppColors.customGrey),
                   ),
-                  Text(
-                    '${item.quantity}',
-                    style: globalTextStyle(
-                      fontSize: 15.sp,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '${item.quantity}',
+                        style: globalTextStyle(
+                          fontSize: 15.sp,
+                        ),
+                      ),
+                      Container(
+                          height: 20,
+                          width: 20,
+                          margin: const EdgeInsets.only(
+                              left: 8, right: 0), // Add spacing between images
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: item.color,
+                            borderRadius: BorderRadius.circular(20),
+                            // border: Border.all(
+                            //   width: 8.w,
+                            // ),
+                          )),
+                    ],
                   ),
                 ],
               ),

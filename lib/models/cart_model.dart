@@ -6,13 +6,18 @@ class CartItemModel {
   Color? color;
   int? quantity;
   String? size;
-  CartItemModel({
-    this.id,
-    this.productId,
-    this.quantity,
-    this.color,
-    this.size,
-  });
+  String? name;
+  int? price;
+  String? image;
+  CartItemModel(
+      {this.id,
+      this.productId,
+      this.quantity,
+      this.color,
+      this.size,
+      this.image,
+      this.price,
+      this.name});
 
   factory CartItemModel.fromJson(Map<String, dynamic> map) {
     return CartItemModel(

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpController extends GetxController{
+class OtpController extends GetxController {
   final TextEditingController otp = TextEditingController();
   static const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
 
@@ -21,7 +21,6 @@ class OtpController extends GetxController{
   );
   @override
   void onClose() {
-    // TODO: implement onClose
     otp.dispose();
     focusNode.dispose();
     super.onClose();

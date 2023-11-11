@@ -19,7 +19,7 @@ enum ModelType { withClothes, noClothes }
 class ModelScreen extends StatelessWidget {
   final ModelType modelType;
 
-  ModelScreen({required this.modelType});
+  const ModelScreen({super.key, required this.modelType});
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +31,13 @@ class ModelScreen extends StatelessWidget {
         "create a model with gray_clothes using cnn_model in assets folder";
 
     return Scaffold(
-      appBar: AppBar(title: Text("3D LOOKS")),
+      appBar: AppBar(title: const Text("3D LOOKS")),
       body: ModelViewer(
-        backgroundColor: Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
+        backgroundColor: const Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
         src: modelAsset,
         alt: altText,
         ar: true,
-        arModes: ['scene-viewer', 'webxr', 'quick-look'],
+        arModes: const ['scene-viewer', 'webxr', 'quick-look'],
         autoRotate: true,
         cameraControls: true,
         iosSrc: 'https://modelviewer.dev/shared-assets/models/Astronaut.usdz',
@@ -47,6 +47,8 @@ class ModelScreen extends StatelessWidget {
 }
 
 class ProductDetailsScreen3State extends GetView<Product_details_controller> {
+  const ProductDetailsScreen3State({super.key});
+
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => Product_details_controller());
@@ -56,7 +58,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
         children: [
           // Main Part
           Padding(
-            padding: EdgeInsets.only(bottom: 80),
+            padding: const EdgeInsets.only(bottom: 80),
             child: SingleChildScrollView(
               controller: controller.scrollController,
               child: Column(
@@ -156,7 +158,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                   ),
                   // Image end
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -168,7 +170,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
 
                             RatingBarIndicator(
                               rating: 4,
-                              itemBuilder: (context, index) => Icon(
+                              itemBuilder: (context, index) => const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                               ),
@@ -192,7 +194,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                     ),
                                   ),
                                   Text(
-                                    '\RS. 5600',
+                                    'RS. 5600',
                                     textAlign: TextAlign.start,
                                     style: globalTextStyle(
                                       color: Colors.black,
@@ -232,7 +234,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                               fontWeight: FontWeight.w500),
                         ),
                         SizedBox(height: 5.h),
-                        Divider(),
+                        const Divider(),
                         SizedBox(height: 16.h),
                         Text(
                           'Select Size',
@@ -254,7 +256,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                     margin: EdgeInsets.only(
                                         left: index == 0 ? 0 : 8,
                                         right: 0), // Add spacing between images
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 21, vertical: 8),
                                     decoration: BoxDecoration(
                                       color: index ==
@@ -318,13 +320,12 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                               return GestureDetector(
                                 onTap: () {
                                   controller.selectedColorIndex.value = index;
-                                  print(index);
                                 },
                                 child: Container(
                                     margin: EdgeInsets.only(
                                         left: index == 0 ? 0 : 8,
                                         right: 0), // Add spacing between images
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
                                       color: index ==
                                               controller
@@ -353,8 +354,8 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
               left: 0,
               right: 0,
               child: Container(
-                padding:
-                    EdgeInsets.only(top: 50, bottom: 4, left: 16, right: 16),
+                padding: const EdgeInsets.only(
+                    top: 50, bottom: 4, left: 16, right: 16),
                 color: controller.scrollPosition > 20
                     ? Colors.white
                     : Colors.transparent,
@@ -418,10 +419,10 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
             right: 0,
             child: Container(
               height: 80.h,
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),
                 ),
@@ -430,7 +431,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                     color: Colors.grey.withOpacity(0.5), // Shadow color
                     spreadRadius: 2, // Spread radius
                     blurRadius: 4, // Blur radius
-                    offset: Offset(0, -2), // Shadow offset (upward)
+                    offset: const Offset(0, -2), // Shadow offset (upward)
                   ),
                 ],
               ),
@@ -446,15 +447,20 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                       text: 'Add to Cart',
                       width: 150,
                       onPressed: () => {
-                            Get.to(() => Cart_screen())
-                            // cartController.addToCart(
-                            //   cart: CartItemModel(
-                            //     id: '1',
-                            //     quantity: 1,
-                            //     size: 'xl',
-                            //     color: Colors.black,
-                            //   ),
-                            // ),
+                            Get.to(() => const Cart_screen()),
+                            cartController.addToCart(
+                              cart: CartItemModel(
+                                id: '1',
+                                quantity: 1,
+                                size: controller.sizes
+                                    .value[controller.selectedSizeIndex.value],
+                                color: controller.colors.value[controller
+                                    .selectedColorIndex.value]['value'],
+                                name: 'Brown Jacket',
+                                image: controller.images.value[1],
+                                price: 300,
+                              ),
+                            ),
                           }),
                 ],
               ),

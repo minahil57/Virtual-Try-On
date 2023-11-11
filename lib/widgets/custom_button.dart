@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
-
+import 'package:virtual_try_on/core/text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -41,29 +41,29 @@ class CustomButton extends StatelessWidget {
           child: text == null
               ? icon
               : hasIcon
-              ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              icon,
-              SizedBox(
-                width: 20.sp,
-              ),
-              Text(
-                text ?? '',
-                style: TextStyle(
-                  color:  Colors.white,
-                ),
-              ),
-            ],
-          )
-              :Text(
-            text ?? '',
-            style: const TextStyle(
-              color:  Colors.white,
-            ),
-          ),
-        )
-
-    );
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        icon,
+                        SizedBox(
+                          width: 20.sp,
+                        ),
+                        Text(
+                          text ?? '',
+                          style: globalTextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      text ?? '',
+                      style: globalTextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+        ));
   }
 }

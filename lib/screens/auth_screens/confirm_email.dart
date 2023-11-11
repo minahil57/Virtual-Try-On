@@ -10,35 +10,38 @@ import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_button.dart';
 
-class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
+class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
   const ConfirmEmailScreeen({super.key});
 
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => ConfirmEmailcontroller());
     return Scaffold(
-
-        body:SingleChildScrollView(
-            child:Padding(
-              padding: EdgeInsets.only(top:20 ,),
-
+      body: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+              ),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.fromLTRB(15.0.h,32.0.h,32.0.h,32.0.h),
+                      padding:
+                          EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Get.back();
                         },
                         child: Container(
-                          width: 50, // Set the width and height to make it circular
+                          width:
+                              50, // Set the width and height to make it circular
                           height: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle, // Make it circular
                             border: Border.all(
-                              color: AppColors.customLightGrey, // Set the border color to grey
+                              color: AppColors
+                                  .customLightGrey, // Set the border color to grey
                               width: 2.0, // Set the border width
                             ),
                           ),
@@ -49,10 +52,8 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                         ),
                       ),
                     ),
-
                     Center(
-                      child:
-                      Text(
+                      child: Text(
                         'Comfirm Your Email',
                         textAlign: TextAlign.center,
                         style: globalTextStyle(
@@ -63,8 +64,7 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                     ),
                     SizedBox(height: 12.h),
                     Center(
-                      child:
-                      Text(
+                      child: Text(
                         'Please Enter Your Registered Email To Verify Your Account',
                         textAlign: TextAlign.center,
                         style: globalTextStyle(
@@ -79,10 +79,10 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                       key: controller.formkey,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children:[
-                            Padding(padding: EdgeInsets.only(left: 20),
-                              child:
-                              Text(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: Text(
                                 'Email',
                                 textAlign: TextAlign.center,
                                 style: globalTextStyle(
@@ -92,46 +92,48 @@ class ConfirmEmailScreeen extends  GetView<ConfirmEmailcontroller> {
                                 ),
                               ),
                             ),
-                            Padding(padding: EdgeInsets.only(left: 20,right: 20),
-                              child:
-                              TextFormField(
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child: TextFormField(
                                 controller: controller.emailController,
                                 decoration: InputDecoration(
                                   //alignLabelWithHint: true,
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                    borderSide:
+                                        const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(
+                                        30), // Adjust the value to control the roundness
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey), // Border when the field is not focused
-                                    borderRadius: BorderRadius.circular(30), // Adjust the value to control the roundness
+                                    borderSide: const BorderSide(
+                                        color: Colors
+                                            .grey), // Border when the field is not focused
+                                    borderRadius: BorderRadius.circular(
+                                        30), // Adjust the value to control the roundness
                                   ),
                                   fillColor: Colors.white54,
                                   hintText: 'example@gmail.com',
-                                  hintStyle: const TextStyle(color: Colors.grey),
-                                  contentPadding: const EdgeInsets.only(bottom: 15,left: 10),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
+                                  contentPadding: const EdgeInsets.only(
+                                      bottom: 15, left: 10),
                                   focusColor: Colors.white60,
                                 ),
                               ),
                             ),
-
-                  ]
-              ),
-                              ),
+                          ]),
+                    ),
                     SizedBox(height: 40.h),
                     Center(
-                      child:
-                      CustomButton(
+                      child: CustomButton(
                           text: 'Confirm Email',
-                          width: Get.width*0.7.w,
-                          onPressed: (){
-                            Get.to(() => OtpScreen());
-                          }),),
-
-                ]
-    )
-        )
-        ),
+                          width: Get.width * 0.7.w,
+                          onPressed: () {
+                            Get.to(() => const OtpScreen());
+                          }),
+                    ),
+                  ]))),
     );
   }
 }

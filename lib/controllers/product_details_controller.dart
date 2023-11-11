@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: camel_case_types
 class Product_details_controller extends GetxController {
   final ScrollController scrollController = ScrollController();
   RxInt selectedImageIndex = 0.obs;
