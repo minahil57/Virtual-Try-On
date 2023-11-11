@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/cart/checkout_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
-class BottomButtons extends StatelessWidget {
+class BottomButtons extends GetView<Cart_Controller> {
   const BottomButtons({super.key});
 
   @override
@@ -55,13 +56,15 @@ class BottomButtons extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Text(
-                          'Rs-1150/-',
-                          textAlign: TextAlign.center,
-                          style: globalTextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
+                        Obx(
+                          () => Text(
+                            'Rs-${controller.calculateTotal()}',
+                            textAlign: TextAlign.center,
+                            style: globalTextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
