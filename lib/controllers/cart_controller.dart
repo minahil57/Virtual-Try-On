@@ -7,86 +7,12 @@ import 'package:virtual_try_on/services/cart_services.dart';
 class Cart_Controller extends GetxController {
   RxDouble startX = 0.0.obs;
   RxList _items = [].obs;
-  //   CartItemModel(
-  //     id: '1',
-  //     quantity: 1,
-  //     productId: '1',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '2',
-  //     quantity: 1,
-  //     productId: '2',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  //   CartItemModel(
-  //     id: '3',
-  //     quantity: 1,
-  //     productId: '3',
-  //     size: 'xl',
-  //     color: Colors.black,
-  //   ),
-  // ;
 
   Rx<RxList> get items => _items.obs;
   int itemCount = 0;
 
   @override
   void onReady() {
-    // get all cart items from db
-    // final newItems = await CartServices.getCartItems();
-    // _items = newItems;
     super.onReady();
   }
 
@@ -126,25 +52,6 @@ class Cart_Controller extends GetxController {
       item.quantity = item.quantity! - 1;
       _items.refresh();
     }
-
-    // final cartItemIndex = _items.indexWhere((item) => item.id == itemId);
-    // print('cart Index:$cartItemIndex');
-    // if (cartItemIndex != -1) {
-    //   print('Quantity:${_items[cartItemIndex].quantity}');
-    //   if (_items[cartItemIndex].quantity != null &&
-    //       _items[cartItemIndex].quantity! > 1) {
-    //     print('items:$_items');
-
-    //     _items[cartItemIndex].quantity = (_items[cartItemIndex].quantity! - 1)!;
-    //     print('Quantity:${_items[cartItemIndex].quantity}');
-    //     return;
-    //   } else {
-    //     _items.removeAt(cartItemIndex);
-    //   }
-    // } else {
-    //   _items.removeAt(cartItemIndex);
-    // }
-    // _items.refresh();
   }
 
   void increaseQuantity(CartItemModel item) {
@@ -152,21 +59,6 @@ class Cart_Controller extends GetxController {
       item.quantity = item.quantity! + 1;
       _items.refresh();
     }
-    // print("object");
-    // final cartItemIndex = _items.indexWhere((item) => item.id == itemId);
-
-    // if (cartItemIndex != null) {
-    //   if (_items[cartItemIndex].quantity! < 10) {
-    //     _items[cartItemIndex].quantity = (_items[cartItemIndex].quantity! + 1);
-    //     print('Item Id: $itemId');
-    //     print('New Quantity: ${_items[cartItemIndex].quantity}');
-    //   } else {
-    //     print('Quantity limit reached for item with Id: $itemId');
-    //   }
-    // } else {
-    //   print('Item with Id: $itemId not found in cart');
-    // }
-    // _items.refresh();
   }
 
   void removeFromCart(String id) {
@@ -177,6 +69,18 @@ class Cart_Controller extends GetxController {
   void doNothing(BuildContext context) {}
   void clearCart() {
     items.value.clear();
+  }
+
+  double calculateTotal() {
+    double total = 0.0;
+
+    for (var item in _items) {
+      if (item.price != null && item.quantity != null) {
+        total += item.price! * item.quantity!;
+      }
+    }
+
+    return total;
   }
 
   @override

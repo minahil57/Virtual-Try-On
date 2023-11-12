@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/controllers/checkout_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
@@ -15,6 +16,7 @@ class Checkout_Screen extends GetView<Checkout_Controller> {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = Get.putOrFind(() => Cart_Controller());
     Get.put(Checkout_Controller());
     return Scaffold(
         body: SingleChildScrollView(
@@ -70,23 +72,33 @@ class Checkout_Screen extends GetView<Checkout_Controller> {
                     ),
                   ),
                 ),
-                TextField(
-                  controller: controller.address_controller,
-                  keyboardType: TextInputType.multiline,
-                  maxLength: 100,
-                  maxLines: 4,
-                  decoration: InputDecoration(
-                    hintText: 'Write your Shipping address..',
-                    prefixIcon: const Icon(FlutterRemix.user_location_line),
-                    prefixIconColor: AppColors.primary,
-                    hintStyle: globalTextStyle(
-                        fontSize: 12, color: AppColors.customLightGrey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                        width: 2.0,
+                Form(
+                  key: controller.formkey,
+                  child: TextFormField(
+                    controller: controller.address_controller,
+                    keyboardType: TextInputType.multiline,
+                    maxLength: 100,
+                    maxLines: 4,
+                    decoration: InputDecoration(
+                      hintText: 'Write your Shipping address..',
+                      prefixIcon: const Icon(FlutterRemix.user_location_line),
+                      prefixIconColor: AppColors.primary,
+                      hintStyle: globalTextStyle(
+                          fontSize: 12, color: AppColors.customLightGrey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                        borderSide: const BorderSide(
+                          width: 2.0,
+                        ),
                       ),
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your shipping address.';
+                      }
+                      // You can add additional custom validation here if needed.
+                      return null; // Return null if the input is valid
+                    },
                   ),
                 ),
                 const Divider(),
@@ -204,7 +216,7 @@ class Checkout_Screen extends GetView<Checkout_Controller> {
                                   children: [
                                     SizedBox(height: 30.h),
                                     Text(
-                                      'Rs- 890/-',
+                                      'Rs- ${cartController.calculateTotal()}',
                                       textAlign: TextAlign.center,
                                       style: globalTextStyle(
                                         fontSize: 12.sp,
@@ -214,7 +226,7 @@ class Checkout_Screen extends GetView<Checkout_Controller> {
                                     ),
                                     SizedBox(height: 30.h),
                                     Text(
-                                      'Rs- 300/-',
+                                      'Rs- 300.0',
                                       textAlign: TextAlign.center,
                                       style: globalTextStyle(
                                         fontSize: 12.sp,
@@ -246,7 +258,7 @@ class Checkout_Screen extends GetView<Checkout_Controller> {
                                 ),
                               ),
                               Text(
-                                'Rs-1150/-',
+                                'Rs- ${cartController.calculateTotal() + 300}',
                                 textAlign: TextAlign.center,
                                 style: globalTextStyle(
                                   fontSize: 12.sp,

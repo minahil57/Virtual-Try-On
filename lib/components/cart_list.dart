@@ -7,7 +7,7 @@ import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
-import 'package:virtual_try_on/screens/cart/components/cart_delete_sheet.dart';
+import 'package:virtual_try_on/components/cart_delete_sheet.dart';
 import 'package:virtual_try_on/widgets/show_sheet.dart';
 
 class CartList extends GetView<Cart_Controller> {

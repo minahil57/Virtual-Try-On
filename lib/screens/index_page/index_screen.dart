@@ -5,6 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/screens/categories_screen.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
@@ -110,108 +111,83 @@ class IndexScreen extends GetView<IndexController> {
                 SizedBox(
                   height: 10.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Categories',
-                      textAlign: TextAlign.center,
-                      style: globalTextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(children: [
-                      Container(
-                        width:
-                            60, // Adjust the size of the circular container as needed
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape:
-                              BoxShape.circle, // Makes it a circular container
-                          border: Border.all(
-                            color: Colors.black, // Border color
-                            width: 1.0, // Border width
-                          ),
-                        ),
-                        child: ClipOval(
-                          child: Center(
-                            child: Icon(
-                              FlutterRemix.t_shirt_2_fill,
-                              color: AppColors.primary,
-                              size: 40.h,
+    SizedBox(
+    height: 150,
+    width: double.maxFinite,
+    //color: Colors.grey,
+    child: Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+
+    children: [
+    Padding(padding: const EdgeInsets.only(left: 10,),
+    child:
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+
+     Text('Categories',
+    style: TextStyle(
+    fontSize: 17.h,
+    fontWeight: FontWeight.w700,
+    ),
+    ),
+      TextButton(
+          onPressed: () {
+            Get.to(() => Categories_Screen());
+          },
+          child: const Text(
+            'View all',
+            style: TextStyle(
+                color: AppColors.primary,
+                decoration: TextDecoration.underline),
+          ))
+
+    ]
+    ),
+    ),
+    const SizedBox(
+    height: 10,
+    ),
+                Expanded(child:
+                Obx(
+                      () => ListView.builder(
+                        shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.categories.length,
+                    itemBuilder: (context, index) {
+                      Map<String, dynamic> category = controller.categories[index];
+
+                      return Padding(padding: EdgeInsets.only(left: 10,right: 10),
+                            child:
+                            Column(children: [
+                            Container(
+                              width:
+                                  60, // Adjust the size of the circular container as needed
+                              height: 60,
+                              decoration: BoxDecoration(
+                                shape:
+                                    BoxShape.circle, // Makes it a circular container
+                                border: Border.all(
+                                  color: Colors.black, // Border color
+                                  width: 1.0, // Border width
+                                ),
+                              ),
+                              child: ClipOval(
+                                child: Center(
+                                  child: Image.network(category['image'],width: 50,height: 50,)
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                      const Text('T-shirt')
-                    ]),
-                    Column(children: [
-                      Container(
-                        width:
-                            60, // Adjust the size of the circular container as needed
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape:
-                              BoxShape.circle, // Makes it a circular container
-                          border: Border.all(
-                            color: Colors.black, // Border color
-                            width: 1.0, // Border width
-                          ),
-                        ),
-                        child: ClipOval(
-                          child: Center(
-                            child: Icon(
-                              FlutterRemix.shirt_fill,
-                              color: AppColors.primary,
-                              size: 40.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      const Text('Shirt')
-                    ]),
-                    Column(children: [
-                      Container(
-                        width:
-                            60, // Adjust the size of the circular container as needed
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape:
-                              BoxShape.circle, // Makes it a circular container
-                          border: Border.all(
-                            color: Colors.black, // Border color
-                            width: 1.0, // Border width
-                          ),
-                        ),
-                        child: ClipOval(
-                          child: Center(
-                            child: Icon(
-                              FlutterRemix.shirt_fill,
-                              color: AppColors.primary,
-                              size: 40.h,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      const Text('Jacket')
-                    ])
-                  ],
+                             Text(category['name']),
+                          ]));
+                    },
+                  ),
                 ),
+                ),
+                ]
+    )
+      ),
                 Obx(() =>
                 GridView.builder(
                   shrinkWrap:
