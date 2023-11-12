@@ -4,13 +4,11 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
-import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import 'package:virtual_try_on/core/colors.dart';
-import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_button.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
+import 'package:virtual_try_on/widgets/bottom_sheet.dart';
 class CompleteProfile extends GetView<CompleteProfileController> {
   const CompleteProfile({super.key});
 
@@ -77,7 +75,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
             Center(
               child: Stack(
                 children: [
-                  const CircleAvatar(
+                   CircleAvatar(
                     radius: 50, // Adjust the size of the avatar as needed
                     backgroundColor: Colors.blue,
                     foregroundColor:
@@ -90,17 +88,50 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                     right: 0,
                     child: Container(
                       height: 35,
-                      decoration: const BoxDecoration(
+                      decoration:  const BoxDecoration(
                         shape: BoxShape.circle, // Make it circular
                         color: AppColors.primary, // Set the background color
                       ),
                       child: IconButton(
-                        icon: const Icon(
+                        icon:  const Icon(
                           FlutterRemix.edit_line,
                           size: 20,
                           color: AppColors.customLightGrey,
                         ),
                         onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                padding: EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ListTile(
+                                      leading: Icon(Icons.photo_library),
+                                      title: Text('Choose from Gallery'),
+                                      onTap: () {
+                                        //_getImage(ImageSource.gallery);
+                                        //controller.getImage(ImageSource.gallery);
+                                        controller.pickImage();
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.camera_alt),
+                                      title: Text('Take a Photo'),
+                                      onTap: () {
+                                        //_getImage(ImageSource.camera);
+                                        //controller.getImage(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+
                           // Handle the action to change the profile picture here
                         },
                       ),
@@ -215,6 +246,8 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: DropDownTextField(
+                        //controller: controller.GenderController.field1,
+                        controller: controller.GenderController,
                         clearOption: true,
                         textFieldDecoration: InputDecoration(
                           hintText: "Gender",
@@ -233,9 +266,9 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                         },
                         dropDownItemCount: 3,
                         dropDownList: const [
-                          DropDownValueModel(name: 'Male', value: "value1"),
-                          DropDownValueModel(name: 'Female', value: "value3"),
-                          DropDownValueModel(name: 'Other', value: "value5"),
+                          DropDownValueModel(name: 'Male', value: "male"),
+                          DropDownValueModel(name: 'Female', value: "female"),
+                          DropDownValueModel(name: 'Other', value: "other"),
                         ],
                         onChanged: (val) {},
                       ),
@@ -248,7 +281,10 @@ class CompleteProfile extends GetView<CompleteProfileController> {
               child: CustomButton(
                   text: 'Complete Profile',
                   width: Get.width * 0.7.w,
-                  onPressed: () {}),
+                  onPressed: () {
+                    controller.userAuthentication.CompleteProfiles(controller.nameController.text, controller.phoneController.text, controller.GenderController.dropDownValue?.value);
+
+                  }),
             ),
             SizedBox(height: 20.h),
           ]),
@@ -282,6 +318,37 @@ class CircularLogoContainer extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('Choose from Gallery'),
+                onTap: () {
+                  //_getImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text('Take a Photo'),
+                onTap: () {
+                  //_getImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

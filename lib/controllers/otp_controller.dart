@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:virtual_try_on/config/supabase.dart';
-import 'package:virtual_try_on/screens/auth_screens/new_password.dart';
 
 import '../services/forget_password_services.dart';
 

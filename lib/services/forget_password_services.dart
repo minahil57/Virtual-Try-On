@@ -4,6 +4,7 @@ import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
 import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 
+import '../helpers/show_toast.dart';
 import '../screens/auth_screens/new_password.dart';
 
 class fogetPassword{
@@ -12,7 +13,7 @@ class fogetPassword{
     print(email);
     await supabase.auth.resetPasswordForEmail(email);
     //Fluttertoast.showToast(msg: "OTP Sent to your email.");
-    print('OTP sent To your email');
+    showToast('Otp sent to your mail');
     Get.to(() => OtpScreen(),
     arguments: {'email': email}
     );
@@ -27,7 +28,7 @@ class fogetPassword{
         email: email,
       );
       if(response.user != null){
-        print('OTP Verified');
+        showToast('OTP Verified ');
         Get.to(() => const NewPasswordScreen(),
         arguments: {'email':email}
         );
@@ -41,8 +42,9 @@ class fogetPassword{
   Future<void> UpdateUser(String Password) async {
     try {
         await supabase.auth.updateUser(UserAttributes(password: Password));
+        showToast('Password Updated Successfully');
         Get.to(() => LoginScreen());
-        print('Password Changed Succesfully');
+
       }
 
       //Fluttertoast.showToast(msg: 'Password Changed Successfully.');
