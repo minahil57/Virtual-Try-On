@@ -72,6 +72,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                       Tab(
                         icon: Icon(FlutterRemix.shirt_line),
                         text: "T-Shirt",
+                        child: Image.asset('asstes/images/logo.png'),
                       ),
                       Tab(
                         text: "Pants",
