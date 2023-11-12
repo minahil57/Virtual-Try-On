@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:virtual_try_on/controllers/Login_Controller.dart';
+import 'package:virtual_try_on/controllers/login_controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/confirm_email.dart';
 import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
 
