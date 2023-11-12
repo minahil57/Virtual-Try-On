@@ -25,14 +25,14 @@ class Categories_Screen extends GetView<Categories_Controller> {
                     Get.back();
                   },
                   child: Container(
-                    width: 50, // Set the width and height to make it circular
-                    height: 50,
+                    width: 50.w, // Set the width and height to make it circular
+                    height: 50.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle, // Make it circular
                       border: Border.all(
                         color: AppColors
                             .customLightGrey, // Set the border color to grey
-                        width: 2.0, // Set the border width
+                        width: 2.0.w, // Set the border width
                       ),
                     ),
                     child: const Icon(
@@ -43,11 +43,11 @@ class Categories_Screen extends GetView<Categories_Controller> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(15.0.h, 42.0.h, 70.0.h, 0.h),
+                padding: EdgeInsets.fromLTRB(0.0.h, 42.0.h, 70.0.h, 0.h),
                 child: Text(
                   'Categories',
                   style: globalTextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                   ),
                 ),
               ),
@@ -60,10 +60,10 @@ class Categories_Screen extends GetView<Categories_Controller> {
                 children: [
                   ButtonsTabBar(
                     backgroundColor: AppColors.primary,
-                    height: 80,
-                    buttonMargin: EdgeInsets.all(10),
-                    radius: 40,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                    height: 80.h,
+                    buttonMargin: EdgeInsets.all(10.h),
+                    radius: 40.r,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 30.w),
                     unselectedBackgroundColor: Colors.grey[300],
                     unselectedLabelStyle: TextStyle(color: Colors.black),
                     labelStyle: TextStyle(
