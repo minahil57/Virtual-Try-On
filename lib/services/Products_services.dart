@@ -1,40 +1,43 @@
 import 'dart:developer';
 
+import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 
 import '../config/supabase.dart';
 
-class ProductServices{
-
-  Future<List<Map<String, dynamic>>> FetchCategories() async{
+class ProductServices {
+  Future<List<CategoryModel>> FetchCategories() async {
     try {
-      final response = await supabase.from('categories',).select('id,name,image').execute();
-      if (response.data == null) {
-        throw Exception('Error Fetching data');
-      }
+      final response = await supabase
+          .from('categories')
+          .select('id,name,image')
+          .withConverter(
+            (data) => List<CategoryModel>.from(
+              data.map((item) => CategoryModel.fromJson(item)),
+            ),
+          );
 
-      List<Map<String, dynamic>> categoryList = [];
-      for (var item in response.data as List<dynamic>) {
-        if (item is Map<String, dynamic>) {
-          categoryList.add(item);
-        }
-      }
-      return categoryList;
+      return response;
     } catch (e) {
       print(e.toString());
       return []; // Return an empty list in case of an error
     }
   }
 
-
-
-   Future<ProductModel> FetchProducts() async{
+  Future<List<ProductModel>> FetchProducts() async {
     try {
-      final ProductModel productItems = await supabase.from('products',).select('id,name,price,images').withConverter((data) => ProductModel.fromJson(data));;
+      final ProductModel productItems = await supabase
+          .from(
+            'products',
+        )
+          .select('id,name,price,images')
+         .withConverter(
+            (data) =>List<ProductModel>.from(data.map(item)=> ProductModel.fromJson(item))
+          );
 
-        print(productItems);
+      print(productItems);
       // print(productList);
-      return productItems;// Return the fetched data
+      return productItems; // Return the fetched data
     } catch (e) {
       print(e.toString());
       return ProductModel(); // Return an empty list in case of an error

@@ -5,6 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/categories_screen.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
@@ -157,7 +158,7 @@ class IndexScreen extends GetView<IndexController> {
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.categories.length,
                     itemBuilder: (context, index) {
-                      Map<String, dynamic> category = controller.categories[index];
+                      CategoryModel category = controller.categories[index];
 
                       return Padding(padding: EdgeInsets.only(left: 10,right: 10),
                             child:
@@ -176,11 +177,11 @@ class IndexScreen extends GetView<IndexController> {
                               ),
                               child: ClipOval(
                                 child: Center(
-                                  child: Image.network(category['image'],width: 50,height: 50,)
+                                  child: Image.network(category.image!,width: 50,height: 50,)
                                 ),
                               ),
                             ),
-                             Text(category['name']),
+                             Text(category.name!.),
                           ]));
                     },
                   ),

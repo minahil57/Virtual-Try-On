@@ -1,25 +1,32 @@
 class ProductModel {
-
   String? id;
-  String? productname;
-  int? price;
-  int? rating;
-  String? image;
+  String? name;
+  String? description;
+  double? price;
+  double? rating;
+  List<String>? images;
+  List<String>? sizes;
+  List<String>? colors;
 
   ProductModel({
     this.id,
+    this.name,
+    this.description,
     this.price,
-    this.productname,
     this.rating,
-    this.image
+    this.images,
+    this.sizes,
+    this.colors,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> map){
-    return ProductModel(
-      id:map['id'],
-      productname: map['name'],
-      price: map['price'],
-      image: map['images'][0],
-    );
+  ProductModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    description = json['description'];
+    price = json['price'];
+    rating = json['rating'];
+    images = json['images'].cast<String>() ?? [];
+    sizes = json['sizes'].cast<String>() ?? [];
+    colors = json['colors'].cast<String>() ?? [];
   }
 }
