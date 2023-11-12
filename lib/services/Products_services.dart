@@ -28,24 +28,16 @@ class ProductServices{
 
 
 
-   Future<List<Map<String, dynamic>>> FetchProducts() async{
+   Future<ProductModel> FetchProducts() async{
     try {
-      final response = await supabase.from('products',).select('id,name,price,images').withConverter((data) => ProductModel.fromJson(data));;
-      if (response.data == null) {
-        throw Exception('Error Fetching data');
-      }
-      List<Map<String, dynamic>> productList = [];
-      for (var item in response.data as List<dynamic>) {
-        if (item is Map<String, dynamic>) {
-          productList.add(item);
-        }
-      }
+      final ProductModel productItems = await supabase.from('products',).select('id,name,price,images').withConverter((data) => ProductModel.fromJson(data));;
 
-      print(productList);
-      return productList;// Return the fetched data
+        print(productItems);
+      // print(productList);
+      return productItems;// Return the fetched data
     } catch (e) {
       print(e.toString());
-      return []; // Return an empty list in case of an error
+      return ProductModel(); // Return an empty list in case of an error
     }
   }
 }

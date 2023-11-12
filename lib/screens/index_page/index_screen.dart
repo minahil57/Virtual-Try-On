@@ -5,6 +5,7 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/categories_screen.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import '../../core/colors.dart';
@@ -202,7 +203,7 @@ class IndexScreen extends GetView<IndexController> {
                   ),
                   itemCount: controller.products.length, // Set the number of items in your GridView
                   itemBuilder: (BuildContext context, int index) {
-                    Map<String, dynamic> productData = controller.products[index];
+                    ProductModel productData = controller.products[index];
                     // Your item widgets go here
                     return GestureDetector(
                     onTap: (){
@@ -217,7 +218,7 @@ class IndexScreen extends GetView<IndexController> {
                           Stack(
                             children: [
                               Image.network(
-                                productData['images'][0],
+                                productData.image?? '',
                                 width: double.infinity,
                                 height: 150, // Adjust the height as needed
                                 fit: BoxFit.fill,
@@ -237,7 +238,7 @@ class IndexScreen extends GetView<IndexController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(  productData['name'],
+                              Text(  productData.productname??'',
                               style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
@@ -254,7 +255,7 @@ class IndexScreen extends GetView<IndexController> {
                           ),
                     Padding(padding: EdgeInsets.only(left: 5,right: 5),
                     child:
-                          Text( productData['price'].toString(),
+                          Text( productData.price.toString()??'',
                             style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,

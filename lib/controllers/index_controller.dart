@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/services/Products_services.dart';
 
+import '../models/product_model.dart';
+
 class IndexController extends GetxController with GetTickerProviderStateMixin {
   final TextEditingController search = TextEditingController();
   RxInt currentIndex = 0.obs;
-  late RxList<Map<String, dynamic>> products = <Map<String, dynamic>>[].obs;
-  late RxList<Map<String, dynamic>> categories = <Map<String, dynamic>>[].obs;
+  // late RxList<Map<String, dynamic>> products = <Map<String, dynamic>>[].obs;
+   late RxList<Map<String, dynamic>> categories = <Map<String, dynamic>>[].obs;
+  RxList<ProductModel> products = <ProductModel>[].obs;
   final ProductServices product = ProductServices();
 
 
@@ -20,13 +23,11 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
   ];
 
   void onInit() async {
-    var fetchedProducts = await product.FetchProducts();
-    products.assignAll(fetchedProducts);
-    update();
     var category =  await product.FetchCategories();
     categories.assignAll(category);
+    product.FetchProducts();
     update();
-    print("Product is$c");
+    update();
     super.onInit();
   }
 
