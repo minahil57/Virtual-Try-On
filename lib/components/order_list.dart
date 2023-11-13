@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_remix/flutter_remix.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/review_screen.dart';
-import 'package:virtual_try_on/widgets/custom_button.dart';
 
+// ignore: camel_case_types
 class Order_list extends StatelessWidget {
   const Order_list({super.key});
 
@@ -45,7 +44,7 @@ class Order_list extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${"name"}',
+                    "name",
                     style: globalTextStyle(fontSize: 15),
                   ),
                   Row(

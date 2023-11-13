@@ -65,28 +65,28 @@ class Categories_Screen extends GetView<Categories_Controller> {
                     radius: 40.r,
                     contentPadding: EdgeInsets.symmetric(horizontal: 30.w),
                     unselectedBackgroundColor: Colors.grey[300],
-                    unselectedLabelStyle: TextStyle(color: Colors.black),
-                    labelStyle: TextStyle(
+                    unselectedLabelStyle: const TextStyle(color: Colors.black),
+                    labelStyle: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                     tabs: [
                       Tab(
-                        icon: Icon(FlutterRemix.shirt_line),
+                        icon: const Icon(FlutterRemix.shirt_line),
                         text: "T-Shirt",
                         child: Image.asset('asstes/images/logo.png'),
                       ),
-                      Tab(
+                      const Tab(
                         text: "Pants",
                       ),
-                      Tab(
+                      const Tab(
                         text: "Shirts",
                       ),
-                      Tab(
+                      const Tab(
                         text: "Dresses",
                       ),
-                      Tab(
+                      const Tab(
                         text: "Hoodies",
                       ),
-                      Tab(
+                      const Tab(
                         text: "Jackets",
                       ),
                     ],
@@ -96,9 +96,9 @@ class Categories_Screen extends GetView<Categories_Controller> {
                       children: <Widget>[
                         GridView.builder(
                           itemCount: 20,
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Number of columns in the grid
                           ),
                           itemBuilder: (context, index) {
@@ -110,19 +110,19 @@ class Categories_Screen extends GetView<Categories_Controller> {
                             );
                           },
                         ),
-                        Center(
+                        const Center(
                           child: Icon(Icons.directions_transit),
                         ),
-                        Center(
+                        const Center(
                           child: Icon(Icons.directions_bike),
                         ),
-                        Center(
+                        const Center(
                           child: Icon(Icons.directions_car),
                         ),
-                        Center(
+                        const Center(
                           child: Icon(Icons.directions_transit),
                         ),
-                        Center(
+                        const Center(
                           child: Icon(Icons.directions_bike),
                         ),
                       ],

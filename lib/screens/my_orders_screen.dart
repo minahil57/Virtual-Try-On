@@ -85,19 +85,19 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
                       itemCount: 20,
                       padding: EdgeInsets.only(bottom: Get.height * 0.4),
                       itemBuilder: (context, index) {
-                        return Order_list();
+                        return const Order_list();
                       }),
                   ListView.builder(
                       itemCount: 20,
                       padding: EdgeInsets.only(bottom: Get.height * 0.4),
                       itemBuilder: (context, index) {
-                        return Order_list();
+                        return const Order_list();
                       }),
                   ListView.builder(
                       itemCount: 20,
                       padding: EdgeInsets.only(bottom: Get.height * 0.4),
                       itemBuilder: (context, index) {
-                        return Order_list();
+                        return const Order_list();
                       }),
                 ])),
               ],

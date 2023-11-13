@@ -13,7 +13,6 @@ import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
-import 'package:virtual_try_on/screens/cart/cart_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 enum ModelType { withClothes, noClothes }
