@@ -181,7 +181,7 @@ class IndexScreen extends GetView<IndexController> {
                                 ),
                               ),
                             ),
-                             Text(category.name!.),
+                             Text(category.name!),
                           ]));
                     },
                   ),
@@ -219,7 +219,7 @@ class IndexScreen extends GetView<IndexController> {
                           Stack(
                             children: [
                               Image.network(
-                                productData.image?? '',
+                                productData.images![0] as String,
                                 width: double.infinity,
                                 height: 150, // Adjust the height as needed
                                 fit: BoxFit.fill,
@@ -239,26 +239,27 @@ class IndexScreen extends GetView<IndexController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(  productData.productname??'',
+                              Text(  productData.name!.capitalizeAllWordsFirstLetter(),
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w600,
                               ),
                               ),
                               const Text('4.5',
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
                           ),
                           ),
+                    SizedBox(height: 5.h,),
                     Padding(padding: EdgeInsets.only(left: 5,right: 5),
                     child:
-                          Text( productData.price.toString()??'',
+                          Text( 'RS-${productData.price!.toString()}',
                             style: const TextStyle(
-                              fontSize: 10,
+                              fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

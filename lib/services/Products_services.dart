@@ -26,21 +26,20 @@ class ProductServices {
 
   Future<List<ProductModel>> FetchProducts() async {
     try {
-      final ProductModel productItems = await supabase
-          .from(
-            'products',
-        )
+      final productItems = await supabase
+          .from('products')
           .select('id,name,price,images')
-         .withConverter(
-            (data) =>List<ProductModel>.from(data.map(item)=> ProductModel.fromJson(item))
-          );
-
+          .withConverter(
+            (data) => List<ProductModel>.from(
+          data.map((item) => ProductModel.fromJson(item)),
+        ),
+      );
       print(productItems);
       // print(productList);
       return productItems; // Return the fetched data
     } catch (e) {
       print(e.toString());
-      return ProductModel(); // Return an empty list in case of an error
+      return [] ;// Return an empty list in case of an error
     }
   }
 }

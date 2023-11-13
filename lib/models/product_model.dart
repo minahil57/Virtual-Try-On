@@ -2,7 +2,7 @@ class ProductModel {
   String? id;
   String? name;
   String? description;
-  double? price;
+  int? price;
   double? rating;
   List<String>? images;
   List<String>? sizes;
@@ -26,7 +26,7 @@ class ProductModel {
     price = json['price'];
     rating = json['rating'];
     images = json['images'].cast<String>() ?? [];
-    sizes = json['sizes'].cast<String>() ?? [];
-    colors = json['colors'].cast<String>() ?? [];
+    //sizes = json['sizes'].cast<String>() ?? [];
+    //colors = json['colors'].cast<String>() ?? [];
   }
 }

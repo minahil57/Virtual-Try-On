@@ -11,7 +11,7 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
   RxInt currentIndex = 0.obs;
   // late RxList<Map<String, dynamic>> products = <Map<String, dynamic>>[].obs;
   final RxList<CategoryModel> categories = <CategoryModel>[].obs;
-  RxList<ProductModel> products = <ProductModel>[].obs;
+  final RxList<ProductModel> products = <ProductModel>[].obs;
   final ProductServices product = ProductServices();
 
   final List<String> carouselItems = [
@@ -24,8 +24,10 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onInit() async {
     List<CategoryModel> allCategories = await product.FetchCategories();
+    List<ProductModel> allProducts = await product.FetchProducts();
+    products.value = allProducts;
     categories.value = allCategories;
-    product.FetchProducts();
+    print('hello$allProducts');
     update();
     update();
     super.onInit();
