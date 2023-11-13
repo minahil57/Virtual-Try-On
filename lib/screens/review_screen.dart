@@ -4,9 +4,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/review_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/screens/review_success.dart';
+import 'package:virtual_try_on/widgets/custom_button.dart';
 
 class ReviewScreen extends GetView<ReviewController> {
   const ReviewScreen({super.key});
@@ -56,67 +59,79 @@ class ReviewScreen extends GetView<ReviewController> {
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: EdgeInsets.all(20.0.w),
-              child: Container(
-                height: 80.h,
-                // width: ,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      10.0), // Adjust the radius as needed
-                  border: Border.all(
-                    color: Colors.grey, // You can customize the border color
-                    width: 1.0.w,
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
-                    'assets/images/BlackPant1.PNG',
-                    fit: BoxFit
-                        .fill, // Ensure the image covers the entire container
-                  ),
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  'Jacket',
-                  style: globalTextStyle(fontSize: 20.sp),
-                ),
-                Text(
-                  'Size:xL',
-                  style: globalTextStyle(
-                      fontSize: 13.sp, color: AppColors.customGrey),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${10}',
-                      style: globalTextStyle(
-                        fontSize: 15.sp,
+                Padding(
+                  padding: EdgeInsets.all(20.0.w),
+                  child: Container(
+                    height: 80.h,
+                    // width: ,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          10.0), // Adjust the radius as needed
+                      border: Border.all(
+                        color:
+                            Colors.grey, // You can customize the border color
+                        width: 1.0.w,
                       ),
                     ),
-                    Container(
-                        height: 20,
-                        width: 20,
-                        margin: const EdgeInsets.only(
-                            left: 8, right: 0), // Add spacing between images
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(20),
-                          // border: Border.all(
-                          //   width: 8.w,
-                          // ),
-                        )),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.asset(
+                        'assets/images/BlackPant1.PNG',
+                        fit: BoxFit
+                            .fill, // Ensure the image covers the entire container
+                      ),
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Jacket',
+                      style: globalTextStyle(fontSize: 20.sp),
+                    ),
+                    Text(
+                      'Size:xL',
+                      style: globalTextStyle(
+                          fontSize: 13.sp, color: AppColors.customGrey),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${10}',
+                          style: globalTextStyle(
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        Container(
+                            height: 20,
+                            width: 20,
+                            margin: const EdgeInsets.only(
+                                left: 8,
+                                right: 0), // Add spacing between images
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20),
+                              // border: Border.all(
+                              //   width: 8.w,
+                              // ),
+                            )),
+                      ],
+                    ),
                   ],
                 ),
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 15.0),
+              child:
+                  CustomButton(text: 'Reorder', width: 90.w, onPressed: () {}),
             ),
           ],
         ),
@@ -208,12 +223,87 @@ class ReviewScreen extends GetView<ReviewController> {
                 ),
               ),
             ),
-            const Divider(
+            Divider(
+              indent: 20.w,
+              endIndent: 20.w,
               thickness: 2,
             ),
           ]),
         ),
-      ])
+      ]),
+      Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: Container(
+          height: 80.h,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5), // Shadow color
+                spreadRadius: 2, // Spread radius
+                blurRadius: 4, // Blur radius
+                offset: const Offset(0, -2), // Shadow offset (upward)
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 140.w,
+                height: 35.h,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.customLightGrey,
+                    // Background color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          20.0), // Adjust the value for rounded corners
+                    ),
+                  ),
+                  child: Text(
+                    "Cancel",
+                    style: globalTextStyle(
+                        fontSize: 12, color: AppColors.primary), // Text color
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 140.w,
+                height: 35.h,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => ReviewSuccess());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    // Background color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          20.0), // Adjust the value for rounded corners
+                    ),
+                  ),
+                  child: Text(
+                    "Submit",
+                    style: globalTextStyle(
+                        fontSize: 12, color: Colors.white), // Text color
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
     ]));
   }
 }
