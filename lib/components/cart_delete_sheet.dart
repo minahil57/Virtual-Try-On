@@ -49,7 +49,7 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: Image.asset(
+                    child: Image.network(
                       '${item.image}',
                       fit: BoxFit
                           .fill, // Ensure the image covers the entire container

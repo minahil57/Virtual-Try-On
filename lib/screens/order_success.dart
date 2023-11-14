@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/screens/index_page/index_screen.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
@@ -78,7 +79,9 @@ class Success extends StatelessWidget {
               child: CustomButton(
                 width: 350.w,
                 onPressed: () => {
-                  Get.to(() => const ProductDetailsScreen3State()),
+                  Get.offAll(
+                    () => const IndexScreen(),
+                  ),
                 },
                 text: 'Order Detail',
               ),

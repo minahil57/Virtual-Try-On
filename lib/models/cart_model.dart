@@ -7,7 +7,7 @@ class CartItemModel {
   int? quantity;
   String? size;
   String? name;
-  double? price;
+  int? price;
   String? image;
   CartItemModel(
       {this.id,
