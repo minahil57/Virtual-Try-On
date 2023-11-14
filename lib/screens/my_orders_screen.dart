@@ -1,4 +1,5 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,10 +10,16 @@ import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 
 class MyOrdersScreen extends GetView<MyOrdersController> {
-  const MyOrdersScreen({super.key});
+  MyOrdersScreen({super.key});
 
+  final GlobalKey<ExpansionTileCardState> cardA = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+      ),
+    );
     return Scaffold(
       body: Column(children: [
         Row(
@@ -83,21 +90,78 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
                     child: TabBarView(children: <Widget>[
                   ListView.builder(
                       itemCount: 20,
-                      padding: EdgeInsets.only(bottom: Get.height * 0.4),
+                      padding: EdgeInsets.only(
+                          bottom: Get.height * 0.4, right: 5.w, left: 5.w),
                       itemBuilder: (context, index) {
-                        return const Order_list();
+                        return ExpansionTileCard(
+                          // key: cardA,
+                          leading: Text('${index + 1}:'),
+                          title: const Text('Order # cr145 '),
+                          subtitle: const Text('Total Amount : 3500'),
+                          children: <Widget>[
+                            SizedBox(
+                              height: 200,
+                              width: Get.width,
+                              child: ListView.builder(
+                                  itemCount: 5,
+                                  padding:
+                                      EdgeInsets.only(bottom: Get.height * 0.4),
+                                  itemBuilder: (context, index) {
+                                    return Order_list();
+                                  }),
+                            ),
+                          ],
+                        );
                       }),
                   ListView.builder(
                       itemCount: 20,
-                      padding: EdgeInsets.only(bottom: Get.height * 0.4),
+                      padding: EdgeInsets.only(
+                          bottom: Get.height * 0.4, right: 5.w, left: 5.w),
                       itemBuilder: (context, index) {
-                        return const Order_list();
+                        return ExpansionTileCard(
+                          // key: cardA,
+                          leading: Text('${index + 1}:'),
+                          title: const Text('Order # cr145 '),
+                          subtitle: const Text('Total Amount : 3500'),
+                          children: <Widget>[
+                            SizedBox(
+                              height: 200,
+                              width: Get.width,
+                              child: ListView.builder(
+                                  itemCount: 5,
+                                  padding:
+                                      EdgeInsets.only(bottom: Get.height * 0.4),
+                                  itemBuilder: (context, index) {
+                                    return Order_list();
+                                  }),
+                            ),
+                          ],
+                        );
                       }),
                   ListView.builder(
                       itemCount: 20,
-                      padding: EdgeInsets.only(bottom: Get.height * 0.4),
+                      padding: EdgeInsets.only(
+                          bottom: Get.height * 0.4, right: 5.w, left: 5.w),
                       itemBuilder: (context, index) {
-                        return const Order_list();
+                        return ExpansionTileCard(
+                          // key: cardA,
+                          leading: Text('${index + 1}:'),
+                          title: const Text('Order # cr145 '),
+                          subtitle: const Text('Total Amount : 3500'),
+                          children: <Widget>[
+                            SizedBox(
+                              height: 200,
+                              width: Get.width,
+                              child: ListView.builder(
+                                  itemCount: 5,
+                                  padding:
+                                      EdgeInsets.only(bottom: Get.height * 0.4),
+                                  itemBuilder: (context, index) {
+                                    return Order_list();
+                                  }),
+                            ),
+                          ],
+                        );
                       }),
                 ])),
               ],

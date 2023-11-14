@@ -30,41 +30,6 @@ class ProfileScreen extends GetView<ProfileController> {
               SizedBox(
                 height: 30.h,
               ),
-              Center(
-                child: Stack(
-                  children: [
-                     const CircleAvatar(
-                      radius: 65, // Adjust the size of the avatar as needed
-                      backgroundColor: Colors.blue,
-                      foregroundColor:
-                      Colors.grey, // Background color of the avatar
-                      backgroundImage: AssetImage(
-                          'assets/images/images.jpeg'), // Replace with your image URL
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 35,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle, // Make it circular
-                          color: AppColors.primary, // Set the background color
-                        ),
-                        child: IconButton(
-                          icon: const Icon(
-                            FlutterRemix.edit_line,
-                            size: 20,
-                            color: AppColors.customLightGrey,
-                          ),
-                          onPressed: () {
-                            // Handle the action to change the profile picture here
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Padding(
                 padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
                 child: GestureDetector(
@@ -92,16 +57,39 @@ class ProfileScreen extends GetView<ProfileController> {
               SizedBox(
                 height: 20.h,
               ),
-              const Center(
-                child: CircleAvatar(
-                  radius: 50,
-
-                  //backgroundColor: Colors.blue,
-                  foregroundColor:
-                      Colors.grey, // Background color of the avatar
-                  backgroundImage: AssetImage(
-                    'assets/images/avatar.jpg',
-                  ), // Replace with your image URL
+              Center(
+                child: Stack(
+                  children: [
+                    const CircleAvatar(
+                      radius: 65, // Adjust the size of the avatar as needed
+                      backgroundColor: Colors.blue,
+                      foregroundColor:
+                          Colors.grey, // Background color of the avatar
+                      backgroundImage: AssetImage(
+                          'assets/images/images.jpeg'), // Replace with your image URL
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        height: 35,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle, // Make it circular
+                          color: AppColors.primary, // Set the background color
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            FlutterRemix.edit_line,
+                            size: 20,
+                            color: AppColors.customLightGrey,
+                          ),
+                          onPressed: () {
+                            // Handle the action to change the profile picture here
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
@@ -125,67 +113,6 @@ class ProfileScreen extends GetView<ProfileController> {
                   Get.to(() => const CompleteProfile());
                 },
               ),
-
-              ListTile(
-                title: const Text('Payment Methods'),
-                leading: const Icon(FlutterRemix.secure_payment_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('My Orders'),
-                leading: const Icon(FlutterRemix.handbag_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Settings'),
-                leading: const Icon(FlutterRemix.settings_3_line),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Help Center'),
-                leading: const Icon(FlutterRemix.account_box_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Privacy Policy'),
-                leading: const Icon(FlutterRemix.lock_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Invites Friends'),
-                leading: const Icon(FlutterRemix.user_shared_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Logout'),
-                leading: const Icon(FlutterRemix.logout_box_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-              ),
-
               SizedBox(
                 height: 10.h,
               ),
@@ -204,7 +131,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   color: AppColors.primary,
                 ),
                 onTap: () {
-                  Get.to(() => const MyOrdersScreen());
+                  Get.to(() => MyOrdersScreen());
                 },
               ),
               const Divider(),
