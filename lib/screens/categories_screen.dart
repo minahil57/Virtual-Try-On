@@ -9,6 +9,8 @@ import 'package:virtual_try_on/controllers/categories_controller.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/models/product_model.dart';
+import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 
 class Categories_Screen extends GetView<Categories_Controller> {
   const Categories_Screen({super.key});
@@ -59,13 +61,16 @@ class Categories_Screen extends GetView<Categories_Controller> {
           ),
           Expanded(
             child:
-    Obx(() =>DefaultTabController(
+    Obx(() =>
+    controller.categories.isEmpty
+        ? SizedBox()
+         : DefaultTabController(
               length: controller.tabController.length,
               initialIndex: controller.SelectedTab.value,
               child: Column(
                 children: [
 
-                  ButtonsTabBar(
+                   ButtonsTabBar(
                     backgroundColor: AppColors.primary,
                     height: 55.h,
                     buttonMargin: EdgeInsets.all(10.h),
@@ -90,8 +95,13 @@ class Categories_Screen extends GetView<Categories_Controller> {
                     },
                   ),
 
-                  FutureBuilder(future: supabase
-                      .from('products').select('*').eq('category_id',  controller.categories[controller.SelectedTab.value].id),
+                 FutureBuilder(future: supabase
+                      .from('products').select('*').eq('category_id',  controller.categories[controller.SelectedTab.value].id)
+                            .withConverter(
+                        (data) => List<ProductModel>.from(
+                        data.map((item) => ProductModel.fromJson(item)),
+                        ),
+                        ),
 
                     builder: (context, snapshot) {
                     //print(controller.categories.last.id);
@@ -109,16 +119,18 @@ class Categories_Screen extends GetView<Categories_Controller> {
                           child: Text('No data available'),
                         );
                       } else {
-                        final List product = snapshot.data;
+                        final List<ProductModel>? product = snapshot.data;
                         // Data is available, you can use snapshot.data
                         // Example: List<Map<String, dynamic>> products = snapshot.data as List<Map<String, dynamic>>;
-                        return Expanded(
+                        return
+
+                          Expanded(
 
                             child: Padding(padding: EdgeInsets.only(left: 10.h,right: 10.h),
                             child:
                             GridView.builder(
 
-                          itemCount: product.length,
+                          itemCount: product!.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2, // Set the number of columns you want
@@ -129,12 +141,15 @@ class Categories_Screen extends GetView<Categories_Controller> {
 
                                 itemBuilder: (BuildContext context,
                                 int index) {
-                                  final productItem = product[index];
+                                  final productItem = product![index];
 
                                   return GestureDetector(
-                                    onTap: () {
-                                      print('done');
-                                    },
+                                      onTap: () {
+                                        Get.to(() =>
+                                            ProductDetailsScreen3State(
+                                              product: productItem,
+                                            ));
+                                      },
                                     child:
 
                                     Container(
@@ -145,7 +160,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                           Stack(
                                             children: [
                                               Image.network(
-                                                productItem['images'][0],
+                                                productItem.images![0],
                                                 width: double.infinity,
                                                 height: 150,
                                                 // Adjust the height as needed
@@ -169,7 +184,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                               mainAxisAlignment: MainAxisAlignment
                                                   .spaceBetween,
                                               children: [
-                                                Text(productItem['name'],
+                                                Text(productItem.name!.capitalizeFirst,
                                                   style: const TextStyle(
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w600,
@@ -188,7 +203,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                           Padding(padding: EdgeInsets.only(
                                               left: 5, right: 5),
                                             child:
-                                            Text('RS-${productItem['price']
+                                            Text('RS-${productItem.price!
                                                 .toString()}',
                                               style: const TextStyle(
                                                 fontSize: 12,

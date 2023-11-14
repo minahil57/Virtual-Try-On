@@ -46,6 +46,7 @@ class CartList extends GetView<Cart_Controller> {
               ],
             ),
             child: ListTile(
+              visualDensity: VisualDensity(vertical: 3),
               leading: Container(
                 height: 300.h,
                 // width: ,
@@ -60,10 +61,10 @@ class CartList extends GetView<Cart_Controller> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
+                  child: Image.network(
                     '${cartItem.image}',
-                    fit: BoxFit.cover,
-                    height: 70.h,
+                    fit: BoxFit.fitWidth,
+                    height: 100.h,
                     width: 70.w, // Ensure the image covers the entire container
                   ),
                 ),

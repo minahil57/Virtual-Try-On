@@ -59,7 +59,7 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
               children: [
                 ButtonsTabBar(
                   backgroundColor: AppColors.primary,
-                  height: 70.h,
+                  height: 60.h,
                   buttonMargin: EdgeInsets.all(10.h),
                   radius: 30.r,
                   contentPadding: EdgeInsets.symmetric(horizontal: 25.w),

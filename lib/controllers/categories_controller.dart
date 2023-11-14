@@ -16,9 +16,11 @@ class Categories_Controller extends GetxController with GetTickerProviderStateMi
 
   @override
   void onInit() async {
+    tabController = TabController(length: categories.length, vsync: this);
     try{
     List<CategoryModel> allCategories = await product.FetchCategories();
     categories.value = allCategories;
+
     update();
     if(categories.isNotEmpty){
       tabController = TabController(length: categories.length, vsync: this);

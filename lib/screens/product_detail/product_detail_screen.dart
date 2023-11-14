@@ -8,10 +8,13 @@ import 'package:get/get.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
+import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/controllers/product_details_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
+import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
@@ -48,7 +51,9 @@ class ModelScreen extends StatelessWidget {
 }
 
 class ProductDetailsScreen3State extends GetView<Product_details_controller> {
-  const ProductDetailsScreen3State({super.key});
+  final ProductModel product;
+
+  const ProductDetailsScreen3State({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +75,10 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 400,
-                          image: AssetImage(controller
-                              .images[controller.selectedImageIndex.value]),
+                          image: NetworkImage(
+                            product
+                                .images![controller.selectedImageIndex.value],
+                          ),
                         ),
                         Positioned(
                           bottom: 20.h, // Adjust the position as needed
@@ -86,68 +93,64 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 height: 55.h, // Adjust the height as needed
-                                child: Obx(
-                                  () => Row(
-                                    children: controller.images
-                                        .take(6)
-                                        .mapIndexed((index, imagePath) {
-                                      return Padding(
-                                        padding: EdgeInsets.only(
-                                            left: index == 0 ? 5 : 0,
-                                            right: 4,
-                                            top: 4,
-                                            bottom:
-                                                4), // Add spacing between images
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              controller.selectedImageIndex
-                                                  .value = index;
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  imagePath,
-                                                  width: 50
-                                                      .w, // Adjust the width as needed
-                                                  height: 50
-                                                      .h, // Adjust the height as needed
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                if (index == 5 &&
-                                                    controller.images.length >
-                                                        6)
-                                                  Container(
-                                                    width:
-                                                        50, // Adjust the width to match the image
-                                                    height:
-                                                        50, // Adjust the height to match the image
-                                                    color: Colors.black.withOpacity(
-                                                        0.6), // Adjust the opacity as needed
-                                                  ),
-                                                if (index == 5 &&
-                                                    controller.images.length >
-                                                        6)
-                                                  Text(
-                                                    '${controller.images.length - 5 - 1}+',
-                                                    textAlign: TextAlign.center,
-                                                    style: globalTextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                    ),
-                                                  )
-                                              ],
-                                            ),
+                                child: Row(
+                                  children: product.images!
+                                      .take(4)
+                                      .mapIndexed((index, imagePath) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          left: index == 0 ? 4 : 0,
+                                          right: 4,
+                                          top: 4,
+                                          bottom:
+                                              4), // Add spacing between images
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(4),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            controller.selectedImageIndex
+                                                .value = index;
+                                          },
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Image.network(
+                                                imagePath,
+                                                width: 50
+                                                    .w, // Adjust the width as needed
+                                                height: 50
+                                                    .h, // Adjust the height as needed
+                                                fit: BoxFit.cover,
+                                              ),
+                                              // if (index == 5 &&
+                                              //     product.images!.length >
+                                              //         4)
+                                              //   Container(
+                                              //     width:
+                                              //         50, // Adjust the width to match the image
+                                              //     height:
+                                              //         50, // Adjust the height to match the image
+                                              //     color: Colors.black.withOpacity(
+                                              //         0.6), // Adjust the opacity as needed
+                                              //   ),
+                                              // if (index == 5 &&
+                                              //     productData.images!.length >
+                                              //         4)
+                                              //   Text(
+                                              //     '${productData.images!.length - 3 - 1}+',
+                                              //     textAlign: TextAlign.center,
+                                              //     style: globalTextStyle(
+                                              //       color: Colors.white,
+                                              //       fontWeight: FontWeight.bold,
+                                              //       fontSize: 20,
+                                              //     ),
+                                              //   )
+                                            ],
                                           ),
                                         ),
-                                      );
-                                    }).toList(),
-                                  ),
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                             ],
@@ -194,7 +197,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                     ),
                                   ),
                                   Text(
-                                    'RS. 5600',
+                                    'Rs-${product.price}',
                                     textAlign: TextAlign.start,
                                     style: globalTextStyle(
                                       color: Colors.black,
@@ -206,7 +209,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           ],
                         ),
                         Text(
-                          'Black Pant for Men',
+                          '${product.name}',
                           style: globalTextStyle(
                               color: Colors.black,
                               fontSize: 15.sp,
@@ -221,8 +224,9 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                               fontWeight: FontWeight.w700),
                         ),
                         SizedBox(height: 8.h),
+                        // Text('${productData.description}'),
                         ExpandableText(
-                          'Introducing our exclusive collection of black pants for men. Elevate your wardrobe with this modern twist on a classic. Crafted with precision, these suits offer a contemporary take on traditional elegance. Ideal for weddings, business, or special occasions, our designs ensure you stand out with confidence and style. Shop now for a fresh sartorial perspective.',
+                          '${product.description}',
                           expandText: 'Read more',
                           collapseText: 'Read less',
                           maxLines: 3,
@@ -246,8 +250,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                         SizedBox(height: 8.h),
                         Obx(
                           () => Row(
-                            children: controller.sizes.value
-                                .mapIndexed((index, size) {
+                            children: product.sizes!.mapIndexed((index, size) {
                               return GestureDetector(
                                 onTap: () {
                                   controller.selectedSizeIndex.value = index;
@@ -273,7 +276,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                               : Colors.black.withOpacity(0.1)),
                                     ),
                                     child: Text(
-                                      '$size',
+                                      size,
                                       style: globalTextStyle(
                                         color: index ==
                                                 controller
@@ -289,57 +292,62 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        Obx(
-                          () => RichText(
-                            text: TextSpan(
-                              style: globalTextStyle(
-                                  color: Colors.black.withOpacity(0.8),
-                                  fontSize: 14.sp),
-                              children: [
-                                TextSpan(
-                                  text: 'Select Color : ',
-                                  style: globalTextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.sp),
-                                ),
-                                TextSpan(
-                                  text:
-                                      '${controller.colors.value[controller.selectedColorIndex.value]['label']}',
-                                  style: globalTextStyle(
-                                      color: Colors.grey, fontSize: 15.sp),
-                                ),
-                              ],
-                            ),
+                        RichText(
+                          text: TextSpan(
+                            style: globalTextStyle(
+                                color: Colors.black.withOpacity(0.8),
+                                fontSize: 14.sp),
+                            children: [
+                              TextSpan(
+                                text: 'Select Color : ',
+                                style: globalTextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp),
+                              ),
+                              // TextSpan(
+                              //   text:
+                              //       //'${productData.colors![controller.selectedColorIndex.value]['label']}',
+                              //       'color',
+                              //   style: globalTextStyle(
+                              //       color: Colors.grey, fontSize: 15.sp),
+                              // ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: 8.h),
                         Obx(
                           () => Row(
-                            children: controller.colors.value
-                                .mapIndexed((index, color) {
+                            children:
+                                product.colors!.mapIndexed((index, color) {
                               return GestureDetector(
                                 onTap: () {
                                   controller.selectedColorIndex.value = index;
                                 },
                                 child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: index == 0 ? 0 : 8,
-                                        right: 0), // Add spacing between images
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      color: index ==
-                                              controller
-                                                  .selectedColorIndex.value
-                                          ? Colors.white
-                                          : color['value'],
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                          width: 8.w, color: color['value']),
-                                    )),
+                                  margin: EdgeInsets.only(
+                                      // left:
+                                      //     controller.selectedColorIndex.value ==
+                                      //             0
+                                      //         ? 0
+                                      //         : 8,
+                                      right: 8), // Add spacing between images
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: index ==
+                                            controller.selectedColorIndex.value
+                                        ? Colors.white
+                                        : HexColor(color),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      width: 8.w,
+                                      color: HexColor(color),
+                                    ),
+                                  ),
+                                ),
                               );
                             }).toList(),
                           ),
                         ),
+
                         SizedBox(height: 16.h),
                       ],
                     ),
@@ -455,16 +463,17 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
 
                         cartController.addToCart(
                           cart: CartItemModel(
-                            id: '1',
+                            id: product.id,
                             quantity: 1,
-                            size: controller.sizes
-                                .value[controller.selectedSizeIndex.value],
-                            color: controller.colors
-                                    .value[controller.selectedColorIndex.value]
-                                ['value'],
-                            name: 'Brown Jacket',
-                            image: controller.images.value[1],
-                            price: 300,
+                            size: product
+                                .sizes![controller.selectedSizeIndex.value],
+                            color: HexColor(
+                              product
+                                  .colors![controller.selectedColorIndex.value],
+                            ),
+                            name: product.name,
+                            image: product.images![0],
+                            price: product.price,
                           ),
                         );
                       }),
