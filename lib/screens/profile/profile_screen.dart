@@ -8,7 +8,9 @@ import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/my_orders_screen.dart';
 import '../../config/supabase.dart';
+import '../../controllers/index_controller.dart';
 import '../../core/colors.dart';
+import '../../models/user_model.dart';
 import '../auth_screens/login_screen.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
@@ -16,7 +18,9 @@ class ProfileScreen extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    final indexcontroller = Get.putOrFind(() => IndexController());
     Get.putOrFind(() => ProfileController());
+    UserModel user;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -41,6 +45,7 @@ class ProfileScreen extends GetView<ProfileController> {
                       backgroundImage: AssetImage(
                           'assets/images/images.jpeg'), // Replace with your image URL
                     ),
+                     //Text(user.email!),
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -104,6 +109,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   ), // Replace with your image URL
                 ),
               ),
+              Text(indexcontroller.userss.first.email as String),
               SizedBox(
                 height: 10.h,
               ),

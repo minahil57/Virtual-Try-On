@@ -8,11 +8,7 @@ class Categories_Controller extends GetxController with GetTickerProviderStateMi
   final ProductServices product = ProductServices();
   final RxList<CategoryModel> categories = <CategoryModel>[].obs;
   late TabController tabController;
-
-
-
   final RxInt SelectedTab = 0.obs;
-
 
   @override
   void onInit() async {
@@ -31,6 +27,7 @@ class Categories_Controller extends GetxController with GetTickerProviderStateMi
     }
     }catch(e){
       print('nothing');
+
     }
     super.onInit();
   }
@@ -38,7 +35,7 @@ class Categories_Controller extends GetxController with GetTickerProviderStateMi
   @override
   void onClose() {
 
-
+    SelectedTab.dispose();
     super.onClose();
   }
 }
