@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
-import 'package:virtual_try_on/services/cart_services.dart';
 
 // ignore: camel_case_types
 class Cart_Controller extends GetxController {

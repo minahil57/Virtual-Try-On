@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/profile_controller.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
+import 'package:virtual_try_on/screens/my_orders_screen.dart';
 import '../../config/supabase.dart';
 import '../../core/colors.dart';
 import '../auth_screens/login_screen.dart';
@@ -203,7 +204,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   color: AppColors.primary,
                 ),
                 onTap: () {
-                  Get.to(() => const CompleteProfile());
+                  Get.to(() => const MyOrdersScreen());
                 },
               ),
               const Divider(),
@@ -252,6 +253,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   }
                 },
               ),
+              SizedBox(height: 50,)
             ],
           ),
         ),

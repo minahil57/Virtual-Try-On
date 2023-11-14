@@ -136,7 +136,7 @@ class IndexScreen extends GetView<IndexController> {
     ),
       TextButton(
           onPressed: () {
-            Get.to(() => Categories_Screen());
+            Get.to(() =>  Categories_Screen());
           },
           child: const Text(
             'View all',
