@@ -14,6 +14,7 @@ import '../../models/user_model.dart';
 import '../auth_screens/login_screen.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
+
   const ProfileScreen({super.key});
 
   @override
@@ -32,20 +33,19 @@ class ProfileScreen extends GetView<ProfileController> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: 30.h,
+                height: 50.h,
               ),
               Center(
                 child: Stack(
                   children: [
-                     const CircleAvatar(
+                    const CircleAvatar(
                       radius: 65, // Adjust the size of the avatar as needed
                       backgroundColor: Colors.blue,
                       foregroundColor:
-                      Colors.grey, // Background color of the avatar
+                          Colors.grey, // Background color of the avatar
                       backgroundImage: AssetImage(
                           'assets/images/images.jpeg'), // Replace with your image URL
                     ),
-                     //Text(user.email!),
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -70,46 +70,11 @@ class ProfileScreen extends GetView<ProfileController> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle, // Make it circular
-                      border: Border.all(
-                        color: AppColors
-                            .customLightGrey, // Set the border color to grey
-                        //width: .0, // Set the border width
-                      ),
-                    ),
-                    child: const Icon(
-                      FlutterRemix.arrow_left_line,
-                      color: Colors.black, // Set the icon color to black
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              const Center(
-                child: CircleAvatar(
-                  radius: 50,
-
-                  //backgroundColor: Colors.blue,
-                  foregroundColor:
-                      Colors.grey, // Background color of the avatar
-                  backgroundImage: AssetImage(
-                    'assets/images/avatar.jpg',
-                  ), // Replace with your image URL
-                ),
-              ),
-              Text(indexcontroller.userss.first.email as String),
+              SizedBox(height: 5.h,),
+              Center(child:
+              Text(indexcontroller.userss.first.email as String,
+              style: globalTextStyle(fontSize: 15, color: AppColors.primary),
+              )),
               SizedBox(
                 height: 10.h,
               ),
@@ -131,67 +96,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   Get.to(() => const CompleteProfile());
                 },
               ),
-
-              ListTile(
-                title: const Text('Payment Methods'),
-                leading: const Icon(FlutterRemix.secure_payment_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('My Orders'),
-                leading: const Icon(FlutterRemix.handbag_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Settings'),
-                leading: const Icon(FlutterRemix.settings_3_line),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Help Center'),
-                leading: const Icon(FlutterRemix.account_box_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Privacy Policy'),
-                leading: const Icon(FlutterRemix.lock_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Invites Friends'),
-                leading: const Icon(FlutterRemix.user_shared_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-                onTap: () {
-
-                },
-              ),
-
-              ListTile(
-                title: const Text('Logout'),
-                leading: const Icon(FlutterRemix.logout_box_fill),
-                trailing: const Icon(FlutterRemix.arrow_right_s_line),
-              ),
-
+              const Divider(),
               SizedBox(
                 height: 10.h,
               ),
@@ -210,7 +115,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   color: AppColors.primary,
                 ),
                 onTap: () {
-                  Get.to(() => const MyOrdersScreen());
+                  Get.to(() => MyOrdersScreen());
                 },
               ),
               const Divider(),

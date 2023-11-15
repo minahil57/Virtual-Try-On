@@ -249,6 +249,8 @@ class IndexScreen extends GetView<IndexController> {
                                 ],
                               ),
                               SizedBox(height: 10),
+                              FittedBox(
+                                child:
                               Padding(
                                 padding: EdgeInsets.only(left: 5, right: 5),
                                 child: Row(
@@ -272,6 +274,7 @@ class IndexScreen extends GetView<IndexController> {
                                     ),
                                   ],
                                 ),
+                              ),
                               ),
                               SizedBox(
                                 height: 5.h,

@@ -16,6 +16,7 @@ import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
+import 'package:virtual_try_on/screens/order_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 enum ModelType { withClothes, noClothes }
@@ -59,6 +60,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
   Widget build(BuildContext context) {
     Get.putOrFind(() => Product_details_controller());
     final cartController = Get.putOrFind(() => Cart_Controller());
+    final indexcontroller = Get.putOrFind(() => IndexController());
     return Scaffold(
       body: Stack(
         children: [
@@ -411,9 +413,14 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                             width: 2.0,
                           ),
                         ),
-                        child: const Icon(
-                          FlutterRemix.heart_2_line,
-                          color: Colors.black, // Set the icon color to black
+                        child: IconButton(
+                         icon: const Icon(FlutterRemix.heart_2_line,
+                           color: Colors.black,
+                         ),
+
+                          onPressed: (){
+                              controller.fav.AddToFav(indexcontroller.userss.first.id!, product.id!);
+                          }, // Set the icon color to black
                         ),
                       ),
                     ),
@@ -449,7 +456,11 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                   CustomButton(
                     text: 'Try on 3D',
                     width: 150,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => MyHomePage(
+                            title: 'Check',
+                          ));
+                    },
                   ),
                   CustomButton(
                       text: 'Add to Cart',

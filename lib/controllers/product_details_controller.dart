@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/models/product_model.dart';
+import 'package:virtual_try_on/services/favourite_services.dart';
 
 // ignore: camel_case_types
 class Product_details_controller extends GetxController {
+
+  final FavouritesServices fav = FavouritesServices();
+
   RxInt selectedImageIndex = 0.obs;
   RxInt selectedSizeIndex = 0.obs;
   RxInt selectedColorIndex = 0.obs;

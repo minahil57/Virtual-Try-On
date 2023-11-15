@@ -18,6 +18,7 @@ class Order_list extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
+              horizontalTitleGap: 20,
               leading: Container(
                 height: 300.h,
                 // width: ,

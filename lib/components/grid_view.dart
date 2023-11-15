@@ -9,7 +9,7 @@ class GridItem extends StatelessWidget {
   final String imageUrl;
   final String text;
   final double rating;
-  final double price;
+  final int price;
 
   GridItem(
       {required this.imageUrl,
@@ -19,30 +19,53 @@ class GridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 10,
-      // margin: EdgeInsets.all(10),
-      child: FittedBox(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: Get.height * 0.17,
-              width: Get.width * 0.4,
-              child: Image.asset(
-                imageUrl,
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.network(
+                  imageUrl,
+                  //productData.images![0] as String,
+                  width: double.infinity,
+                  height: 150, // Adjust the height as needed
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Row(
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  width: 50.w, // Set the width and height to make it circular
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle, // Make it circular
+                    color: Colors.white70,
+                  ),
+                  child: Icon(
+                    FlutterRemix.heart_2_line,
+                    color: AppColors.primary,
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.only(left: 5, right: 5),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  text,
-                  style:
-                      globalTextStyle(fontSize: 15, color: AppColors.primary),
-                ),
-                SizedBox(
-                  width: 30.h,
+                  text.capitalizeFirst,
+                  //productData.name!.capitalizeAllWordsFirstLetter(),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 Row(
                   children: [
@@ -61,13 +84,23 @@ class GridItem extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              '${price}',
-              style:
-                  globalTextStyle(fontSize: 12, color: AppColors.customBlack),
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 5, right: 5),
+            child: Text(
+              'Rs-${price}',
+              //'RS-${productData.price!.toString()}',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ],
-        ),
+          ),
+          // Add more widgets or adjust the existing ones as needed
+        ],
       ),
     );
   }
