@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 
+import '../services/cart_services.dart';
+
 // ignore: camel_case_types
 class Cart_Controller extends GetxController {
   RxDouble startX = 0.0.obs;
@@ -19,12 +21,12 @@ class Cart_Controller extends GetxController {
     final itemExists = _items.any((item) => item.id == item.id);
 
     if (!itemExists) {
-      // Add Cart items service call here
-      // final CartItemModel newItem = await CartServices.addToCartItem(
-      //   cart: cart,
-      //   // TODO: add current user cart id here
-      //   cartId: '',
-      // );
+      //Add Cart items service call here
+      final CartItemModel newItem = await CartServices.addToCartItem(
+        cart: cart,
+        // TODO: add current user cart id here
+        cartId: '',
+      );
       // Update Cart total service call here
       _items.insert(
         0,

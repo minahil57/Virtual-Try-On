@@ -9,10 +9,12 @@ import 'package:virtual_try_on/helpers/show_toast.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/auth_screens/login_screen.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
+import 'package:virtual_try_on/services/user_services.dart';
 import '../config/supabase.dart';
 import '../models/user_model.dart';
 
 class UserAuthentication {
+
   Future<void> registerUser(
       String email, String password, context, String name) async {
     print(password);
@@ -52,12 +54,6 @@ class UserAuthentication {
       if (response.user != null) {
         showToast('Succefully Logged In');
         // Fluttertoast.showToast(msg: 'successfully Logged In');
-        UserModel user = UserModel(
-          id: response.user!.id,
-          //name: response.user!.name,
-          email: response.user!.email,
-          // Add more properties as needed
-        );
         Get.offAll(() => const BottomNavScreen());
         // You can save the user session or handle the logged-in user here
       } else {

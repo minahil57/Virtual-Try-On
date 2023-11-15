@@ -8,7 +8,9 @@ import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/my_orders_screen.dart';
 import '../../config/supabase.dart';
+import '../../controllers/index_controller.dart';
 import '../../core/colors.dart';
+import '../../models/user_model.dart';
 import '../auth_screens/login_screen.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
@@ -16,7 +18,9 @@ class ProfileScreen extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    final indexcontroller = Get.putOrFind(() => IndexController());
     Get.putOrFind(() => ProfileController());
+    UserModel user;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -68,6 +72,7 @@ class ProfileScreen extends GetView<ProfileController> {
                       backgroundImage: AssetImage(
                           'assets/images/images.jpeg'), // Replace with your image URL
                     ),
+                    //Text(user.email!),
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -92,6 +97,46 @@ class ProfileScreen extends GetView<ProfileController> {
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle, // Make it circular
+                      border: Border.all(
+                        color: AppColors
+                            .customLightGrey, // Set the border color to grey
+                        //width: .0, // Set the border width
+                      ),
+                    ),
+                    child: const Icon(
+                      FlutterRemix.arrow_left_line,
+                      color: Colors.black, // Set the icon color to black
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              const Center(
+                child: CircleAvatar(
+                  radius: 50,
+
+                  //backgroundColor: Colors.blue,
+                  foregroundColor:
+                      Colors.grey, // Background color of the avatar
+                  backgroundImage: AssetImage(
+                    'assets/images/avatar.jpg',
+                  ), // Replace with your image URL
+                ),
+              ),
+              Text(indexcontroller.userss.first.email as String),
               SizedBox(
                 height: 10.h,
               ),
@@ -180,6 +225,9 @@ class ProfileScreen extends GetView<ProfileController> {
                   }
                 },
               ),
+              SizedBox(
+                height: 50,
+              )
             ],
           ),
         ),

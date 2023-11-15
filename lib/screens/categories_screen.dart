@@ -4,15 +4,21 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/components/grid_view.dart';
+import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/controllers/categories_controller.dart';
+import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/models/product_model.dart';
+import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 
 class Categories_Screen extends GetView<Categories_Controller> {
   const Categories_Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.putOrFind(() => Categories_Controller());
+    final indexcontroller = Get.putOrFind(() => IndexController());
     return Scaffold(
       body: Column(
         children: [
@@ -54,83 +60,173 @@ class Categories_Screen extends GetView<Categories_Controller> {
             ],
           ),
           Expanded(
-            child: DefaultTabController(
-              length: 6,
+            child:
+    Obx(() =>
+    controller.categories.isEmpty
+        ? SizedBox()
+         : DefaultTabController(
+              length: controller.tabController.length,
+              initialIndex: controller.SelectedTab.value,
               child: Column(
                 children: [
-                  ButtonsTabBar(
+
+                   ButtonsTabBar(
                     backgroundColor: AppColors.primary,
-                    height: 80.h,
+                    height: 55.h,
                     buttonMargin: EdgeInsets.all(10.h),
-                    radius: 40.r,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 30.w),
+                    radius: 30.r,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                     unselectedBackgroundColor: Colors.grey[300],
                     unselectedLabelStyle: const TextStyle(color: Colors.black),
                     labelStyle: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
-                    tabs: [
-                      Tab(
-                        icon: const Icon(FlutterRemix.shirt_line),
-                        text: "T-Shirt",
-                        child: Image.asset('asstes/images/logo.png'),
-                      ),
-                      const Tab(
-                        text: "Pants",
-                      ),
-                      const Tab(
-                        text: "Shirts",
-                      ),
-                      const Tab(
-                        text: "Dresses",
-                      ),
-                      const Tab(
-                        text: "Hoodies",
-                      ),
-                      const Tab(
-                        text: "Jackets",
-                      ),
-                    ],
+                  tabs: controller.categories.map((category) {
+                      return
+                        Tab(
+                      icon: category.image != null
+                      ? Image.network(category.image!,width: 30,height: 25.h,)
+                          : const Icon(FlutterRemix.shirt_line),
+                      text: category.name ?? "",
+                      );
+                      }).toList(),
+                    onTap: (index) {
+                      // Update the selected tab when a tab is tapped
+                      controller.SelectedTab.value = index;
+                    },
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      children: <Widget>[
-                        GridView.builder(
-                          itemCount: 20,
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // Number of columns in the grid
-                          ),
-                          itemBuilder: (context, index) {
-                            return GridItem(
-                              imageUrl: 'assets/images/tick.jpeg',
-                              text: 'Item $index',
-                              rating: 4.5,
-                              price: 200,
-                            );
-                          },
+
+                 FutureBuilder(future: supabase
+                      .from('products').select('*').eq('category_id',  controller.categories[controller.SelectedTab.value].id)
+                            .withConverter(
+                        (data) => List<ProductModel>.from(
+                        data.map((item) => ProductModel.fromJson(item)),
                         ),
-                        const Center(
-                          child: Icon(Icons.directions_transit),
                         ),
-                        const Center(
-                          child: Icon(Icons.directions_bike),
-                        ),
-                        const Center(
-                          child: Icon(Icons.directions_car),
-                        ),
-                        const Center(
-                          child: Icon(Icons.directions_transit),
-                        ),
-                        const Center(
-                          child: Icon(Icons.directions_bike),
-                        ),
-                      ],
-                    ),
+
+                    builder: (context, snapshot) {
+                    //print(controller.categories.last.id);
+                      //print(controller.categories[controller.SelectedTab.value].id);
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else if (!snapshot.hasData || (snapshot.data as dynamic).isEmpty) {
+                        return Center(
+                          child: Text('No data available'),
+                        );
+                      } else {
+                        final List<ProductModel>? product = snapshot.data;
+                        // Data is available, you can use snapshot.data
+                        // Example: List<Map<String, dynamic>> products = snapshot.data as List<Map<String, dynamic>>;
+                        return
+
+                          Expanded(
+
+                            child: Padding(padding: EdgeInsets.only(left: 10.h,right: 10.h),
+                            child:
+                            GridView.builder(
+
+                          itemCount: product!.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2, // Set the number of columns you want
+                                        crossAxisSpacing: 8.0,
+                                        mainAxisSpacing: 8.0,
+                                        childAspectRatio: 7/9,// Number of columns in the grid
+                                  ),
+
+                                itemBuilder: (BuildContext context,
+                                int index) {
+                                  final productItem = product![index];
+
+                                  return GestureDetector(
+                                      onTap: () {
+                                        Get.to(() =>
+                                            ProductDetailsScreen3State(
+                                              product: productItem,
+                                            ));
+                                      },
+                                    child:
+
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              Image.network(
+                                                productItem.images![0],
+                                                width: double.infinity,
+                                                height: 150,
+                                                // Adjust the height as needed
+                                                fit: BoxFit.fill,
+                                              ),
+                                              const Positioned(
+                                                top: 0,
+                                                right: 0,
+                                                child: Icon(
+                                                  FlutterRemix.heart_2_line,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Padding(padding: EdgeInsets.only(
+                                              left: 5, right: 5),
+                                            child:
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .spaceBetween,
+                                              children: [
+                                                Text(productItem.name!.capitalizeFirst,
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                const Text('4.5',
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(height: 5.h,),
+                                          Padding(padding: EdgeInsets.only(
+                                              left: 5, right: 5),
+                                            child:
+                                            Text('RS-${productItem.price!
+                                                .toString()}',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          // Add more widgets or adjust the existing ones as needed
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                        )));
+                      }
+                    },
+
                   ),
                 ],
               ),
             ),
+          ),
           ),
         ],
       ),
