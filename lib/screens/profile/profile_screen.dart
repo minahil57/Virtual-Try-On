@@ -32,34 +32,7 @@ class ProfileScreen extends GetView<ProfileController> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                height: 30.h,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle, // Make it circular
-                      border: Border.all(
-                        color: AppColors
-                            .customLightGrey, // Set the border color to grey
-                        //width: .0, // Set the border width
-                      ),
-                    ),
-                    child: const Icon(
-                      FlutterRemix.arrow_left_line,
-                      color: Colors.black, // Set the icon color to black
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.h,
+                height: 50.h,
               ),
               Center(
                 child: Stack(
@@ -72,7 +45,6 @@ class ProfileScreen extends GetView<ProfileController> {
                       backgroundImage: AssetImage(
                           'assets/images/images.jpeg'), // Replace with your image URL
                     ),
-                    //Text(user.email!),
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -97,46 +69,14 @@ class ProfileScreen extends GetView<ProfileController> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(15.0.h, 32.0.h, 32.0.h, 32.0.h),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle, // Make it circular
-                      border: Border.all(
-                        color: AppColors
-                            .customLightGrey, // Set the border color to grey
-                        //width: .0, // Set the border width
-                      ),
-                    ),
-                    child: const Icon(
-                      FlutterRemix.arrow_left_line,
-                      color: Colors.black, // Set the icon color to black
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(
-                height: 20.h,
+                height: 5.h,
               ),
-              const Center(
-                child: CircleAvatar(
-                  radius: 50,
-
-                  //backgroundColor: Colors.blue,
-                  foregroundColor:
-                      Colors.grey, // Background color of the avatar
-                  backgroundImage: AssetImage(
-                    'assets/images/avatar.jpg',
-                  ), // Replace with your image URL
-                ),
-              ),
-              Text(indexcontroller.userss.first.email as String),
+              Center(
+                  child: Text(
+                indexcontroller.userss.first.email as String,
+                style: globalTextStyle(fontSize: 15, color: AppColors.primary),
+              )),
               SizedBox(
                 height: 10.h,
               ),
@@ -158,6 +98,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   Get.to(() => const CompleteProfile());
                 },
               ),
+              const Divider(),
               SizedBox(
                 height: 10.h,
               ),
