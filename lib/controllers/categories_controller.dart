@@ -1,5 +1,3 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/category_model.dart';
@@ -7,10 +5,12 @@ import '../services/Products_services.dart';
 
 class Categories_Controller extends GetxController
     with GetTickerProviderStateMixin {
+
   final ProductServices product = ProductServices();
   final RxList<CategoryModel> categories = <CategoryModel>[].obs;
   late TabController tabController;
-  final RxInt SelectedTab = 0.obs;
+  late  RxInt SelectedTab = 0.obs;
+  late int index = Get.arguments['index'];
 
   @override
   void onInit() async {
@@ -21,14 +21,17 @@ class Categories_Controller extends GetxController
 
       update();
       if (categories.isNotEmpty) {
-        tabController = TabController(length: categories.length, vsync: this);
-        tabController.index = SelectedTab.value;
-        tabController.addListener(() {
-          SelectedTab.value = tabController.index;
-        });
+          tabController = TabController(length: categories.length, vsync: this);
+          SelectedTab = RxInt(index);
+          tabController.index = SelectedTab.value;
+          //print(tabController.index);
+          // tabController.addListener(() {
+          //   SelectedTab.value = tabController.index;
+          //   print(SelectedTab.value);
+          // });
       }
     } catch (e) {
-      print('nothing');
+      print(e.toString());
     }
     super.onInit();
   }

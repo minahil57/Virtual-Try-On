@@ -50,7 +50,6 @@ class fogetPassword {
       await EasyLoading.dismiss();
       showToast('Password Changed Successfully');
       Get.to(() => const LoginScreen());
-      print('Password Changed Succesfully');
     }
 
     //Fluttertoast.showToast(msg: 'Password Changed Successfully.');

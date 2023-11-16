@@ -152,7 +152,8 @@ class IndexScreen extends GetView<IndexController> {
                                   ),
                                   TextButton(
                                       onPressed: () {
-                                        Get.to(() => const Categories_Screen());
+                                        Get.to(() => Categories_Screen(),
+                                            arguments: {'index': 0});
                                       },
                                       child: const Text(
                                         'View all',
@@ -176,33 +177,39 @@ class IndexScreen extends GetView<IndexController> {
                                   CategoryModel category =
                                       controller.categories[index];
 
-                                  return Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: Column(children: [
-                                        Container(
-                                          width: 60
-                                              .w, // Adjust the size of the circular container as needed
-                                          height: 60.h,
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors
-                                                  .primaryLight // Makes it a circular container
+                                  return GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => Categories_Screen(),
+                                            arguments: {'index': index});
+                                      },
+                                      child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          child: Column(children: [
+                                            Container(
+                                              width: 60
+                                                  .w, // Adjust the size of the circular container as needed
+                                              height: 60.h,
+                                              decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: AppColors
+                                                      .primaryLight // Makes it a circular container
+                                                  ),
+                                              child: ClipOval(
+                                                child: Center(
+                                                    child: Image.network(
+                                                  category.image!,
+                                                  width: 35.w,
+                                                  height: 35.h,
+                                                )),
                                               ),
-                                          child: ClipOval(
-                                            child: Center(
-                                                child: Image.network(
-                                              category.image!,
-                                              width: 35.w,
-                                              height: 35.h,
-                                            )),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(category.name!),
-                                        ),
-                                      ]));
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(category.name!),
+                                            ),
+                                          ])));
                                 },
                               ),
                             ),

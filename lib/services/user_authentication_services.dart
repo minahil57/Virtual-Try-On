@@ -81,7 +81,7 @@ class UserAuthentication {
           .eq('id', supabase.auth.currentUser?.id)
           .execute();
       await EasyLoading.dismiss();
-      if (response == true) {
+      if (response.status ==204) {
         showToast('Profile Completed');
         Get.to(() => const BottomNavScreen());
       }

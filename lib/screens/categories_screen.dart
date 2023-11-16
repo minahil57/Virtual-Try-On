@@ -7,12 +7,13 @@ import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/controllers/categories_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 
 class Categories_Screen extends GetView<Categories_Controller> {
   const Categories_Screen({super.key});
-
+  // final CategoryModel category;
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => Categories_Controller());
@@ -66,6 +67,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                       child: Column(
                         children: [
                           ButtonsTabBar(
+
                             backgroundColor: AppColors.primary,
                             height: 55.h,
                             buttonMargin: EdgeInsets.all(10.h),
@@ -91,8 +93,9 @@ class Categories_Screen extends GetView<Categories_Controller> {
                               );
                             }).toList(),
                             onTap: (index) {
-                              // Update the selected tab when a tab is tapped
-                              controller.SelectedTab.value = index;
+
+                                controller.SelectedTab.value = index;
+                                //print(controller.SelectedTab.value);
                             },
                           ),
                           FutureBuilder(
@@ -113,7 +116,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                 ),
                             builder: (context, snapshot) {
                               //print(controller.categories.last.id);
-                              //print(controller.categories[controller.SelectedTab.value].id);
+                              print(controller.categories[controller.SelectedTab.value].id);
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return const Center(
@@ -191,6 +194,8 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                                       ),
                                                       const SizedBox(
                                                           height: 10),
+                                                      FittedBox(
+                                                        child:
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -224,6 +229,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                                             ),
                                                           ],
                                                         ),
+                                                      ),
                                                       ),
                                                       SizedBox(
                                                         height: 5.h,
