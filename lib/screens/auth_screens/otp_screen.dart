@@ -3,7 +3,6 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
-import 'package:virtual_try_on/controllers/confirm_email_controller.dart';
 import 'package:virtual_try_on/controllers/otp_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';

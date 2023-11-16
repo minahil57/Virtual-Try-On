@@ -36,17 +36,18 @@ class GridItem extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 0,
-                right: 0,
+                top: 3,
+                right: 10,
                 child: Container(
-                  width: 50.w, // Set the width and height to make it circular
-                  height: 50.h,
+                  width: 30.w, // Set the width and height to make it circular
+                  height: 30.h,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle, // Make it circular
-                    color: Colors.white70,
+                    color: Colors.white,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     FlutterRemix.heart_2_line,
+                    size: 10.dg,
                     color: AppColors.primary,
                   ),
                 ),
@@ -59,18 +60,24 @@ class GridItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  text.capitalizeFirst,
-                  //productData.name!.capitalizeAllWordsFirstLetter(),
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                SizedBox(
+                  width: Get.width * 0.24,
+                  child: Text(
+                    text.capitalizeFirst,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    //productData.name!.capitalizeAllWordsFirstLetter(),
+                    style: globalTextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       FlutterRemix.star_fill,
+                      size: 10.dg,
                       color: Colors.amber,
                     ),
                     Text(
@@ -93,8 +100,8 @@ class GridItem extends StatelessWidget {
             child: Text(
               'Rs-${price}',
               //'RS-${productData.price!.toString()}',
-              style: const TextStyle(
-                fontSize: 12,
+              style: globalTextStyle(
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),

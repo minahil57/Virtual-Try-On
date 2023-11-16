@@ -17,7 +17,7 @@ class BottomButtons extends GetView<Cart_Controller> {
       bottom: 0,
       //right: 20.w,
       child: Container(
-        height: Get.height * 0.4.h,
+        height: Get.height * 0.25.h,
         width: Get.width,
         decoration: BoxDecoration(
           color: Colors.white,

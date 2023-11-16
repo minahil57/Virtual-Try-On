@@ -74,7 +74,7 @@ class ProfileScreen extends GetView<ProfileController> {
               ),
               Center(
                   child: Text(
-                indexcontroller.userss.first.email as String,
+                indexcontroller.currentuser.value.email as String,
                 style: globalTextStyle(fontSize: 15, color: AppColors.primary),
               )),
               SizedBox(

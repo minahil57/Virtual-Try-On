@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/controllers/categories_controller.dart';
-import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/product_model.dart';
@@ -17,7 +16,6 @@ class Categories_Screen extends GetView<Categories_Controller> {
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => Categories_Controller());
-    final indexcontroller = Get.putOrFind(() => IndexController());
     return Scaffold(
       body: Column(
         children: [

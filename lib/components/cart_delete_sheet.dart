@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 
 class CartDeleteSheet extends GetView<Cart_Controller> {
@@ -50,7 +51,7 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
-                      '${item.image}',
+                      '${item.products!.images![0]}',
                       fit: BoxFit
                           .fill, // Ensure the image covers the entire container
                     ),
@@ -61,7 +62,8 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${item.name}',
+                    'Test',
+                    // '${item.name}',
                     style: globalTextStyle(fontSize: 20.sp),
                   ),
                   Text(
@@ -85,7 +87,7 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                               left: 8, right: 0), // Add spacing between images
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: item.color,
+                            color: HexColor(item.color!),
                             borderRadius: BorderRadius.circular(20),
                             // border: Border.all(
                             //   width: 8.w,

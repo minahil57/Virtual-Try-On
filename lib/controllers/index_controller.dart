@@ -11,15 +11,13 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
   RxInt currentIndex = 0.obs;
   final RxList<CategoryModel> categories = <CategoryModel>[].obs;
   final RxList<ProductModel> products = <ProductModel>[].obs;
-  final RxList<UserModel> userss = <UserModel>[].obs;
+  final Rx<UserModel> currentuser = UserModel().obs;
   final ProductServices product = ProductServices();
-  final user users = user();
 
   @override
   Future<void> onReady() async {
-    // TODO: implement onReady
-    List<UserModel> user = await users.FetchUser();
-    userss.value = user;
+    currentuser.value = await UserServices.FetchUser();
+    currentuser.refresh();
     super.onReady();
   }
 

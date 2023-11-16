@@ -21,6 +21,7 @@ class UserModel {
     email = json['email'];
     image = json['image'];
     phone = json['phone'];
+    cartid = json['cart_id'];
     gender = json['gender'];
   }
 }

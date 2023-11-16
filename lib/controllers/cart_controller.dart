@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/helpers/show_toast.dart';
+
 import 'package:virtual_try_on/models/cart_model.dart';
 
 import '../services/cart_services.dart';
@@ -7,39 +12,52 @@ import '../services/cart_services.dart';
 // ignore: camel_case_types
 class Cart_Controller extends GetxController {
   RxDouble startX = 0.0.obs;
-  final RxList _items = [].obs;
-
-  Rx<RxList> get items => _items.obs;
+  final RxList<CartItemModel> items = <CartItemModel>[].obs;
+  final IndexController indexController = Get.find();
   int itemCount = 0;
 
-  // @override
-  // void onReady() {
-  //   super.onReady();
-  // }
+  @override
+  void onReady() async {
+    items.value = await CartServices.fetchCartItems(
+        indexController.currentuser.value.cartid!);
 
-  void addToCart({required CartItemModel cart}) async {
-    final itemExists = _items.any((item) => item.id == item.id);
+    super.onReady();
+  }
+
+  void addToCart({required Map<String, dynamic> cart}) async {
+    final itemExists =
+        items.any((item) => item.products!.id == cart['product_id']);
+
+    log('Exists $itemExists');
 
     if (!itemExists) {
       //Add Cart items service call here
-      final CartItemModel newItem = await CartServices.addToCartItem(
-        cart: cart,
-        // TODO: add current user cart id here
-        cartId: '',
+      await CartServices.addToCartItem(
+        cart: {
+          "product_id": cart['product_id'],
+          "cart_id": indexController.currentuser.value.cartid!,
+          "size": cart['size'],
+          "quantity": cart['quantity'],
+          "color": cart['color'],
+        },
+        cartId: indexController.currentuser.value.cartid!,
       );
-      // Update Cart total service call here
-      _items.insert(
-        0,
-        cart,
-      );
-    } else {
-      CartItemModel? existingItem =
-          _items.firstWhere((item) => item.id == cart.id);
 
-      if (existingItem!.id != null) {
-        existingItem.quantity = existingItem.quantity! + cart.quantity!;
-        // Call update quantity service here
-      }
+      CartServices.updateCart(
+          id: indexController.currentuser.value.cartid!,
+          total: calculateTotal());
+    } else {
+      showToast('Item already in cart');
+
+      // Call update quantity service here
+      // CartItemModel? existingItem =
+      //     items.firstWhere((item) => item.id == cart['id']);
+
+      // if (existingItem!.id != null) {
+      //   existingItem.quantity =
+      //       existingItem.quantity! + cart['quantity']! as int;
+      //   // Call update quantity service here
+      // }
     }
   }
 
@@ -47,24 +65,28 @@ class Cart_Controller extends GetxController {
     // If quantity is one, remove item from cart
     if (item.quantity! <= 1) {
       removeFromCart(item.id!);
-      _items.refresh();
+      items.refresh();
     } else {
       // else decrease the quantity
+
       item.quantity = item.quantity! - 1;
-      _items.refresh();
+      items.refresh();
+      CartServices.updateQuantity(item.id!, item.quantity!);
     }
   }
 
   void increaseQuantity(CartItemModel item) {
     if (item.quantity! != 10) {
       item.quantity = item.quantity! + 1;
-      _items.refresh();
+      items.refresh();
+      CartServices.updateQuantity(item.id!, item.quantity!);
     }
   }
 
   void removeFromCart(String id) {
-    _items.removeWhere((item) => item.id == id);
-    _items.refresh();
+    items.removeWhere((item) => item.id == id);
+    items.refresh();
+    CartServices.deleteItem(id);
   }
 
   void doNothing(BuildContext context) {}
@@ -75,9 +97,9 @@ class Cart_Controller extends GetxController {
   double calculateTotal() {
     double total = 0.0;
 
-    for (var item in _items) {
-      if (item.price != null && item.quantity != null) {
-        total += item.price! * item.quantity!;
+    for (var item in items) {
+      if (item.products!.price != null && item.quantity != null) {
+        total += item.products!.price! * item.quantity!;
       }
     }
 
@@ -86,9 +108,9 @@ class Cart_Controller extends GetxController {
 
   @override
   void onClose() {
-    _items.dispose();
+    // _items.dispose();
     startX.dispose();
-    items.dispose();
+    //items.dispose();
     super.onClose();
   }
 }

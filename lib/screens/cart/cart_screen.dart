@@ -21,61 +21,70 @@ class Cart_screen extends GetView<Cart_Controller> {
       return const empty_cart();
     } else {
       return Scaffold(
-          body: Stack(children: [
-        Column(children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(15.0.h, 42.0.h, 32.0.h, 0.h),
-            child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: Stack(
+          children: [
+            Column(
               children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    width: 50, // Set the width and height to make it circular
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle, // Make it circular
-                      border: Border.all(
-                        color: AppColors
-                            .customLightGrey, // Set the border color to grey
-                        //width: 1.0, // Set the border width
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15.0.h, 42.0.h, 32.0.h, 0.h),
+                  child: Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          width:
+                              50, // Set the width and height to make it circular
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle, // Make it circular
+                            border: Border.all(
+                              color: AppColors
+                                  .customLightGrey, // Set the border color to grey
+                              //width: 1.0, // Set the border width
+                            ),
+                          ),
+                          child: const Icon(
+                            FlutterRemix.arrow_left_line,
+                            color: Colors.black, // Set the icon color to black
+                          ),
+                        ),
                       ),
-                    ),
-                    child: const Icon(
-                      FlutterRemix.arrow_left_line,
-                      color: Colors.black, // Set the icon color to black
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 90.0.w, right: 70.w),
+                        child: Text(
+                          'My Cart',
+                          style: globalTextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 90.0.w, right: 70.w),
-                  child: Text(
-                    'My Cart',
-                    style: globalTextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                Expanded(
+                  flex: 2,
+                  child: Obx(
+                    () => ListView.builder(
+                        itemCount: cartController.items.value.length,
+                        padding: EdgeInsets.only(bottom: Get.height * 0.4),
+                        itemBuilder: (context, index) {
+                          CartItemModel cartItem =
+                              cartController.items.value[index];
+                          return CartList(cartItem, index);
+                        }),
                   ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Obx(() => ListView.builder(
-                itemCount: cartController.items.value.length,
-                padding: EdgeInsets.only(bottom: Get.height * 0.4),
-                itemBuilder: (context, index) {
-                  CartItemModel cartItem = cartController.items.value[index];
-                  return CartList(cartItem, index);
-                })),
-          ),
-        ]),
-        const BottomButtons(),
-      ]));
+            const BottomButtons(),
+          ],
+        ),
+      );
     }
   }
 }

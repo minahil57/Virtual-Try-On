@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
@@ -51,7 +52,7 @@ class IndexScreen extends GetView<IndexController> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(
-                            30), // Adjust the value to control the roundness
+                            30.r), // Adjust the value to control the roundness
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
@@ -76,7 +77,7 @@ class IndexScreen extends GetView<IndexController> {
                 ),
                 SizedBox(
                   //color: const Color(0xff0fc1fa).withOpacity(0.4),
-                  height: 180,
+                  height: 180.h,
                   width: double.maxFinite,
                   child: CarouselSlider(
                     items: controller.carouselItems.map((item) {
@@ -86,14 +87,14 @@ class IndexScreen extends GetView<IndexController> {
                           borderRadius: BorderRadius.circular(10.0),
                           child: Image.asset(
                             item,
-                            width: 400, // Adjust the width as needed
+                            width: 400.w, // Adjust the width as needed
                             fit: BoxFit.fill,
                           ),
                         ),
                       );
                     }).toList(),
                     options: CarouselOptions(
-                      height: 200.0,
+                      height: 150.0.h,
                       //enlargeCenterPage: true,
                       autoPlay: true,
                       aspectRatio: 16 / 9,
@@ -127,7 +128,7 @@ class IndexScreen extends GetView<IndexController> {
                   height: 10.h,
                 ),
                 SizedBox(
-                    height: 150,
+                    height: 150.h,
                     width: double.maxFinite,
                     //color: Colors.grey,
                     child: Column(
@@ -145,7 +146,7 @@ class IndexScreen extends GetView<IndexController> {
                                   Text(
                                     'Categories',
                                     style: TextStyle(
-                                      fontSize: 17.h,
+                                      fontSize: 17.sp,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
@@ -162,9 +163,9 @@ class IndexScreen extends GetView<IndexController> {
                                       ))
                                 ]),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          // SizedBox(
+                          //   height: 10.h,
+                          // ),
                           Expanded(
                             child: Obx(
                               () => ListView.builder(
@@ -180,28 +181,27 @@ class IndexScreen extends GetView<IndexController> {
                                           left: 10, right: 10),
                                       child: Column(children: [
                                         Container(
-                                          width:
-                                              60, // Adjust the size of the circular container as needed
-                                          height: 60,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape
-                                                .circle, // Makes it a circular container
-                                            border: Border.all(
-                                              color:
-                                                  Colors.black, // Border color
-                                              width: 1.0, // Border width
-                                            ),
-                                          ),
+                                          width: 60
+                                              .w, // Adjust the size of the circular container as needed
+                                          height: 60.h,
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors
+                                                  .primaryLight // Makes it a circular container
+                                              ),
                                           child: ClipOval(
                                             child: Center(
                                                 child: Image.network(
                                               category.image!,
-                                              width: 50,
-                                              height: 50,
+                                              width: 35.w,
+                                              height: 35.h,
                                             )),
                                           ),
                                         ),
-                                        Text(category.name!),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(category.name!),
+                                        ),
                                       ]));
                                 },
                               ),
@@ -227,74 +227,16 @@ class IndexScreen extends GetView<IndexController> {
                       ProductModel productData = controller.products[index];
                       // Your item widgets go here
                       return GestureDetector(
-                        onTap: () {
-                          Get.to(() => ProductDetailsScreen3State(
-                                product: productData,
-                              ));
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Image.network(
-                                  productData.images![0],
-                                  width: double.infinity,
-                                  height: 150, // Adjust the height as needed
-                                  fit: BoxFit.fill,
-                                ),
-                                const Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: Icon(
-                                    FlutterRemix.heart_2_line,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    productData.name!
-                                        .capitalizeAllWordsFirstLetter(),
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const Text(
-                                    '4.5',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5, right: 5),
-                              child: Text(
-                                'RS-${productData.price!.toString()}',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            // Add more widgets or adjust the existing ones as needed
-                          ],
-                        ),
-                      );
+                          onTap: () {
+                            Get.to(() => ProductDetailsScreen3State(
+                                  product: productData,
+                                ));
+                          },
+                          child: GridItem(
+                              imageUrl: productData.images![0],
+                              text: productData.name!,
+                              rating: 3.0,
+                              price: productData.price!));
                     },
                   ),
                 ),

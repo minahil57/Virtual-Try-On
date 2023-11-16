@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/screens/index_page/index_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
@@ -79,7 +80,7 @@ class Success extends StatelessWidget {
                 width: 350.w,
                 onPressed: () => {
                   Get.offAll(
-                    () => const IndexScreen(),
+                    () => const BottomNavScreen(),
                   ),
                 },
                 text: 'Order Detail',

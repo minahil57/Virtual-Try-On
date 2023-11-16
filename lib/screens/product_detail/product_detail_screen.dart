@@ -421,7 +421,8 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
 
                           onPressed: () {
                             controller.fav.AddToFav(
-                                indexcontroller.userss.first.id!, product.id!);
+                                indexcontroller.currentuser.value.id!,
+                                product.id!);
                           }, // Set the icon color to black
                         ),
                       ),
@@ -468,27 +469,21 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                       text: 'Add to Cart',
                       width: 150,
                       onPressed: () {
+                        cartController.addToCart(
+                          cart: {
+                            'product_id': product.id,
+                            'quantity': 1,
+                            'size': product
+                                .sizes![controller.selectedSizeIndex.value],
+                            'color': product
+                                .colors![controller.selectedColorIndex.value],
+                          },
+                        );
                         Get.to(() => const BottomNavScreen());
                         final BottomBarController bottomBarController =
                             Get.find();
 
                         bottomBarController.selectedIndex.value = 2;
-
-                        cartController.addToCart(
-                          cart: CartItemModel(
-                            id: product.id,
-                            quantity: 1,
-                            size: product
-                                .sizes![controller.selectedSizeIndex.value],
-                            color: HexColor(
-                              product
-                                  .colors![controller.selectedColorIndex.value],
-                            ),
-                            name: product.name,
-                            image: product.images![0],
-                            price: product.price,
-                          ),
-                        );
                       }),
                 ],
               ),
