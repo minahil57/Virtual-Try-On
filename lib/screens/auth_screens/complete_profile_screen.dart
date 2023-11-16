@@ -8,7 +8,7 @@ import 'package:virtual_try_on/core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_button.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:virtual_try_on/widgets/bottom_sheet.dart';
+
 class CompleteProfile extends GetView<CompleteProfileController> {
   const CompleteProfile({super.key});
 
@@ -75,7 +75,7 @@ class CompleteProfile extends GetView<CompleteProfileController> {
             Center(
               child: Stack(
                 children: [
-                   CircleAvatar(
+                  const CircleAvatar(
                     radius: 50, // Adjust the size of the avatar as needed
                     backgroundColor: Colors.blue,
                     foregroundColor:
@@ -88,12 +88,12 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                     right: 0,
                     child: Container(
                       height: 35,
-                      decoration:  const BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle, // Make it circular
                         color: AppColors.primary, // Set the background color
                       ),
                       child: IconButton(
-                        icon:  const Icon(
+                        icon: const Icon(
                           FlutterRemix.edit_line,
                           size: 20,
                           color: AppColors.customLightGrey,
@@ -103,13 +103,13 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                             context: context,
                             builder: (BuildContext context) {
                               return Container(
-                                padding: EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     ListTile(
-                                      leading: Icon(Icons.photo_library),
-                                      title: Text('Choose from Gallery'),
+                                      leading: const Icon(Icons.photo_library),
+                                      title: const Text('Choose from Gallery'),
                                       onTap: () {
                                         //_getImage(ImageSource.gallery);
                                         //controller.getImage(ImageSource.gallery);
@@ -118,8 +118,8 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                       },
                                     ),
                                     ListTile(
-                                      leading: Icon(Icons.camera_alt),
-                                      title: Text('Take a Photo'),
+                                      leading: const Icon(Icons.camera_alt),
+                                      title: const Text('Take a Photo'),
                                       onTap: () {
                                         //_getImage(ImageSource.camera);
                                         //controller.getImage(ImageSource.camera);
@@ -282,8 +282,10 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                   text: 'Complete Profile',
                   width: Get.width * 0.7.w,
                   onPressed: () {
-                    controller.userAuthentication.CompleteProfiles(controller.nameController.text, controller.phoneController.text, controller.GenderController.dropDownValue?.value);
-
+                    controller.userAuthentication.CompleteProfiles(
+                        controller.nameController.text,
+                        controller.phoneController.text,
+                        controller.GenderController.dropDownValue?.value);
                   }),
             ),
             SizedBox(height: 20.h),
@@ -320,26 +322,27 @@ class CircularLogoContainer extends StatelessWidget {
       ),
     );
   }
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Choose from Gallery'),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Choose from Gallery'),
                 onTap: () {
                   //_getImage(ImageSource.gallery);
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.camera_alt),
-                title: Text('Take a Photo'),
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Take a Photo'),
                 onTap: () {
                   //_getImage(ImageSource.camera);
                   Navigator.pop(context);

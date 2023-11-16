@@ -3,10 +3,10 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
+import 'package:virtual_try_on/controllers/confirm_email_controller.dart';
 import 'package:virtual_try_on/controllers/otp_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/screens/auth_screens/new_password.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 class OtpScreen extends GetView<OtpController> {
@@ -68,7 +68,7 @@ class OtpScreen extends GetView<OtpController> {
               ),
             ),
             Text(
-              'email',
+              '${controller.email}',
               textAlign: TextAlign.center,
               style: globalTextStyle(
                 fontSize: 12.sp,
@@ -77,46 +77,55 @@ class OtpScreen extends GetView<OtpController> {
               ),
             ),
             SizedBox(height: 20.h),
-            Pinput(
-              length: 6,
-              controller: controller.otp,
-              keyboardType: TextInputType.number,
-              focusNode: controller.focusNode,
-              defaultPinTheme: controller.defaultPinTheme,
-              separatorBuilder: (index) => const SizedBox(width: 8),
-              hapticFeedbackType: HapticFeedbackType.lightImpact,
-              onCompleted: (pin) {
-                debugPrint('onCompleted: $pin');
-              },
-              onChanged: (value) {
-                debugPrint('onChanged: $value');
-              },
-              cursor: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 9),
-                    width: 22,
-                    height: 1,
-                    color: fillColor,
+            Form(
+              key: controller.formkey,
+              child: Pinput(
+                length: 6,
+                controller: controller.otp,
+                keyboardType: TextInputType.number,
+                focusNode: controller.focusNode,
+                defaultPinTheme: controller.defaultPinTheme,
+                separatorBuilder: (index) => const SizedBox(width: 8),
+                hapticFeedbackType: HapticFeedbackType.lightImpact,
+                onCompleted: (pin) {
+                  debugPrint('onCompleted: $pin');
+                },
+                onChanged: (value) {
+                  debugPrint('onChanged: $value');
+                },
+                cursor: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 9),
+                      width: 22,
+                      height: 1,
+                      color: fillColor,
+                    ),
+                  ],
+                ),
+                focusedPinTheme: controller.defaultPinTheme.copyWith(
+                  decoration: controller.defaultPinTheme.decoration!.copyWith(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: focusedBorderColor),
                   ),
-                ],
-              ),
-              focusedPinTheme: controller.defaultPinTheme.copyWith(
-                decoration: controller.defaultPinTheme.decoration!.copyWith(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: focusedBorderColor),
                 ),
-              ),
-              submittedPinTheme: controller.defaultPinTheme.copyWith(
-                decoration: controller.defaultPinTheme.decoration!.copyWith(
-                  color: fillColor,
-                  borderRadius: BorderRadius.circular(19),
-                  border: Border.all(color: focusedBorderColor),
+                submittedPinTheme: controller.defaultPinTheme.copyWith(
+                  decoration: controller.defaultPinTheme.decoration!.copyWith(
+                    color: fillColor,
+                    borderRadius: BorderRadius.circular(19),
+                    border: Border.all(color: focusedBorderColor),
+                  ),
                 ),
-              ),
-              errorPinTheme: controller.defaultPinTheme.copyBorderWith(
-                border: Border.all(color: Colors.redAccent),
+                errorPinTheme: controller.defaultPinTheme.copyBorderWith(
+                  border: Border.all(color: Colors.redAccent),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter a valid OTP';
+                  }
+                  return null;
+                },
               ),
             ),
             SizedBox(height: 30.h),
@@ -147,8 +156,10 @@ class OtpScreen extends GetView<OtpController> {
                 text: 'Verify',
                 width: Get.width * 0.7.w,
                 onPressed: () async {
-                  await controller.checkOTP
-                      .CheckOTP(controller.otp.text, controller.email);
+                  if (controller.formkey.currentState!.validate()) {
+                    await controller.checkOTP
+                        .CheckOTP(controller.otp.text, controller.email);
+                  }
                 }),
           ],
         ),

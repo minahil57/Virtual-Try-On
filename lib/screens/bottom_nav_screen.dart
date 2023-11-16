@@ -37,20 +37,20 @@ class BottomNavScreen extends GetView<BottomBarController> {
               onTap: (index) => controller.selectedIndex.value = index,
               items: [
                 CustomNavigationBarItem(
-                  selectedIcon: Icon(FlutterRemix.home_2_fill),
-                  icon: Icon(FlutterRemix.home_2_line),
+                  selectedIcon: const Icon(FlutterRemix.home_2_fill),
+                  icon: const Icon(FlutterRemix.home_2_line),
                 ),
                 CustomNavigationBarItem(
-                  selectedIcon: Icon(FlutterRemix.heart_fill),
-                  icon: Icon(FlutterRemix.heart_line),
+                  selectedIcon: const Icon(FlutterRemix.heart_fill),
+                  icon: const Icon(FlutterRemix.heart_line),
                 ),
                 CustomNavigationBarItem(
-                  selectedIcon: Icon(FlutterRemix.shopping_bag_2_fill),
-                  icon: Icon(FlutterRemix.shopping_bag_2_line),
+                  selectedIcon: const Icon(FlutterRemix.shopping_bag_2_fill),
+                  icon: const Icon(FlutterRemix.shopping_bag_2_line),
                 ),
                 CustomNavigationBarItem(
-                  selectedIcon: Icon(FlutterRemix.user_3_fill),
-                  icon: Icon(FlutterRemix.user_3_line),
+                  selectedIcon: const Icon(FlutterRemix.user_3_fill),
+                  icon: const Icon(FlutterRemix.user_3_line),
                 ),
               ],
             ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/review_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
@@ -129,7 +127,7 @@ class ReviewScreen extends GetView<ReviewController> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(right: 15.0),
+              padding: const EdgeInsets.only(right: 15.0),
               child:
                   CustomButton(text: 'Reorder', width: 90.w, onPressed: () {}),
             ),
@@ -173,8 +171,8 @@ class ReviewScreen extends GetView<ReviewController> {
           direction: Axis.horizontal,
           allowHalfRating: true,
           itemCount: 5,
-          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-          itemBuilder: (context, _) => Icon(
+          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => const Icon(
             Icons.star,
             color: Colors.amber,
           ),
@@ -283,7 +281,7 @@ class ReviewScreen extends GetView<ReviewController> {
                 height: 35.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => ReviewSuccess());
+                    Get.to(() => const ReviewSuccess());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,

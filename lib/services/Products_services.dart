@@ -27,6 +27,7 @@ class ProductServices {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future<List<ProductModel>> FetchProducts() async {
     try {
       EasyLoading.show();

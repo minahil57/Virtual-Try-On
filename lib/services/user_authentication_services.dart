@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -14,10 +13,8 @@ import '../config/supabase.dart';
 import '../models/user_model.dart';
 
 class UserAuthentication {
-
   Future<void> registerUser(
       String email, String password, context, String name) async {
-    print(password);
     try {
       await EasyLoading.show();
       AuthResponse response = await supabase.auth.signUp(
@@ -27,7 +24,7 @@ class UserAuthentication {
       await EasyLoading.dismiss();
       if (response.user != null) {
         // Registration successful
-        showToast('Complete Your Profile First');
+        showToast('Lets begin by completing your profile');
         Get.to(() => const CompleteProfile());
       } else {
         // Handle the error
@@ -47,10 +44,12 @@ class UserAuthentication {
 
   Future<void> loginUser(String email, String password, context) async {
     try {
+      await EasyLoading.show();
       AuthResponse response = await supabase.auth.signInWithPassword(
         email: email,
         password: password,
       );
+      await EasyLoading.dismiss();
       if (response.user != null) {
         showToast('Succefully Logged In');
         // Fluttertoast.showToast(msg: 'successfully Logged In');
@@ -61,6 +60,7 @@ class UserAuthentication {
         throw Exception('Login failed');
       }
     } catch (e) {
+      await EasyLoading.dismiss();
       // Handle exceptions
       String errorMessage = 'An unknown error occurred';
       if (e is Exception) {
@@ -70,14 +70,23 @@ class UserAuthentication {
     }
   }
 
-
-  Future<void> CompleteProfiles(String name,String number,dynamic gender) async{
+  Future<void> CompleteProfiles(
+      String name, String number, dynamic gender) async {
     print(gender);
-    try{
-      await supabase.from('profiles').update({'name' : name,'phone':number,'gender':gender}).eq('id', supabase.auth.currentUser?.id).execute();
-      showToast('Successfully Logged In');
-      Get.to(() => BottomNavScreen());
-    }catch(e){
+    try {
+      await EasyLoading.show();
+      final response = await supabase
+          .from('profiles')
+          .update({'name': name, 'phone': number, 'gender': gender})
+          .eq('id', supabase.auth.currentUser?.id)
+          .execute();
+      await EasyLoading.dismiss();
+      if (response.status ==204) {
+        showToast('Profile Completed');
+        Get.to(() => const BottomNavScreen());
+      }
+    } catch (e) {
+      showToast('Caught an unexpected error');
       print(e);
     }
   }

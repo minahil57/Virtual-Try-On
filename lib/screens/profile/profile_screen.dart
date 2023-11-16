@@ -14,7 +14,6 @@ import '../../models/user_model.dart';
 import '../auth_screens/login_screen.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
-
   const ProfileScreen({super.key});
 
   @override
@@ -70,10 +69,13 @@ class ProfileScreen extends GetView<ProfileController> {
                   ],
                 ),
               ),
-              SizedBox(height: 5.h,),
-              Center(child:
-              Text(indexcontroller.userss.first.email as String,
-              style: globalTextStyle(fontSize: 15, color: AppColors.primary),
+              SizedBox(
+                height: 5.h,
+              ),
+              Center(
+                  child: Text(
+                indexcontroller.userss.first.email as String,
+                style: globalTextStyle(fontSize: 15, color: AppColors.primary),
               )),
               SizedBox(
                 height: 10.h,
@@ -164,7 +166,9 @@ class ProfileScreen extends GetView<ProfileController> {
                   }
                 },
               ),
-              SizedBox(height: 50,)
+              const SizedBox(
+                height: 50,
+              )
             ],
           ),
         ),

@@ -15,11 +15,6 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
   final GlobalKey<ExpansionTileCardState> cardA = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle flatButtonStyle = TextButton.styleFrom(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      ),
-    );
     return Scaffold(
       body: Column(children: [
         Row(
@@ -107,7 +102,7 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
                                   padding:
                                       EdgeInsets.only(bottom: Get.height * 0.4),
                                   itemBuilder: (context, index) {
-                                    return Order_list();
+                                    return const Order_list();
                                   }),
                             ),
                           ],
@@ -132,7 +127,7 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
                                   padding:
                                       EdgeInsets.only(bottom: Get.height * 0.4),
                                   itemBuilder: (context, index) {
-                                    return Order_list();
+                                    return const Order_list();
                                   }),
                             ),
                           ],
@@ -157,7 +152,7 @@ class MyOrdersScreen extends GetView<MyOrdersController> {
                                   padding:
                                       EdgeInsets.only(bottom: Get.height * 0.4),
                                   itemBuilder: (context, index) {
-                                    return Order_list();
+                                    return const Order_list();
                                   }),
                             ),
                           ],

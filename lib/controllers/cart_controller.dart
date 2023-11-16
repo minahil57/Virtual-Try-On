@@ -7,15 +7,15 @@ import '../services/cart_services.dart';
 // ignore: camel_case_types
 class Cart_Controller extends GetxController {
   RxDouble startX = 0.0.obs;
-  RxList _items = [].obs;
+  final RxList _items = [].obs;
 
   Rx<RxList> get items => _items.obs;
   int itemCount = 0;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
   void addToCart({required CartItemModel cart}) async {
     final itemExists = _items.any((item) => item.id == item.id);

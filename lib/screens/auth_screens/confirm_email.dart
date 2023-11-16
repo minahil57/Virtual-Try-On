@@ -3,7 +3,6 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/confirm_email_controller.dart';
-import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
 import '../../widgets/custom_button.dart';
@@ -93,28 +92,36 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
                             Padding(
                               padding: EdgeInsets.only(left: 20.w, right: 20.w),
                               child: TextFormField(
-                                controller: controller.emailController,
-                                decoration: InputDecoration(
-                                  //alignLabelWithHint: true,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(30),
+                                  controller: controller.emailController,
+                                  decoration: InputDecoration(
+                                    //alignLabelWithHint: true,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          const BorderSide(color: Colors.black),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          const BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    fillColor: Colors.white54,
+                                    hintText: 'example@gmail.com',
+                                    hintStyle:
+                                        const TextStyle(color: Colors.grey),
+                                    contentPadding: const EdgeInsets.only(
+                                        bottom: 15, left: 10),
+                                    focusColor: Colors.white60,
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  fillColor: Colors.white54,
-                                  hintText: 'example@gmail.com',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.grey),
-                                  contentPadding: const EdgeInsets.only(
-                                      bottom: 15, left: 10),
-                                  focusColor: Colors.white60,
-                                ),
-                              ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your Email';
+                                    } else if (!GetUtils.isEmail(value)) {
+                                      return 'Please enter a valid Email Address';
+                                    } else {
+                                      return null;
+                                    }
+                                  }),
                             ),
                           ]),
                     ),
@@ -124,8 +131,10 @@ class ConfirmEmailScreeen extends GetView<ConfirmEmailcontroller> {
                           text: 'Confirm Email',
                           width: Get.width * 0.7.w,
                           onPressed: () {
-                            controller.confirmEmail.sendPasswordResetEmail(
-                                controller.emailController.text, context);
+                            if (controller.formkey.currentState!.validate()) {
+                              controller.confirmEmail.sendPasswordResetEmail(
+                                  controller.emailController.text, context);
+                            }
                           }),
                     ),
                   ]))),

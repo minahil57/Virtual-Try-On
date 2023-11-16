@@ -10,7 +10,6 @@ import 'package:virtual_try_on/screens/categories_screen.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import 'package:virtual_try_on/screens/search_screen.dart';
 import '../../core/colors.dart';
-import '../../core/text_styles.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -20,9 +19,16 @@ class IndexScreen extends GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => IndexController());
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+    if (controller.carouselItems.isEmpty) {
+      return Center(
+          child: Image.asset(
+        'assets/images/404.gif',
+        height: 250.h,
+        width: 250.w,
+      ));
+    } else {
+      return Scaffold(
+        body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(20.h, 50.h, 20.h, 20.h),
             child: Column(
@@ -41,7 +47,7 @@ class IndexScreen extends GetView<IndexController> {
                     );
                   },
                   decoration: InputDecoration(
-                    //alignLabelWithHint: true,
+                      //alignLabelWithHint: true,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(
@@ -94,7 +100,7 @@ class IndexScreen extends GetView<IndexController> {
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enableInfiniteScroll: true,
                       autoPlayAnimationDuration:
-                      const Duration(milliseconds: 800),
+                          const Duration(milliseconds: 800),
                       viewportFraction: 1,
                       onPageChanged: (index, reason) {
                         controller.currentIndex.value =
@@ -107,7 +113,7 @@ class IndexScreen extends GetView<IndexController> {
                   height: 5.h,
                 ),
                 Obx(
-                      () => Center(
+                  () => Center(
                     child: DotsIndicator(
                       dotsCount: controller.carouselItems.length,
                       position: controller.currentIndex.toInt(),
@@ -134,7 +140,7 @@ class IndexScreen extends GetView<IndexController> {
                             ),
                             child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Categories',
@@ -145,14 +151,14 @@ class IndexScreen extends GetView<IndexController> {
                                   ),
                                   TextButton(
                                       onPressed: () {
-                                        Get.to(() => const Categories_Screen());
+                                        Get.to(() => Categories_Screen(), arguments:{'index':0});
                                       },
                                       child: const Text(
                                         'View all',
                                         style: TextStyle(
                                             color: AppColors.primary,
                                             decoration:
-                                            TextDecoration.underline),
+                                                TextDecoration.underline),
                                       ))
                                 ]),
                           ),
@@ -161,55 +167,60 @@ class IndexScreen extends GetView<IndexController> {
                           ),
                           Expanded(
                             child: Obx(
-                                  () => ListView.builder(
+                              () => ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: controller.categories.length,
                                 itemBuilder: (context, index) {
                                   CategoryModel category =
-                                  controller.categories[index];
+                                      controller.categories[index];
 
-                                  return Padding(
-                                      padding:
-                                      EdgeInsets.only(left: 10, right: 10),
+                                  return GestureDetector(
+                                    onTap: (){
+                                      Get.to(() => Categories_Screen(), arguments:{'index':index});
+                                    },
+                                  child:
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
                                       child: Column(children: [
                                         Container(
                                           width:
-                                          60, // Adjust the size of the circular container as needed
+                                              60, // Adjust the size of the circular container as needed
                                           height: 60,
                                           decoration: BoxDecoration(
                                             shape: BoxShape
                                                 .circle, // Makes it a circular container
                                             border: Border.all(
                                               color:
-                                              Colors.black, // Border color
+                                                  Colors.black, // Border color
                                               width: 1.0, // Border width
                                             ),
                                           ),
                                           child: ClipOval(
                                             child: Center(
                                                 child: Image.network(
-                                                  category.image!,
-                                                  width: 50,
-                                                  height: 50,
-                                                )),
+                                              category.image!,
+                                              width: 50,
+                                              height: 50,
+                                            )),
                                           ),
                                         ),
                                         Text(category.name!),
-                                      ]));
+                                      ])));
                                 },
                               ),
                             ),
                           ),
                         ])),
                 Obx(
-                      () => GridView.builder(
+                  () => GridView.builder(
                     shrinkWrap:
-                    true, // Important to allow the GridView to be placed inside SingleChildScrollView
+                        true, // Important to allow the GridView to be placed inside SingleChildScrollView
                     dragStartBehavior: DragStartBehavior.start,
                     physics: const ScrollPhysics(),
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, // Set the number of columns you want
                       crossAxisSpacing: 8.0,
                       mainAxisSpacing: 8.0,
@@ -223,75 +234,73 @@ class IndexScreen extends GetView<IndexController> {
                       return GestureDetector(
                         onTap: () {
                           Get.to(() => ProductDetailsScreen3State(
-                            product: productData,
-                          ));
+                                product: productData,
+                              ));
                         },
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  Image.network(
-                                    productData.images![0] as String,
-                                    width: double.infinity,
-                                    height: 150, // Adjust the height as needed
-                                    fit: BoxFit.fill,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Image.network(
+                                  productData.images![0],
+                                  width: double.infinity,
+                                  height: 150, // Adjust the height as needed
+                                  fit: BoxFit.fill,
+                                ),
+                                const Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Icon(
+                                    FlutterRemix.heart_2_line,
+                                    color: Colors.white,
                                   ),
-                                  const Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: Icon(
-                                      FlutterRemix.heart_2_line,
-                                      color: Colors.white,
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            FittedBox(
+                            child:
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    productData.name!
+                                        .capitalizeAllWordsFirstLetter(),
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                  )
+                                  ),
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ],
                               ),
-                              SizedBox(height: 10),
-                              FittedBox(
-                                child:
-                              Padding(
-                                padding: EdgeInsets.only(left: 5, right: 5),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      productData.name!
-                                          .capitalizeAllWordsFirstLetter(),
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const Text(
-                                      '4.5',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
+                            ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5, right: 5),
+                              child: Text(
+                                'RS-${productData.price!.toString()}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 5, right: 5),
-                                child: Text(
-                                  'RS-${productData.price!.toString()}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              // Add more widgets or adjust the existing ones as needed
-                            ],
-                          ),
+                            ),
+                            // Add more widgets or adjust the existing ones as needed
+                          ],
                         ),
                       );
                     },
@@ -301,7 +310,7 @@ class IndexScreen extends GetView<IndexController> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
