@@ -34,7 +34,7 @@ class Order_list extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0.r),
                   child: Image.asset(
-                    '${'assets/images/BlackPant1.PNG'}',
+                    'assets/images/BlackPant1.PNG',
                     fit: BoxFit.fitHeight,
                     height: 70.h,
                     width: 70.w, // Ensure the image covers the entire container
@@ -77,7 +77,7 @@ class Order_list extends StatelessWidget {
                   width: Get.width * 0.01.w,
                   child: Row(
                     children: [
-                      Text('Rs- ${'300'}'),
+                      const Text('Rs- ${'300'}'),
                       const SizedBox(
                         width: 10,
                       ),
@@ -91,7 +91,7 @@ class Order_list extends StatelessWidget {
                   )),
               trailing: ElevatedButton(
                 onPressed: () {
-                  Get.to(() => ReviewScreen());
+                  Get.to(() => const ReviewScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.brown, // Background color

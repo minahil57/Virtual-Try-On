@@ -4,7 +4,6 @@ import 'package:virtual_try_on/screens/wishlist_screen.dart';
 
 import '../screens/cart/cart_screen.dart';
 import '../screens/index_page/index_screen.dart';
-import '../screens/product_detail/product_detail_screen.dart';
 import '../screens/profile/profile_screen.dart';
 
 class BottomBarController extends GetxController {

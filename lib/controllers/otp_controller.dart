@@ -9,7 +9,7 @@ class OtpController extends GetxController {
   static const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
   final fogetPassword checkOTP = fogetPassword();
   final email = Get.arguments['email'];
-
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   final focusNode = FocusNode();
   final defaultPinTheme = PinTheme(

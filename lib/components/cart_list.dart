@@ -14,7 +14,7 @@ class CartList extends GetView<Cart_Controller> {
   final CartItemModel cartItem;
   final int index;
 
-  CartList(this.cartItem, this.index);
+  const CartList(this.cartItem, this.index, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class CartList extends GetView<Cart_Controller> {
               ],
             ),
             child: ListTile(
-              visualDensity: VisualDensity(vertical: 3),
+              visualDensity: const VisualDensity(vertical: 3),
               leading: Container(
                 height: 300.h,
                 // width: ,

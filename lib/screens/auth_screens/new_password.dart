@@ -119,6 +119,15 @@ class NewPasswordScreen extends GetView<NewPasswordController> {
                         onPressed: controller.toggleObscureText,
                       ),
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your password';
+                      } else if (value.length < 6) {
+                        return 'Please enter a password greater than 6 characters';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                 ),
               ),
@@ -171,6 +180,12 @@ class NewPasswordScreen extends GetView<NewPasswordController> {
                         onPressed: controller.toggleObscureTexts,
                       ),
                     ),
+                    validator: (value) {
+                      if (value != controller.newpasswordlController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
                   ),
                 ),
               ),
@@ -180,9 +195,11 @@ class NewPasswordScreen extends GetView<NewPasswordController> {
                     text: 'Create New Password',
                     width: Get.width * 0.7.w,
                     onPressed: () {
-                      controller.updateUser
-                          .UpdateUser(controller.newpasswordlController.text);
-                      //Get.offAll(() => CompleteProfile());
+                      if (controller.formkey.currentState!.validate()) {
+                        controller.updateUser
+                            .UpdateUser(controller.newpasswordlController.text);
+                        //Get.offAll(() => CompleteProfile());
+                      }
                     }),
               ),
             ]),

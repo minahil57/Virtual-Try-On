@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
-import 'package:virtual_try_on/services/Products_services.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   // Dummy list

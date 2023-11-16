@@ -5,12 +5,8 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/login_controller.dart';
 import 'package:virtual_try_on/screens/auth_screens/confirm_email.dart';
 import 'package:virtual_try_on/screens/auth_screens/signup_screen.dart';
-
-import 'package:virtual_try_on/screens/index_page/index_screen.dart';
-import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import '../../core/colors.dart';
 import '../../core/text_styles.dart';
-import '../../services/user_authentication_services.dart';
 import '../../widgets/custom_button.dart';
 
 class LoginScreen extends GetView<LoginController> {

@@ -166,7 +166,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],

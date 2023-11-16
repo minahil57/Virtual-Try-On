@@ -41,11 +41,11 @@ class GridItem extends StatelessWidget {
                 child: Container(
                   width: 50.w, // Set the width and height to make it circular
                   height: 50.h,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle, // Make it circular
                     color: Colors.white70,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     FlutterRemix.heart_2_line,
                     color: AppColors.primary,
                   ),
@@ -53,9 +53,9 @@ class GridItem extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Padding(
-            padding: EdgeInsets.only(left: 5, right: 5),
+            padding: const EdgeInsets.only(left: 5, right: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,7 +69,7 @@ class GridItem extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       FlutterRemix.star_fill,
                       color: Colors.amber,
                     ),
@@ -89,7 +89,7 @@ class GridItem extends StatelessWidget {
             height: 5.h,
           ),
           Padding(
-            padding: EdgeInsets.only(left: 5, right: 5),
+            padding: const EdgeInsets.only(left: 5, right: 5),
             child: Text(
               'Rs-${price}',
               //'RS-${productData.price!.toString()}',

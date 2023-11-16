@@ -325,7 +325,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                   controller.selectedColorIndex.value = index;
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       // left:
                                       //     controller.selectedColorIndex.value ==
                                       //             0
@@ -414,12 +414,14 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           ),
                         ),
                         child: IconButton(
-                         icon: const Icon(FlutterRemix.heart_2_line,
-                           color: Colors.black,
-                         ),
+                          icon: const Icon(
+                            FlutterRemix.heart_2_line,
+                            color: Colors.black,
+                          ),
 
-                          onPressed: (){
-                              controller.fav.AddToFav(indexcontroller.userss.first.id!, product.id!);
+                          onPressed: () {
+                            controller.fav.AddToFav(
+                                indexcontroller.userss.first.id!, product.id!);
                           }, // Set the icon color to black
                         ),
                       ),
@@ -457,7 +459,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                     text: 'Try on 3D',
                     width: 150,
                     onPressed: () {
-                      Get.to(() => MyHomePage(
+                      Get.to(() => const MyHomePage(
                             title: 'Check',
                           ));
                     },
@@ -466,7 +468,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                       text: 'Add to Cart',
                       width: 150,
                       onPressed: () {
-                        Get.to(() => BottomNavScreen());
+                        Get.to(() => const BottomNavScreen());
                         final BottomBarController bottomBarController =
                             Get.find();
 
