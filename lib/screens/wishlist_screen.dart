@@ -56,98 +56,124 @@ class WishList_Screen extends GetView<Wishlist_Controller> {
             ),
           ],
         ),
-        Expanded(
-          child: Obx(() =>
-          GridView.builder(
-            itemCount: controller.favs.length,
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              // Set the number of columns you want
-              crossAxisSpacing: 25.0,
-              mainAxisSpacing: 9.0,
-              childAspectRatio: 6 / 9, // Number of columns in the grid
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              ProductModel favData = controller.favs[index];
-              return GestureDetector(
-                onTap: () {
-                  Get.to(() => ProductDetailsScreen3State(
-                    product: favData,
-                  ));
-                },
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          Image.network(
-                            favData.images![0] as String,
-                            width: double.infinity,
-                            height: 150, // Adjust the height as needed
-                            fit: BoxFit.fill,
-                          ),
-                          const Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Icon(
-                              FlutterRemix.heart_2_line,
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      FittedBox(
-                        child:
-                        Padding(
-                          padding: EdgeInsets.only(left: 5, right: 5),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                favData.name!
-                                    .capitalizeAllWordsFirstLetter(),
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const Text(
-                                '4.5',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 5, right: 5),
-                        child: Text(
-                          'RS-${favData.price!.toString()}',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      // Add more widgets or adjust the existing ones as needed
-                    ],
+    FutureBuilder(
+    future: controller.fav.FetchFavs(),
+
+    builder: (context, snapshot) {
+      //print(controller.categories.last.id);
+      //print(controller.categories[controller.SelectedTab.value].id);
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (snapshot.hasError) {
+        return Center(
+          child: Text('Error: ${snapshot.error}'),
+        );
+      } else if (!snapshot.hasData || (snapshot.data as dynamic).isEmpty) {
+        return Center(
+          child: Text('No data available'),
+        );
+      } else {
+        final List<ProductModel>? product = snapshot.data;
+        // Data is available, you can use snapshot.data
+        // Example: List<Map<String, dynamic>> products = snapshot.data as List<Map<String, dynamic>>;
+        return
+          Expanded(
+            child:
+                GridView.builder(
+                  itemCount: product!.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    // Set the number of columns you want
+                    crossAxisSpacing: 25.0,
+                    mainAxisSpacing: 9.0,
+                    childAspectRatio: 6 / 9, // Number of columns in the grid
                   ),
+                  itemBuilder: (BuildContext context, int index) {
+                    ProductModel favData = product![index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() =>
+                            ProductDetailsScreen3State(
+                              product: favData,
+                            ));
+                      },
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Image.network(
+                                  favData.images![0] as String,
+                                  width: double.infinity,
+                                  height: 150, // Adjust the height as needed
+                                  fit: BoxFit.fill,
+                                ),
+                                const Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Icon(
+                                    FlutterRemix.heart_2_line,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            FittedBox(
+                              child:
+                              Padding(
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      favData.name!
+                                          .capitalizeAllWordsFirstLetter(),
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const Text(
+                                      '4.5',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 5, right: 5),
+                              child: Text(
+                                'RS-${favData.price!.toString()}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            // Add more widgets or adjust the existing ones as needed
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
-        ),
+          );
+      }
+    }
+    )
       ]),
     );
   }

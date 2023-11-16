@@ -6,23 +6,20 @@ import '../models/product_model.dart';
 class FavouritesServices{
   
   Future<void> AddToFav( String UserId, productID) async {
-    print(UserId);
-    print(productID);
-    
+    try{
     final response = await supabase.from('favourite').insert({'user_id':UserId,'product_id':productID}).execute();
-    if(response.status == 201){
+    if(response.status == 201) {
       showToast("Added To Favourites");
-
     }
-    else{
-      showToast("Error Adding To Favourites");
+    }catch(e){
+      showToast(e.toString());
     }
   }
 
   Future <List<ProductModel>> FetchFavs() async{
 
     final response = await supabase.from('favourite').select('product_id').eq('user_id', supabase.auth.currentUser!.id).execute();
-    if(response.status == 200){
+    if(response.data != null){
       print('id fetched');
       response.data[0]['product_id'];
       //print(response.data.id);
@@ -35,6 +32,9 @@ class FavouritesServices{
         ),
       );
       return favourites ;
+    }
+    else{
+      print('error');
     }
     return [];
   }
