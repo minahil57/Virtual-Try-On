@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/controllers/categories_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
@@ -67,7 +68,6 @@ class Categories_Screen extends GetView<Categories_Controller> {
                       child: Column(
                         children: [
                           ButtonsTabBar(
-
                             backgroundColor: AppColors.primary,
                             height: 55.h,
                             buttonMargin: EdgeInsets.all(10.h),
@@ -93,9 +93,8 @@ class Categories_Screen extends GetView<Categories_Controller> {
                               );
                             }).toList(),
                             onTap: (index) {
-
-                                controller.SelectedTab.value = index;
-                                //print(controller.SelectedTab.value);
+                              controller.SelectedTab.value = index;
+                              //print(controller.SelectedTab.value);
                             },
                           ),
                           FutureBuilder(
@@ -116,7 +115,8 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                 ),
                             builder: (context, snapshot) {
                               //print(controller.categories.last.id);
-                              print(controller.categories[controller.SelectedTab.value].id);
+                              print(controller
+                                  .categories[controller.SelectedTab.value].id);
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return const Center(
@@ -157,104 +157,110 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                                   product[index];
 
                                               return GestureDetector(
-                                                onTap: () {
-                                                  Get.to(() =>
-                                                      ProductDetailsScreen3State(
-                                                        product: productItem,
-                                                      ));
-                                                },
-                                                child: Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Stack(
-                                                        children: [
-                                                          Image.network(
-                                                            productItem
-                                                                .images![0],
-                                                            width:
-                                                                double.infinity,
-                                                            height: 150,
-                                                            // Adjust the height as needed
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          const Positioned(
-                                                            top: 0,
-                                                            right: 0,
-                                                            child: Icon(
-                                                              FlutterRemix
-                                                                  .heart_2_line,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      FittedBox(
-                                                        child:
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                left: 5,
-                                                                right: 5),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(
-                                                              productItem.name!
-                                                                  .capitalizeFirst,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                            ),
-                                                            const Text(
-                                                              '4.5',
-                                                              style: TextStyle(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5.h,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                left: 5,
-                                                                right: 5),
-                                                        child: Text(
-                                                          'RS-${productItem.price!.toString()}',
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      // Add more widgets or adjust the existing ones as needed
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
+                                                  onTap: () {
+                                                    Get.to(() =>
+                                                        ProductDetailsScreen3State(
+                                                          product: productItem,
+                                                        ));
+                                                  },
+                                                  child: GridItem(
+                                                      imageUrl: productItem
+                                                          .images![0],
+                                                      text: productItem.name!,
+                                                      rating: 3.0,
+                                                      price: productItem.price!)
+                                                  // Container(
+                                                  //   child: Column(
+                                                  //     crossAxisAlignment:
+                                                  //         CrossAxisAlignment
+                                                  //             .start,
+                                                  //     children: [
+                                                  //       Stack(
+                                                  //         children: [
+                                                  //           Image.network(
+                                                  //             productItem
+                                                  //                 .images![0],
+                                                  //             width:
+                                                  //                 double.infinity,
+                                                  //             height: 150,
+                                                  //             // Adjust the height as needed
+                                                  //             fit: BoxFit.fill,
+                                                  //           ),
+                                                  //           const Positioned(
+                                                  //             top: 0,
+                                                  //             right: 0,
+                                                  //             child: Icon(
+                                                  //               FlutterRemix
+                                                  //                   .heart_2_line,
+                                                  //               color:
+                                                  //                   Colors.white,
+                                                  //             ),
+                                                  //           )
+                                                  //         ],
+                                                  //       ),
+                                                  //       const SizedBox(
+                                                  //           height: 10),
+                                                  //       FittedBox(
+                                                  //         child:
+                                                  //       Padding(
+                                                  //         padding:
+                                                  //             const EdgeInsets
+                                                  //                 .only(
+                                                  //                 left: 5,
+                                                  //                 right: 5),
+                                                  //         child: Row(
+                                                  //           mainAxisAlignment:
+                                                  //               MainAxisAlignment
+                                                  //                   .spaceBetween,
+                                                  //           children: [
+                                                  //             Text(
+                                                  //               productItem.name!
+                                                  //                   .capitalizeFirst,
+                                                  //               style:
+                                                  //                   const TextStyle(
+                                                  //                 fontSize: 13,
+                                                  //                 fontWeight:
+                                                  //                     FontWeight
+                                                  //                         .w600,
+                                                  //               ),
+                                                  //             ),
+                                                  //             const Text(
+                                                  //               '4.5',
+                                                  //               style: TextStyle(
+                                                  //                 fontSize: 13,
+                                                  //                 fontWeight:
+                                                  //                     FontWeight
+                                                  //                         .w600,
+                                                  //               ),
+                                                  //             ),
+                                                  //           ],
+                                                  //         ),
+                                                  //       ),
+                                                  //       ),
+                                                  //       SizedBox(
+                                                  //         height: 5.h,
+                                                  //       ),
+                                                  //       Padding(
+                                                  //         padding:
+                                                  //             const EdgeInsets
+                                                  //                 .only(
+                                                  //                 left: 5,
+                                                  //                 right: 5),
+                                                  //         child: Text(
+                                                  //           'RS-${productItem.price!.toString()}',
+                                                  //           style:
+                                                  //               const TextStyle(
+                                                  //             fontSize: 12,
+                                                  //             fontWeight:
+                                                  //                 FontWeight.w600,
+                                                  //           ),
+                                                  //         ),
+                                                  //       ),
+                                                  //       // Add more widgets or adjust the existing ones as needed
+                                                  //     ],
+                                                  //   ),
+                                                  // ),
+                                                  );
                                             })));
                               }
                             },

@@ -217,6 +217,7 @@ class IndexScreen extends GetView<IndexController> {
                         ])),
                 Obx(
                   () => GridView.builder(
+                    padding: EdgeInsets.only(top: 0, bottom: 10.h),
                     shrinkWrap:
                         true, // Important to allow the GridView to be placed inside SingleChildScrollView
                     dragStartBehavior: DragStartBehavior.start,
