@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
@@ -7,7 +5,7 @@ import 'package:virtual_try_on/models/product_model.dart';
 import '../config/supabase.dart';
 
 class ProductServices {
-  Future<List<CategoryModel>> FetchCategories() async {
+  Future<List<CategoryModel>> fetchCategories() async {
     try {
       EasyLoading.show();
       final response = await supabase

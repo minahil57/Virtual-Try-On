@@ -3,7 +3,7 @@ import 'package:virtual_try_on/models/user_model.dart';
 import '../config/supabase.dart';
 
 class UserServices {
-  static Future<UserModel> FetchUser() async {
+  static Future<UserModel> fetchUser() async {
     print('user fetched');
     try {
       final response = await supabase

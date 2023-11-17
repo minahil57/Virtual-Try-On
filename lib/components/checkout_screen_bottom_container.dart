@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
+import 'package:virtual_try_on/controllers/checkout_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/screens/order_success.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
-class Positioning extends GetView<Cart_Controller> {
-  const Positioning({super.key});
+class TotalSheet extends GetView<Cart_Controller> {
+  const TotalSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Checkout_Controller checkoutController = Get.find();
     return Positioned(
         bottom: 0,
         right: 0,
         left: 0,
         child: Container(
-            height: Get.height * 0.5,
+            height: Get.height * 0.4,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.only(
@@ -131,9 +132,7 @@ class Positioning extends GetView<Cart_Controller> {
                     padding: const EdgeInsets.all(15.0),
                     child: CustomButton(
                       width: 350.w,
-                      onPressed: () => {
-                        Get.to(() => const Success()),
-                      },
+                      onPressed: () => checkoutController.handleAddOrder(),
                       text: 'Place Order',
                     ),
                   )

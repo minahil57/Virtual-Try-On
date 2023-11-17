@@ -8,21 +8,22 @@ import '../services/user_authentication_services.dart';
 class CompleteProfileController extends GetxController {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  late SingleValueDropDownController GenderController = SingleValueDropDownController();
+  late SingleValueDropDownController genderController =
+      SingleValueDropDownController();
   final UserAuthentication userAuthentication = UserAuthentication();
   final GlobalKey<FormState> formkeey = GlobalKey<FormState>();
   RxBool agreedToTerms = false.obs;
   RxBool obscureText = true.obs;
-  final Rx<XFile?> _imageFile = Rx<XFile?>(null);
+  final Rx<XFile?> imageFile = Rx<XFile?>(null);
   void toggleObscureText() {
     obscureText.value = !obscureText.value;
   }
 
   Future<void> pickImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     try {
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      _imageFile.value = image;
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      imageFile.value = image;
       print(image);
     } catch (e) {
       print("Error picking image: $e");

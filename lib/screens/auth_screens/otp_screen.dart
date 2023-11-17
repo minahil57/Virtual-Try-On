@@ -157,7 +157,7 @@ class OtpScreen extends GetView<OtpController> {
                 onPressed: () async {
                   if (controller.formkey.currentState!.validate()) {
                     await controller.checkOTP
-                        .CheckOTP(controller.otp.text, controller.email);
+                        .checkOTP(controller.otp.text, controller.email);
                   }
                 }),
           ],

@@ -8,7 +8,7 @@ import 'package:virtual_try_on/screens/auth_screens/otp_screen.dart';
 
 import '../screens/auth_screens/new_password.dart';
 
-class fogetPassword {
+class FogetPassword {
   Future<void> sendPasswordResetEmail(String email, context) async {
     try {
       EasyLoading.show();
@@ -24,11 +24,11 @@ class fogetPassword {
     }
   }
 
-  Future<void> CheckOTP(String Token, String email) async {
+  Future<void> checkOTP(String token, String email) async {
     try {
       await EasyLoading.show();
       final response = await supabase.auth.verifyOTP(
-        token: Token,
+        token: token,
         type: OtpType.recovery,
         email: email,
       );
@@ -43,10 +43,10 @@ class fogetPassword {
     }
   }
 
-  Future<void> UpdateUser(String Password) async {
+  Future<void> updateUser(String password) async {
     try {
       await EasyLoading.show();
-      await supabase.auth.updateUser(UserAttributes(password: Password));
+      await supabase.auth.updateUser(UserAttributes(password: password));
       await EasyLoading.dismiss();
       showToast('Password Changed Successfully');
       Get.to(() => const LoginScreen());

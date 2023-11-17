@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
-import 'package:virtual_try_on/screens/index_page/index_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 class Success extends StatelessWidget {
@@ -21,14 +20,14 @@ class Success extends StatelessWidget {
           child: Center(
               child: Text(
             'Success',
-            style: globalTextStyle(fontSize: 20.sp),
+            style: globalTextStyle(fontSize: 16.sp),
           )),
         ),
         Padding(
           padding: EdgeInsets.only(top: Get.height * 0.25, bottom: 20.h),
           child: Container(
-            width: 100.0,
-            height: 100.0,
+            width: 75.w,
+            height: 75.h,
             decoration: const BoxDecoration(
               color: AppColors.primary, // Brown color
               shape: BoxShape.circle, // Circular shape
@@ -37,19 +36,19 @@ class Success extends StatelessWidget {
               child: Icon(
                 FlutterRemix.check_line, // Tick icon
                 color: Colors.white, // Icon color
-                size: 48.0, // Icon size
+                size: 40.0, // Icon size
               ),
             ),
           ),
         ),
         Text(
           'Order Placed Successfully',
-          style: globalTextStyle(fontSize: 20.sp),
+          style: globalTextStyle(fontSize: 16.sp),
         ),
         Text(
           'Thankyou for your purchase',
           style: globalTextStyle(
-              fontSize: 13.sp, color: AppColors.customLightGrey),
+              fontSize: 12.sp, color: AppColors.customLightGrey),
         ),
       ]),
       Positioned(
@@ -78,10 +77,10 @@ class Success extends StatelessWidget {
               padding: EdgeInsets.all(20.0.h),
               child: CustomButton(
                 width: 350.w,
-                onPressed: () => {
+                onPressed: () {
                   Get.offAll(
                     () => const BottomNavScreen(),
-                  ),
+                  );
                 },
                 text: 'Order Detail',
               ),

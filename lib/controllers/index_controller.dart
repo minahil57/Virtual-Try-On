@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/user_model.dart';
-import 'package:virtual_try_on/services/Products_services.dart';
+import 'package:virtual_try_on/services/favourite_services.dart';
+import 'package:virtual_try_on/services/products_services.dart';
 import '../models/product_model.dart';
 import '../services/user_services.dart';
 
@@ -16,7 +17,7 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   Future<void> onReady() async {
-    currentuser.value = await UserServices.FetchUser();
+    currentuser.value = await UserServices.fetchUser();
     currentuser.refresh();
     super.onReady();
   }
@@ -30,13 +31,18 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
   ];
   @override
   void onInit() async {
-    List<CategoryModel> allCategories = await product.FetchCategories();
+    List<CategoryModel> allCategories = await product.fetchCategories();
     List<ProductModel> allProducts = await product.FetchProducts();
     products.value = allProducts;
     categories.value = allCategories;
     update();
     update();
     super.onInit();
+  }
+
+  void handleAddToFav(String id)async{
+    await FavouritesServices.addToFav(currentuser.value.id!, id);
+
   }
 
   @override

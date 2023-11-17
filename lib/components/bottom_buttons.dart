@@ -27,9 +27,9 @@ class BottomButtons extends GetView<Cart_Controller> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5), // Shadow color
+              color: Colors.grey.withOpacity(0.2), // Shadow color
               spreadRadius: 2, // Spread radius
-              blurRadius: 4, // Blur radius
+              blurRadius: 14, // Blur radius
               offset: const Offset(0, -2), // Shadow offset (upward)
             ),
           ],

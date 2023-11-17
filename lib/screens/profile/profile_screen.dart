@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +8,10 @@ import 'package:virtual_try_on/controllers/profile_controller.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/my_orders_screen.dart';
+
 import '../../config/supabase.dart';
 import '../../controllers/index_controller.dart';
 import '../../core/colors.dart';
-import '../../models/user_model.dart';
 import '../auth_screens/login_screen.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
@@ -20,7 +21,6 @@ class ProfileScreen extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     final indexcontroller = Get.putOrFind(() => IndexController());
     Get.putOrFind(() => ProfileController());
-    UserModel user;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -37,13 +37,15 @@ class ProfileScreen extends GetView<ProfileController> {
               Center(
                 child: Stack(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 65, // Adjust the size of the avatar as needed
-                      backgroundColor: Colors.blue,
+                      backgroundColor: AppColors.primary.withOpacity(0.5),
                       foregroundColor:
                           Colors.grey, // Background color of the avatar
-                      backgroundImage: AssetImage(
-                          'assets/images/images.jpeg'), // Replace with your image URL
+                      backgroundImage: NetworkImage(
+                        indexcontroller.currentuser.value
+                            .image!, // Replace with your image URL
+                      ),
                     ),
                     Positioned(
                       bottom: 0,
@@ -74,7 +76,7 @@ class ProfileScreen extends GetView<ProfileController> {
               ),
               Center(
                   child: Text(
-                indexcontroller.currentuser.value.email as String,
+                indexcontroller.currentuser.value.name!.capitalizeFirst,
                 style: globalTextStyle(fontSize: 15, color: AppColors.primary),
               )),
               SizedBox(

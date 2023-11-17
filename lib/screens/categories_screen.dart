@@ -8,16 +8,15 @@ import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/controllers/categories_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 
-class Categories_Screen extends GetView<Categories_Controller> {
-  const Categories_Screen({super.key});
+class CategoriesScreen extends GetView<CategoriesController> {
+  const CategoriesScreen({super.key});
   // final CategoryModel category;
   @override
   Widget build(BuildContext context) {
-    Get.putOrFind(() => Categories_Controller());
+    Get.putOrFind(() => CategoriesController());
     return Scaffold(
       body: Column(
         children: [
@@ -52,7 +51,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                 child: Text(
                   'Categories',
                   style: globalTextStyle(
-                    fontSize: 20.sp,
+                    fontSize: 16.sp,
                   ),
                 ),
               ),
@@ -64,7 +63,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                   ? const SizedBox()
                   : DefaultTabController(
                       length: controller.tabController.length,
-                      initialIndex: controller.SelectedTab.value,
+                      initialIndex: controller.selectedTab.value,
                       child: Column(
                         children: [
                           ButtonsTabBar(
@@ -93,7 +92,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                               );
                             }).toList(),
                             onTap: (index) {
-                              controller.SelectedTab.value = index;
+                              controller.selectedTab.value = index;
                               //print(controller.SelectedTab.value);
                             },
                           ),
@@ -105,7 +104,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                     'category_id',
                                     controller
                                         .categories[
-                                            controller.SelectedTab.value]
+                                            controller.selectedTab.value]
                                         .id)
                                 .withConverter(
                                   (data) => List<ProductModel>.from(
@@ -116,7 +115,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                             builder: (context, snapshot) {
                               //print(controller.categories.last.id);
                               print(controller
-                                  .categories[controller.SelectedTab.value].id);
+                                  .categories[controller.selectedTab.value].id);
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return const Center(
@@ -164,6 +163,7 @@ class Categories_Screen extends GetView<Categories_Controller> {
                                                         ));
                                                   },
                                                   child: GridItem(
+                                                      id: productItem.id!,
                                                       imageUrl: productItem
                                                           .images![0],
                                                       text: productItem.name!,

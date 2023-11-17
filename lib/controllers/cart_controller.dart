@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/helpers/show_toast.dart';
-
 import 'package:virtual_try_on/models/cart_model.dart';
 
 import '../services/cart_services.dart';
@@ -32,7 +31,7 @@ class Cart_Controller extends GetxController {
 
     if (!itemExists) {
       //Add Cart items service call here
-      await CartServices.addToCartItem(
+      final CartItemModel newItem = await CartServices.addToCartItem(
         cart: {
           "product_id": cart['product_id'],
           "cart_id": indexController.currentuser.value.cartid!,
@@ -43,10 +42,20 @@ class Cart_Controller extends GetxController {
         cartId: indexController.currentuser.value.cartid!,
       );
 
-      CartServices.updateCart(
+      await CartServices.updateCart(
           id: indexController.currentuser.value.cartid!,
           total: calculateTotal());
+
+      Get.back();
+      final BottomBarController bottomBarController = Get.find();
+      bottomBarController.selectedIndex.value = 2;
+      showToast('Item added to cart');
+      items.insert(0, newItem);
     } else {
+      Get.back();
+      final BottomBarController bottomBarController = Get.find();
+
+      bottomBarController.selectedIndex.value = 2;
       showToast('Item already in cart');
 
       // Call update quantity service here
@@ -61,7 +70,7 @@ class Cart_Controller extends GetxController {
     }
   }
 
-  void decreaseQuantity(CartItemModel item) {
+  void decreaseQuantity(CartItemModel item) async {
     // If quantity is one, remove item from cart
     if (item.quantity! <= 1) {
       removeFromCart(item.id!);
@@ -71,27 +80,40 @@ class Cart_Controller extends GetxController {
 
       item.quantity = item.quantity! - 1;
       items.refresh();
-      CartServices.updateQuantity(item.id!, item.quantity!);
+      await CartServices.updateQuantity(item.id!, item.quantity!);
+      await CartServices.updateCart(
+          id: indexController.currentuser.value.cartid!,
+          total: calculateTotal());
     }
   }
 
-  void increaseQuantity(CartItemModel item) {
+  void increaseQuantity(CartItemModel item) async {
     if (item.quantity! != 10) {
       item.quantity = item.quantity! + 1;
       items.refresh();
-      CartServices.updateQuantity(item.id!, item.quantity!);
+      await CartServices.updateQuantity(item.id!, item.quantity!);
+      await CartServices.updateCart(
+          id: indexController.currentuser.value.cartid!,
+          total: calculateTotal());
     }
   }
 
-  void removeFromCart(String id) {
+  void removeFromCart(String id) async {
+    await CartServices.deleteItem(id);
+    await CartServices.updateCart(
+        id: indexController.currentuser.value.cartid!, total: calculateTotal());
     items.removeWhere((item) => item.id == id);
     items.refresh();
-    CartServices.deleteItem(id);
   }
 
-  void doNothing(BuildContext context) {}
-  void clearCart() {
-    items.value.clear();
+  void clearCart() async {
+    items.value = [];
+    await CartServices.clearCart(indexController.currentuser.value.cartid!);
+    await CartServices.updateCart(
+        id: indexController.currentuser.value.cartid!, total: calculateTotal());
+
+    
+    items.refresh();
   }
 
   double calculateTotal() {

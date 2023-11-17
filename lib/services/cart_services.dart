@@ -25,10 +25,23 @@ class CartServices {
     }
   }
 
+  static Future<void> clearCart(String cartid) async {
+    try {
+      await EasyLoading.show();
+      await supabase.from('cart_details').delete().eq('cart_id', cartid);
+      await EasyLoading.dismiss();
+    } catch (e) {
+      await EasyLoading.dismiss();
+    }
+  }
+
   static Future<void> deleteItem(String id) async {
     try {
+      await EasyLoading.show();
       await supabase.from('cart_details').delete().eq('id', id);
+      await EasyLoading.dismiss();
     } catch (e) {
+      await EasyLoading.dismiss();
       log(e.toString());
     }
   }
@@ -65,7 +78,7 @@ class CartServices {
       final CartItemModel newItem = await supabase
           .from('cart_details')
           .insert(cart)
-          .select('*')
+          .select('*, products(id, images, price, name)')
           .withConverter((data) => CartItemModel.fromJson(data[0]));
       await EasyLoading.dismiss();
       return newItem;

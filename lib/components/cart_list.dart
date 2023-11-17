@@ -3,12 +3,12 @@ import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/components/cart_delete_sheet.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
-import 'package:virtual_try_on/components/cart_delete_sheet.dart';
 import 'package:virtual_try_on/widgets/show_sheet.dart';
 
 class CartList extends GetView<Cart_Controller> {
@@ -24,9 +24,12 @@ class CartList extends GetView<Cart_Controller> {
       child: Column(
         children: [
           Slidable(
+            key: ValueKey(index),
+            closeOnScroll: false,
             endActionPane: ActionPane(
               motion: const ScrollMotion(),
-              key: const ValueKey(1),
+              dragDismissible: false,
+              key: ValueKey(index),
               dismissible: DismissiblePane(onDismissed: () {}),
               children: [
                 SlidableAction(
@@ -48,6 +51,7 @@ class CartList extends GetView<Cart_Controller> {
             ),
             child: ListTile(
               visualDensity: const VisualDensity(vertical: 3),
+              titleAlignment: ListTileTitleAlignment.center,
               leading: Container(
                 height: 300.h,
                 // width: ,
@@ -75,10 +79,14 @@ class CartList extends GetView<Cart_Controller> {
                 children: [
                   Text(
                     cartItem.products!.name!.capitalizeFirst,
-                    style: globalTextStyle(fontSize: 15),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: globalTextStyle(
+                      fontSize: 12.sp,
+                    ),
                   ),
                   Text(
-                    'Size: ${cartItem.size}',
+                    'Size: ${cartItem.size!.capitalizeFirst}',
                     style: globalTextStyle(
                         fontSize: 10, color: AppColors.customGrey),
                   ),
@@ -120,11 +128,11 @@ class CartList extends GetView<Cart_Controller> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColors.customGrey,
+                            color: AppColors.customLightGrey,
                             borderRadius: BorderRadius.circular(
                                 5.0), // Adjust the radius as needed
                             border: Border.all(
-                              color: AppColors.customGrey,
+                              color: AppColors.customLightGrey,
                               width: 1.0,
                             ),
                           ),

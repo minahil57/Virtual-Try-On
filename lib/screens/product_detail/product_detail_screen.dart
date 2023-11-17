@@ -1,21 +1,18 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
-import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/controllers/product_details_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/helpers/get_color.dart';
-import 'package:virtual_try_on/models/cart_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
-import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/screens/order_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
@@ -92,7 +89,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                                 height: 55.h, // Adjust the height as needed
                                 child: Row(
@@ -107,7 +104,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                           bottom:
                                               4), // Add spacing between images
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(4),
+                                        borderRadius: BorderRadius.circular(12),
                                         child: GestureDetector(
                                           onTap: () {
                                             controller.selectedImageIndex
@@ -116,37 +113,39 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                           child: Stack(
                                             alignment: Alignment.center,
                                             children: [
-                                              Image.network(
-                                                imagePath,
+                                              Container(
                                                 width: 50
                                                     .w, // Adjust the width as needed
                                                 height: 50
                                                     .h, // Adjust the height as needed
-                                                fit: BoxFit.cover,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  border: Border.all(
+                                                    color: controller
+                                                                .selectedImageIndex
+                                                                .value ==
+                                                            index
+                                                        ? AppColors.primary
+                                                        : Colors.transparent,
+                                                    width: 2.5,
+                                                  ),
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                      imagePath,
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                              // if (index == 5 &&
-                                              //     product.images!.length >
-                                              //         4)
-                                              //   Container(
-                                              //     width:
-                                              //         50, // Adjust the width to match the image
-                                              //     height:
-                                              //         50, // Adjust the height to match the image
-                                              //     color: Colors.black.withOpacity(
-                                              //         0.6), // Adjust the opacity as needed
-                                              //   ),
-                                              // if (index == 5 &&
-                                              //     productData.images!.length >
-                                              //         4)
-                                              //   Text(
-                                              //     '${productData.images!.length - 3 - 1}+',
-                                              //     textAlign: TextAlign.center,
-                                              //     style: globalTextStyle(
-                                              //       color: Colors.white,
-                                              //       fontWeight: FontWeight.bold,
-                                              //       fontSize: 20,
-                                              //     ),
-                                              //   )
+                                              // Image.network(
+                                              //   imagePath,
+                                              //   width: 50
+                                              //       .w, // Adjust the width as needed
+                                              //   height: 50
+                                              //       .h, // Adjust the height as needed
+                                              //   fit: BoxFit.cover,
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -246,7 +245,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           'Select Size',
                           style: globalTextStyle(
                               color: Colors.black.withOpacity(0.8),
-                              fontSize: 14.sp,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w700),
                         ),
                         SizedBox(height: 8.h),
@@ -304,7 +303,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                 text: 'Select Color : ',
                                 style: globalTextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
+                                    fontSize: 13.sp),
                               ),
                               // TextSpan(
                               //   text:
@@ -420,9 +419,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           ),
 
                           onPressed: () {
-                            controller.fav.AddToFav(
-                                indexcontroller.currentuser.value.id!,
-                                product.id!);
+                            indexcontroller.handleAddToFav(product.id!);
                           }, // Set the icon color to black
                         ),
                       ),
@@ -479,11 +476,6 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                 .colors![controller.selectedColorIndex.value],
                           },
                         );
-                        Get.to(() => const BottomNavScreen());
-                        final BottomBarController bottomBarController =
-                            Get.find();
-
-                        bottomBarController.selectedIndex.value = 2;
                       }),
                 ],
               ),

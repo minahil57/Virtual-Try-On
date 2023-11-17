@@ -3,14 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/config/supabase.dart';
+import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
-  // Dummy list
   final RxList<ProductModel> searchList = <ProductModel>[].obs;
-
-  // These methods are mandatory you cannot skip them.
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -41,26 +39,23 @@ class CustomSearchDelegate extends SearchDelegate<String> {
         .toList()
         .obs;
     return Obx(
-      () => Expanded(
-        child: GridView.builder(
-          itemCount: searchResults.length,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            // Set the number of columns you want
-            crossAxisSpacing: 25.0,
-            mainAxisSpacing: 9.0,
-            childAspectRatio: 8 / 9, // Number of columns in the grid
-          ),
-          itemBuilder: (context, index) {
-            return GridItem(
-              imageUrl: searchResults[index].images![0],
-              text: searchResults[index].name!.capitalizeFirst,
-              rating: 4.5,
-              price: searchResults[index].price!,
-            );
-          },
+      () => GridView.builder(
+        itemCount: searchResults.length,
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // Set the number of columns you want
+          crossAxisSpacing: 12.0,
+          childAspectRatio: 3 / 4,
         ),
+        itemBuilder: (context, index) {
+          return GridItem(
+            id: searchResults[index].id!,
+            imageUrl: searchResults[index].images![0],
+            text: searchResults[index].name!.capitalizeFirst,
+            rating: 4.5,
+            price: searchResults[index].price!,
+          );
+        },
       ),
     );
   }
@@ -102,36 +97,60 @@ class CustomSearchDelegate extends SearchDelegate<String> {
                       height: 250.h,
                       width: 250.w,
                     ))
-                  : Expanded(
-                      child: GridView.builder(
-                        itemCount: snapshot.data!.length,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 20),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          // Set the number of columns you want
-                          crossAxisSpacing: 25.0,
-                          mainAxisSpacing: 9.0,
-                          childAspectRatio:
-                              8 / 9, // Number of columns in the grid
-                        ),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(() => ProductDetailsScreen3State(
-                                  product: snapshot.data![index]));
-                            },
-                            child: GridItem(
-                              imageUrl: snapshot.data![index].images![0],
-                              text: snapshot.data![index].name!,
-                              rating: 4.5,
-                              price: snapshot.data![index].price!,
-                            ),
-                          );
-                        },
+                  : GridView.builder(
+                      itemCount: snapshot.data!.length,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 15.h),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Set the number of columns you want
+                        crossAxisSpacing: 12.0,
+                        childAspectRatio: 3 / 4,
                       ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.to(() => ProductDetailsScreen3State(
+                                product: snapshot.data![index]));
+                          },
+                          child: GridItem(
+                            id: snapshot.data![index].id!,
+                            imageUrl: snapshot.data![index].images![0],
+                            text: snapshot.data![index].name!,
+                            rating: 4.5,
+                            price: snapshot.data![index].price!,
+                          ),
+                        );
+                      },
                     );
             });
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context).copyWith(
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        elevation: 0.5,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      textTheme: TextTheme(
+          titleLarge: globalTextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+      )),
+      inputDecorationTheme: InputDecorationTheme(
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        disabledBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
+        hintStyle: globalTextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
   }
 }

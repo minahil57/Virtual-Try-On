@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../models/category_model.dart';
-import '../services/Products_services.dart';
+import '../services/products_services.dart';
 
-class Categories_Controller extends GetxController
+class CategoriesController extends GetxController
     with GetTickerProviderStateMixin {
-
   final ProductServices product = ProductServices();
   final RxList<CategoryModel> categories = <CategoryModel>[].obs;
   late TabController tabController;
-  late  RxInt SelectedTab = 0.obs;
+  late RxInt selectedTab = 0.obs;
   late int index = Get.arguments['index'];
 
   @override
   void onInit() async {
     tabController = TabController(length: categories.length, vsync: this);
     try {
-      List<CategoryModel> allCategories = await product.FetchCategories();
+      List<CategoryModel> allCategories = await product.fetchCategories();
       categories.value = allCategories;
 
       update();
       if (categories.isNotEmpty) {
-          tabController = TabController(length: categories.length, vsync: this);
-          SelectedTab = RxInt(index);
-          tabController.index = SelectedTab.value;
-          //print(tabController.index);
-          // tabController.addListener(() {
-          //   SelectedTab.value = tabController.index;
-          //   print(SelectedTab.value);
-          // });
+        tabController = TabController(length: categories.length, vsync: this);
+        selectedTab = RxInt(index);
+        tabController.index = selectedTab.value;
       }
     } catch (e) {
       print(e.toString());
@@ -38,7 +33,7 @@ class Categories_Controller extends GetxController
 
   @override
   void onClose() {
-    SelectedTab.dispose();
+    selectedTab.dispose();
     super.onClose();
   }
 }

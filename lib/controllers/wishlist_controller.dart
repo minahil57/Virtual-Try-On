@@ -5,20 +5,11 @@ import 'package:virtual_try_on/services/favourite_services.dart';
 // ignore: camel_case_types
 class Wishlist_Controller extends GetxController {
   RxList<ProductModel> favs = <ProductModel>[].obs;
-  FavouritesServices fav = FavouritesServices();
 
   @override
   Future<void> onInit() async {
-    // TODO: implement onInit
-
-    List<ProductModel> allfavs = await fav.FetchFavs();
+    List<ProductModel> allfavs = await FavouritesServices.fetchFavs();
     favs.value = allfavs;
     super.onInit();
-  }
-
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
   }
 }

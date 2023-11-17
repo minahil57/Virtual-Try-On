@@ -18,6 +18,7 @@ void main() async {
     ..loadingStyle = EasyLoadingStyle.custom
     ..backgroundColor = AppColors.primary
     ..radius = 12
+    ..indicatorSize = 30
     ..textColor = Colors.white
     ..indicatorColor = Colors.white
     ..userInteractions = false
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      useInheritedMediaQuery: true,
+      useInheritedMediaQuery: false,
       builder: (context, child) => GestureDetector(
-        behavior: HitTestBehavior.opaque,
+        behavior: HitTestBehavior.translucent,
         onTap: () => FocusScope.of(context).unfocus(),
         child: GetMaterialApp(
           title: 'Virutal TryOn',

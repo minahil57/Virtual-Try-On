@@ -199,7 +199,7 @@ class NewPasswordScreen extends GetView<NewPasswordController> {
                           width: Get.width * 0.7.w,
                           onPressed: () {
                             if (controller.formkey.currentState!.validate()) {
-                              controller.updateUser.UpdateUser(
+                              controller.updateUser.updateUser(
                                   controller.newpasswordlController.text);
                               //Get.offAll(() => CompleteProfile());
                             }

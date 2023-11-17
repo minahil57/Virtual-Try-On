@@ -7,7 +7,7 @@ import '../services/forget_password_services.dart';
 class OtpController extends GetxController {
   final TextEditingController otp = TextEditingController();
   static const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
-  final fogetPassword checkOTP = fogetPassword();
+  final FogetPassword checkOTP = FogetPassword();
   final email = Get.arguments['email'];
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 

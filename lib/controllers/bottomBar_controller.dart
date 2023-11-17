@@ -13,7 +13,7 @@ class BottomBarController extends GetxController {
   final List<Widget> bottomBarPages = [
     //ReservationListScreen(),
     const IndexScreen(),
-    const WishList_Screen(),
+    const WishListScreen(),
     const Cart_screen(),
     const ProfileScreen(),
   ];

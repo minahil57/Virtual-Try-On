@@ -6,7 +6,7 @@ class NewPasswordController extends GetxController {
   final TextEditingController newpasswordlController = TextEditingController();
   final TextEditingController confirmpasswordController =
       TextEditingController();
-  final fogetPassword updateUser = fogetPassword();
+  final FogetPassword updateUser = FogetPassword();
   final email = Get.arguments['email'];
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();

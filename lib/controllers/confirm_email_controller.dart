@@ -5,7 +5,7 @@ import '../services/forget_password_services.dart';
 
 class ConfirmEmailcontroller extends GetxController {
   final TextEditingController emailController = TextEditingController();
-  final fogetPassword confirmEmail = fogetPassword();
+  final FogetPassword confirmEmail = FogetPassword();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
