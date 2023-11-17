@@ -27,7 +27,7 @@ class SplashScreen extends GetView<SplashController> {
             ),
             SizedBox(height: 14.h),
             Text(
-              'Virtual TryOn',
+              'Virtual TryOnn',
               style: globalTextStyle(
                 fontSize: 16.sp,
                 letterSpacing: 1,

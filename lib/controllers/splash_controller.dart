@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';

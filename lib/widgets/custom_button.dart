@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
-
+import 'package:virtual_try_on/core/text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -28,45 +28,42 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: width,
-        height: height ?? 55.sp,
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(bottom: marginBottom),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: text == null
-            ? icon
-            : hasIcon
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      icon,
-                      SizedBox(
-                        width: 20.sp,
-                      ),
-                      Text(
-                        text ?? '',
-                        style: context.theme.textTheme.labelMedium!.copyWith(
-                          color: color != context.theme.cardColor
-                              ? context.theme.textTheme.labelMedium!.color
-                              : Colors.white,
+        onTap: onPressed,
+        child: Container(
+          width: width,
+          height: height ?? 40.sp,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(bottom: marginBottom),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: text == null
+              ? icon
+              : hasIcon
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        icon,
+                        SizedBox(
+                          width: 20.sp,
                         ),
+                        Text(
+                          text ?? '',
+                          style: globalTextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      text ?? '',
+                      style: globalTextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
                       ),
-                    ],
-                  )
-                : Text(
-                    text ?? '',
-                    style: context.theme.textTheme.labelMedium!.copyWith(
-                      color: color != context.theme.cardColor
-                          ? context.theme.textTheme.labelMedium!.color
-                          : Colors.white,
                     ),
-                  ),
-      ),
-    );
+        ));
   }
 }
