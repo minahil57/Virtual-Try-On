@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
+import 'package:virtual_try_on/main.dart';
 import 'package:virtual_try_on/services/order_services.dart';
 
 class Checkout_Controller extends GetxController {
@@ -25,7 +26,7 @@ class Checkout_Controller extends GetxController {
         carts: cartController.items,
         total: cartController.calculateTotal() + 300,
         adress: address_controller.text.trim(),
-        cartId: cartController.indexController.currentuser.value.cartid!,
+        cartId: currentuser.value.cartid!,
       );
       cartController.clearCart();
     }

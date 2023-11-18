@@ -13,7 +13,6 @@ import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/product_model.dart';
-import 'package:virtual_try_on/screens/order_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 enum ModelType { withClothes, noClothes }
@@ -56,8 +55,8 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => Product_details_controller());
-    final cartController = Get.putOrFind(() => Cart_Controller());
     final indexcontroller = Get.putOrFind(() => IndexController());
+    final cartController = Get.putOrFind(() => Cart_Controller());
     return Scaffold(
       body: Stack(
         children: [
@@ -456,11 +455,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                   CustomButton(
                     text: 'Try on 3D',
                     width: 150,
-                    onPressed: () {
-                      Get.to(() => const MyHomePage(
-                            title: 'Check',
-                          ));
-                    },
+                    onPressed: () {},
                   ),
                   CustomButton(
                       text: 'Add to Cart',

@@ -206,6 +206,8 @@ class LoginScreen extends GetView<LoginController> {
                     text: 'Login',
                     width: Get.width * 0.7.w,
                     onPressed: () async {
+                      //  LoginController loginController = Get.find();
+                      //controller.;
                       await controller.userAuthentication.loginUser(
                           controller.emailController.text,
                           controller.passwordController.text,

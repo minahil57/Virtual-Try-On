@@ -22,19 +22,19 @@ class SplashScreen extends GetView<SplashController> {
           children: [
             const SizedBox.shrink(),
             Image.asset(
-              'assets/images/logo.png',
-              height: 50.h,
+              'assets/images/loogo.png',
+              height: 250.h,
             ),
             SizedBox(height: 14.h),
-            Text(
-              'Virtual TryOn',
-              style: globalTextStyle(
-                fontSize: 16.sp,
-                letterSpacing: 1,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary,
-              ),
-            ),
+            // Text(
+            //   'Vir',
+            //   style: globalTextStyle(
+            //     fontSize: 16.sp,
+            //     letterSpacing: 1,
+            //     fontWeight: FontWeight.bold,
+            //     color: AppColors.primary,
+            //   ),
+            // ),
           ],
         ),
       ),

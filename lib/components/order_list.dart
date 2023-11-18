@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:virtual_try_on/controllers/my_orders_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/helpers/get_color.dart';
+import 'package:virtual_try_on/models/my_order_model.dart';
 import 'package:virtual_try_on/screens/review_screen.dart';
 
 // ignore: camel_case_types
-class Order_list extends StatelessWidget {
-  const Order_list({super.key});
+class Order_list extends GetView<MyOrdersController> {
+  final OrderDetailModel orderDetails;
+  final String status;
+  const Order_list(
+      {super.key, required this.orderDetails, required this.status});
 
   @override
   Widget build(BuildContext context) {
+    Get.putOrFind(() => MyOrdersController());
+
     return Container(
       color: Colors.white70,
       child: Column(
@@ -33,8 +42,8 @@ class Order_list extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0.r),
-                  child: Image.asset(
-                    'assets/images/BlackPant1.PNG',
+                  child: Image.network(
+                    orderDetails.product!.images![0],
                     fit: BoxFit.fitHeight,
                     height: 70.h,
                     width: 70.w, // Ensure the image covers the entire container
@@ -45,13 +54,13 @@ class Order_list extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "name",
+                    orderDetails.product!.name!.capitalizeFirst,
                     style: globalTextStyle(fontSize: 15),
                   ),
                   Row(
                     children: [
                       Text(
-                        'Size: ${'xl'}',
+                        orderDetails.size!.capitalizeFirst,
                         style: globalTextStyle(
                             fontSize: 10.sp, color: AppColors.customGrey),
                       ),
@@ -65,7 +74,7 @@ class Order_list extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'QTY: ${'10'}',
+                        '${orderDetails.quantity.toString()}x',
                         style: globalTextStyle(
                             fontSize: 10.sp, color: AppColors.customGrey),
                       ),
@@ -77,35 +86,38 @@ class Order_list extends StatelessWidget {
                   width: Get.width * 0.01.w,
                   child: Row(
                     children: [
-                      const Text('Rs- ${'300'}'),
+                      Text('Rs- ${orderDetails.product!.price!}'),
                       const SizedBox(
                         width: 10,
                       ),
                       Container(
                           padding: EdgeInsets.all(8.h),
                           decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: HexColor(orderDetails.color!),
                             borderRadius: BorderRadius.circular(20.r),
                           )),
                     ],
                   )),
-              trailing: ElevatedButton(
-                onPressed: () {
-                  Get.to(() => const ReviewScreen());
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown, // Background color
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the value for rounded corners
-                  ),
-                ),
-                child: Text(
-                  "Leave Review",
-                  style: globalTextStyle(
-                      fontSize: 12, color: Colors.white), // Text color
-                ),
-              )),
+              trailing: status.toLowerCase() == "pending" ||
+                      status.toLowerCase() == 'cancelled'
+                  ? const SizedBox.shrink()
+                  : ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => const ReviewScreen());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown, // Background color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Adjust the value for rounded corners
+                        ),
+                      ),
+                      child: Text(
+                        "Leave Review",
+                        style: globalTextStyle(
+                            fontSize: 12, color: Colors.white), // Text color
+                      ),
+                    )),
           const Divider(),
         ],
       ),

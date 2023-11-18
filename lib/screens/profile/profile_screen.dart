@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/profile_controller.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/main.dart';
+import 'package:virtual_try_on/models/user_model.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/my_orders_screen.dart';
 
@@ -37,14 +39,16 @@ class ProfileScreen extends GetView<ProfileController> {
               Center(
                 child: Stack(
                   children: [
-                    CircleAvatar(
-                      radius: 65, // Adjust the size of the avatar as needed
-                      backgroundColor: AppColors.primary.withOpacity(0.5),
-                      foregroundColor:
-                          Colors.grey, // Background color of the avatar
-                      backgroundImage: NetworkImage(
-                        indexcontroller.currentuser.value
-                            .image!, // Replace with your image URL
+                    Obx(
+                      () => CircleAvatar(
+                        radius: 65, // Adjust the size of the avatar as needed
+                        backgroundColor: AppColors.primary.withOpacity(0.5),
+                        foregroundColor:
+                            Colors.grey, // Background color of the avatar
+                        backgroundImage: NetworkImage(
+                          currentuser
+                              .value.image!, // Replace with your image URL
+                        ),
                       ),
                     ),
                     Positioned(
@@ -75,10 +79,11 @@ class ProfileScreen extends GetView<ProfileController> {
                 height: 5.h,
               ),
               Center(
-                  child: Text(
-                indexcontroller.currentuser.value.name!.capitalizeFirst,
-                style: globalTextStyle(fontSize: 15, color: AppColors.primary),
-              )),
+                  child: Obx(() => Text(
+                        currentuser.value.name!.capitalizeFirst,
+                        style: globalTextStyle(
+                            fontSize: 15, color: AppColors.primary),
+                      ))),
               SizedBox(
                 height: 10.h,
               ),
@@ -162,14 +167,17 @@ class ProfileScreen extends GetView<ProfileController> {
                 onTap: () async {
                   try {
                     await supabase.auth.signOut();
+                    currentuser.value = UserModel();
+                    // ignore: invalid_use_of_protected_member
+                    currentuser.refresh();
                     Get.offAll(() => const LoginScreen());
                   } catch (e) {
                     log(e.toString());
                   }
                 },
               ),
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: 50.h,
               )
             ],
           ),

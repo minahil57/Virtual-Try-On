@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/helpers/show_toast.dart';
+import 'package:virtual_try_on/main.dart';
+import 'package:virtual_try_on/main.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 
 import '../services/cart_services.dart';
@@ -17,8 +19,7 @@ class Cart_Controller extends GetxController {
 
   @override
   void onReady() async {
-    items.value = await CartServices.fetchCartItems(
-        indexController.currentuser.value.cartid!);
+    items.value = await CartServices.fetchCartItems(currentuser.value.cartid!);
 
     super.onReady();
   }
@@ -34,17 +35,16 @@ class Cart_Controller extends GetxController {
       final CartItemModel newItem = await CartServices.addToCartItem(
         cart: {
           "product_id": cart['product_id'],
-          "cart_id": indexController.currentuser.value.cartid!,
+          "cart_id": currentuser.value.cartid!,
           "size": cart['size'],
           "quantity": cart['quantity'],
           "color": cart['color'],
         },
-        cartId: indexController.currentuser.value.cartid!,
+        cartId: currentuser.value.cartid!,
       );
 
       await CartServices.updateCart(
-          id: indexController.currentuser.value.cartid!,
-          total: calculateTotal());
+          id: currentuser.value.cartid!, total: calculateTotal());
 
       Get.back();
       final BottomBarController bottomBarController = Get.find();
@@ -82,8 +82,7 @@ class Cart_Controller extends GetxController {
       items.refresh();
       await CartServices.updateQuantity(item.id!, item.quantity!);
       await CartServices.updateCart(
-          id: indexController.currentuser.value.cartid!,
-          total: calculateTotal());
+          id: currentuser.value.cartid!, total: calculateTotal());
     }
   }
 
@@ -93,26 +92,24 @@ class Cart_Controller extends GetxController {
       items.refresh();
       await CartServices.updateQuantity(item.id!, item.quantity!);
       await CartServices.updateCart(
-          id: indexController.currentuser.value.cartid!,
-          total: calculateTotal());
+          id: currentuser.value.cartid!, total: calculateTotal());
     }
   }
 
   void removeFromCart(String id) async {
     await CartServices.deleteItem(id);
     await CartServices.updateCart(
-        id: indexController.currentuser.value.cartid!, total: calculateTotal());
+        id: currentuser.value.cartid!, total: calculateTotal());
     items.removeWhere((item) => item.id == id);
     items.refresh();
   }
 
   void clearCart() async {
     items.value = [];
-    await CartServices.clearCart(indexController.currentuser.value.cartid!);
+    await CartServices.clearCart(currentuser.value.cartid!);
     await CartServices.updateCart(
-        id: indexController.currentuser.value.cartid!, total: calculateTotal());
+        id: currentuser.value.cartid!, total: calculateTotal());
 
-    
     items.refresh();
   }
 

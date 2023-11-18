@@ -124,7 +124,6 @@ class CartList extends GetView<Cart_Controller> {
                       GestureDetector(
                         onTap: () {
                           controller.decreaseQuantity(cartItem);
-                          // print('Minux Tap');
                         },
                         child: Container(
                           decoration: BoxDecoration(

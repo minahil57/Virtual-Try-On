@@ -16,10 +16,9 @@ class Cart_screen extends GetView<Cart_Controller> {
 
   @override
   Widget build(BuildContext context) {
-    final cartController = Get.putOrFind(() => Cart_Controller());
-
+    Get.put(Cart_Controller());
     return Obx(
-      () => cartController.items.value.isEmpty
+      () => controller.items.value.isEmpty
           ? const EmptyCart()
           : Scaffold(
               body: RefreshIndicator(
@@ -76,12 +75,12 @@ class Cart_screen extends GetView<Cart_Controller> {
                           flex: 2,
                           child: Obx(
                             () => ListView.builder(
-                                itemCount: cartController.items.value.length,
+                                itemCount: controller.items.value.length,
                                 padding:
                                     EdgeInsets.only(bottom: Get.height * 0.4),
                                 itemBuilder: (context, index) {
                                   CartItemModel cartItem =
-                                      cartController.items.value[index];
+                                      controller.items.value[index];
                                   return CartList(cartItem, index);
                                 }),
                           ),
