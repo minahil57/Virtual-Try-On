@@ -3,6 +3,7 @@ class ProductModel {
   String? name;
   String? description;
   int? price;
+  String? model;
   // String? rating;
   List<String>? images;
   List<String>? sizes;
@@ -13,6 +14,7 @@ class ProductModel {
     this.name,
     this.description,
     this.price,
+    this.model,
     // this.rating,
     this.images,
     this.sizes,
@@ -24,6 +26,7 @@ class ProductModel {
     name = json['name'];
     description = json['description'] ?? '';
     price = json['price'];
+    model = json['model'];
     // rating = json['rating'] ?? '';
     images = json['images'] == null ? [] : json['images'].cast<String>();
     sizes = json['sizes'] == null ? [] : json['sizes'].cast<String>();
