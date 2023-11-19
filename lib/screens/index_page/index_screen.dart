@@ -10,7 +10,6 @@ import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/categories_screen.dart';
-import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import 'package:virtual_try_on/screens/search_screen.dart';
 
 import '../../core/colors.dart';
@@ -243,20 +242,8 @@ class IndexScreen extends GetView<IndexController> {
                       itemBuilder: (BuildContext context, int index) {
                         ProductModel productData = controller.products[index];
                         // Your item widgets go here
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(
-                              () => ProductDetailsScreen3State(
-                                product: productData,
-                              ),
-                            );
-                          },
-                          child: GridItem(
-                              id: productData.id!,
-                              imageUrl: productData.images![0],
-                              text: productData.name!,
-                              rating: 3.0,
-                              price: productData.price!),
+                        return GridItem(
+                          productData: productData,
                         );
                       },
                     ),

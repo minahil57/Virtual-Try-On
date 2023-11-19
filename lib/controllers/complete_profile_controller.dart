@@ -2,6 +2,7 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:virtual_try_on/helpers/show_toast.dart';
 
 import '../services/user_authentication_services.dart';
 
@@ -24,9 +25,9 @@ class CompleteProfileController extends GetxController {
     try {
       XFile? image = await picker.pickImage(source: ImageSource.gallery);
       imageFile.value = image;
-      print(image);
+      update();
     } catch (e) {
-      print("Error picking image: $e");
+      showToast("Error picking image");
     }
   }
 

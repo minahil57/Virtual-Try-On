@@ -6,7 +6,6 @@ import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/controllers/wishlist_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 import 'package:virtual_try_on/services/favourite_services.dart';
 
 import '../models/product_model.dart';
@@ -59,11 +58,7 @@ class WishListScreen extends GetView<Wishlist_Controller> {
         FutureBuilder(
             future: FavouritesServices.fetchFavs(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (snapshot.hasError) {
+              if (snapshot.hasError) {
                 return Center(
                   child: Text('Error: ${snapshot.error}'),
                 );
@@ -92,19 +87,8 @@ class WishListScreen extends GetView<Wishlist_Controller> {
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       ProductModel favData = products[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Get.to(() => ProductDetailsScreen3State(
-                                product: favData,
-                              ));
-                        },
-                        child: GridItem(
-                          imageUrl: favData.images![0],
-                          price: favData.price!,
-                          id: favData.id!,
-                          rating: 0,
-                          text: favData.name!,
-                        ),
+                      return GridItem(
+                        productData: favData,
                       );
                     },
                   ),

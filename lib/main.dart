@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
+import 'package:virtual_try_on/models/user_model.dart';
 import 'package:virtual_try_on/screens/auth_screens/splash_screen.dart';
 
 import 'config/supabase.dart';
@@ -27,6 +28,8 @@ void main() async {
 
   runApp(const MyApp());
 }
+
+final Rx<UserModel> currentuser = UserModel().obs;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

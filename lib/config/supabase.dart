@@ -12,7 +12,6 @@ Future<void> supabaseInit() async {
 
     supabase = Supabase.instance.client;
   } catch (e) {
-    print(e);
     showToast('An error occured in DB intialization');
   }
 }

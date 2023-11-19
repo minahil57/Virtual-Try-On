@@ -13,7 +13,6 @@ import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/product_model.dart';
-import 'package:virtual_try_on/screens/order_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 enum ModelType { withClothes, noClothes }
@@ -50,14 +49,21 @@ class ModelScreen extends StatelessWidget {
 
 class ProductDetailsScreen3State extends GetView<Product_details_controller> {
   final ProductModel product;
+  final double avgRating;
+  final RxBool isFav;
 
-  const ProductDetailsScreen3State({super.key, required this.product});
+  const ProductDetailsScreen3State({
+    super.key,
+    required this.product,
+    required this.isFav,
+    required this.avgRating,
+  });
 
   @override
   Widget build(BuildContext context) {
     Get.putOrFind(() => Product_details_controller());
-    final cartController = Get.putOrFind(() => Cart_Controller());
     final indexcontroller = Get.putOrFind(() => IndexController());
+    final Cart_Controller cartController = Get.put(Cart_Controller());
     return Scaffold(
       body: Stack(
         children: [
@@ -138,14 +144,6 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                                   ),
                                                 ),
                                               ),
-                                              // Image.network(
-                                              //   imagePath,
-                                              //   width: 50
-                                              //       .w, // Adjust the width as needed
-                                              //   height: 50
-                                              //       .h, // Adjust the height as needed
-                                              //   fit: BoxFit.cover,
-                                              // ),
                                             ],
                                           ),
                                         ),
@@ -173,7 +171,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                             //Spacer(),
 
                             RatingBarIndicator(
-                              rating: 4,
+                              rating: avgRating,
                               itemBuilder: (context, index) => const Icon(
                                 Icons.star,
                                 color: Colors.amber,
@@ -305,13 +303,6 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 13.sp),
                               ),
-                              // TextSpan(
-                              //   text:
-                              //       //'${productData.colors![controller.selectedColorIndex.value]['label']}',
-                              //       'color',
-                              //   style: globalTextStyle(
-                              //       color: Colors.grey, fontSize: 15.sp),
-                              // ),
                             ],
                           ),
                         ),
@@ -325,11 +316,6 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(
-                                      // left:
-                                      //     controller.selectedColorIndex.value ==
-                                      //             0
-                                      //         ? 0
-                                      //         : 8,
                                       right: 8), // Add spacing between images
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
@@ -400,7 +386,11 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.back();
+                        isFav.value
+                            ? indexcontroller.handleRemoveFromFav(
+                                product.id!, isFav)
+                            : indexcontroller.handleAddToFav(
+                                product.id!, isFav);
                       },
                       child: Container(
                         width: 50.w,
@@ -412,16 +402,17 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                             width: 2.0,
                           ),
                         ),
-                        child: IconButton(
-                          icon: const Icon(
-                            FlutterRemix.heart_2_line,
-                            color: Colors.black,
+                        child: Obx(
+                          () => Icon(
+                            isFav.value
+                                ? FlutterRemix.heart_2_fill
+                                : FlutterRemix.heart_2_line,
+                            size: 12.dg,
+                            color: AppColors.primary,
                           ),
-
-                          onPressed: () {
-                            indexcontroller.handleAddToFav(product.id!);
-                          }, // Set the icon color to black
                         ),
+
+                        // Set the icon color to black
                       ),
                     ),
                   ],
@@ -456,11 +447,7 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                   CustomButton(
                     text: 'Try on 3D',
                     width: 150,
-                    onPressed: () {
-                      Get.to(() => const MyHomePage(
-                            title: 'Check',
-                          ));
-                    },
+                    onPressed: () {},
                   ),
                   CustomButton(
                       text: 'Add to Cart',

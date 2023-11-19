@@ -5,15 +5,17 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:virtual_try_on/helpers/show_toast.dart';
+import 'package:virtual_try_on/main.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/services/storage_services.dart';
+import 'package:virtual_try_on/services/user_services.dart';
 
 import '../config/supabase.dart';
 
 class UserAuthentication {
-  Future<void> registerUser(
-      String email, String password, context, String name) async {
+//  final LoginController loginController = Get.find();
+  Future<void> registerUser(String email, String password, context) async {
     try {
       await EasyLoading.show();
       AuthResponse response = await supabase.auth.signUp(
@@ -23,6 +25,7 @@ class UserAuthentication {
       await EasyLoading.dismiss();
       if (response.user != null) {
         // Registration successful
+
         showToast('Lets begin by completing your profile');
         Get.offAll(() => const CompleteProfile());
       } else {
@@ -36,7 +39,6 @@ class UserAuthentication {
       if (e is Exception) {
         errorMessage = e.toString();
       }
-      print(errorMessage);
       showToast(errorMessage);
     }
   }
@@ -48,11 +50,16 @@ class UserAuthentication {
         email: email,
         password: password,
       );
-      await EasyLoading.dismiss();
       if (response.user != null) {
         showToast('Succefully Logged In');
-        // Fluttertoast.showToast(msg: 'successfully Logged In');
-        Get.offAll(() => const BottomNavScreen());
+        currentuser.value = await UserServices.fetchUser();
+        await EasyLoading.dismiss();
+        if (currentuser.value.name == null) {
+          showToast('Please complete your profile');
+          Get.offAll(() => const CompleteProfile());
+        } else {
+          Get.offAll(() => const BottomNavScreen());
+        }
         // You can save the user session or handle the logged-in user here
       } else {
         // Handle the error
@@ -74,14 +81,13 @@ class UserAuthentication {
 
   Future<void> completeProfiles(
       String name, String number, dynamic gender, File file) async {
-    print(gender);
     try {
       final String publicUrl = await StorageServices.uploadImage(
         bucket: 'profiles',
         name: supabase.auth.currentUser!.id,
         file: file,
       );
-      final response = await supabase.from('profiles').update({
+      await supabase.from('profiles').update({
         'name': name,
         'phone': number,
         'gender': gender,
@@ -93,7 +99,6 @@ class UserAuthentication {
     } catch (e) {
       await EasyLoading.dismiss();
       showToast('Caught an unexpected error');
-      print(e);
     }
   }
 }

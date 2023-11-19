@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:virtual_try_on/helpers/show_toast.dart';
+import 'package:virtual_try_on/services/product_services.dart';
 import '../models/category_model.dart';
-import '../services/products_services.dart';
 
 class CategoriesController extends GetxController
     with GetTickerProviderStateMixin {
@@ -26,7 +26,7 @@ class CategoriesController extends GetxController
         tabController.index = selectedTab.value;
       }
     } catch (e) {
-      print(e.toString());
+      showToast('Error');
     }
     super.onInit();
   }

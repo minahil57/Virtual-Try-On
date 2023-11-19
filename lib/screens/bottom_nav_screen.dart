@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:virtual_try_on/core/colors.dart';
 
-import '../controllers/bottomBar_controller.dart';
+import '../controllers/bottombar_controller.dart';
 
 class BottomNavScreen extends GetView<BottomBarController> {
   const BottomNavScreen({super.key});

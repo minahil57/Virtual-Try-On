@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,11 @@ class LoginController extends GetxController {
   void toggleObscureText() {
     obscureText.value = !obscureText.value;
   }
+
+  // void checkCredentials() async {
+  //   currentuser.value = await UserServices.fetchUser();
+  //   currentuser.refresh();
+  // }
 
   bool passwordVisible = false;
   void initState() {

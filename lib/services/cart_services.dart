@@ -60,11 +60,9 @@ class CartServices {
       // oNn - id, cart_id, {images, price, name}, quantity, size, color
 
       await EasyLoading.dismiss();
-      print(response);
       return response;
     } catch (e) {
       await EasyLoading.dismiss();
-      print(e);
       showToast('Failed to fetch');
       return [];
     }
@@ -73,7 +71,7 @@ class CartServices {
   static Future<CartItemModel> addToCartItem(
       {required Map<String, dynamic> cart, required String cartId}) async {
     try {
-      log('Cart ${cart}');
+      log('Cart $cart');
       await EasyLoading.show();
       final CartItemModel newItem = await supabase
           .from('cart_details')

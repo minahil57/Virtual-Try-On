@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/controllers/splash_controller.dart';
-import 'package:virtual_try_on/core/colors.dart';
-import 'package:virtual_try_on/core/text_styles.dart';
 
 class SplashScreen extends GetView<SplashController> {
   const SplashScreen({super.key});
@@ -22,19 +20,10 @@ class SplashScreen extends GetView<SplashController> {
           children: [
             const SizedBox.shrink(),
             Image.asset(
-              'assets/images/logo.png',
-              height: 50.h,
+              'assets/images/loogo.png',
+              height: 250.h,
             ),
             SizedBox(height: 14.h),
-            Text(
-              'Virtual TryOn',
-              style: globalTextStyle(
-                fontSize: 16.sp,
-                letterSpacing: 1,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary,
-              ),
-            ),
           ],
         ),
       ),
