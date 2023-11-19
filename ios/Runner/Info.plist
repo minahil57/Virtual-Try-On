@@ -50,5 +50,8 @@
 	<string>Need permissions to access camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need permissions to access photos</string>
+	<!-- 3D Model -->
+	<key>io.flutter.embedded_views_preview</key>
+    <true/>
 </dict>
 </plist>

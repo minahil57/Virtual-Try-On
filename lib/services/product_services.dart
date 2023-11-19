@@ -31,7 +31,7 @@ class ProductServices {
       EasyLoading.show();
       final productItems = await supabase
           .from('products')
-          .select('id,name,price,images,sizes,colors,description')
+          .select('id,name,price,images,sizes,colors,description,model')
           .withConverter(
             (data) => List<ProductModel>.from(
               data.map((item) => ProductModel.fromJson(item)),
