@@ -15,10 +15,10 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
 
   final List<String> carouselItems = [
     'assets/images/promotion.png',
-    'assets/images/promotion.png',
-    'assets/images/promotion.png',
-    'assets/images/promotion.png',
-    'assets/images/promotion.png',
+    'assets/images/promo.jpeg',
+    'assets/images/new.jpeg',
+    'assets/images/autmn sale.jpeg',
+    'assets/images/end.webp',
   ];
   @override
   void onInit() async {

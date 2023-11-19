@@ -119,12 +119,20 @@ class CategoriesScreen extends GetView<CategoriesController> {
                                 );
                               } else if (snapshot.hasError) {
                                 return Center(
-                                  child: Text('Error: ${snapshot.error}'),
+                                  heightFactor: 2,
+                                  child: Image.asset(
+                                    'assets/images/error.gif',
+                                    height: Get.height * 0.3,
+                                  ),
                                 );
                               } else if (!snapshot.hasData ||
                                   (snapshot.data as dynamic).isEmpty) {
-                                return const Center(
-                                  child: Text('No data available'),
+                                return Center(
+                                  heightFactor: 2,
+                                  child: Image.asset(
+                                    'assets/images/no.gif',
+                                    height: Get.height * 0.3,
+                                  ),
                                 );
                               } else {
                                 final List<ProductModel>? product =
