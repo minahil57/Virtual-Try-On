@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:get/get.dart';
-import 'package:virtual_try_on/controllers/bottomBar_controller.dart';
+import 'package:virtual_try_on/controllers/bottombar_controller.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/helpers/show_toast.dart';
-import 'package:virtual_try_on/main.dart';
 import 'package:virtual_try_on/main.dart';
 import 'package:virtual_try_on/models/cart_model.dart';
 

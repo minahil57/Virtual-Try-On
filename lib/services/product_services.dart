@@ -20,7 +20,7 @@ class ProductServices {
       return response;
     } catch (e) {
       EasyLoading.dismiss();
-      print(e.toString());
+
       return []; // Return an empty list in case of an error
     }
   }
@@ -38,33 +38,32 @@ class ProductServices {
             ),
           );
       EasyLoading.dismiss();
-      print(productItems.first);
       // print(productList);
       return productItems; // Return the fetched data
     } catch (e) {
       EasyLoading.dismiss();
-      print(e.toString());
       return []; // Return an empty list in case of an error
     }
   }
 
-  // static Future<List<ProductModel>> searchProducts({required String query}) async {
-  //   try {
-  //     EasyLoading.show();
-  //     final productItems = await supabase
-  //         .from('products')
-  //         .select('id,name,price,images,sizes,colors,description').textSearch('name', '%$query%')
-  //         .withConverter(
-  //           (data) => List<ProductModel>.from(
-  //             data.map((item) => ProductModel.fromJson(item)),
-  //           ),
-  //         );
-  //     EasyLoading.dismiss();
-  //     return productItems;
-  //   } catch (e) {
-  //     EasyLoading.dismiss();
-  //     print(e.toString());
-  //     return [];
-  //   }
-  // }
+  static Future<List<ProductModel>> searchProducts(
+      {required String query}) async {
+    try {
+      EasyLoading.show();
+      final productItems = await supabase
+          .from('products')
+          .select('id,name,price,images,sizes,colors,description')
+          .textSearch('name', '%$query%')
+          .withConverter(
+            (data) => List<ProductModel>.from(
+              data.map((item) => ProductModel.fromJson(item)),
+            ),
+          );
+      EasyLoading.dismiss();
+      return productItems;
+    } catch (e) {
+      EasyLoading.dismiss();
+      return [];
+    }
+  }
 }

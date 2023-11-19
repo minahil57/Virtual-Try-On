@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/main.dart';
 import 'package:virtual_try_on/models/category_model.dart';
-import 'package:virtual_try_on/models/user_model.dart';
 import 'package:virtual_try_on/services/favourite_services.dart';
-import 'package:virtual_try_on/services/products_services.dart';
+import 'package:virtual_try_on/services/product_services.dart';
 import '../models/product_model.dart';
-import '../services/user_services.dart';
 
 class IndexController extends GetxController with GetTickerProviderStateMixin {
   final TextEditingController search = TextEditingController();
@@ -33,8 +31,15 @@ class IndexController extends GetxController with GetTickerProviderStateMixin {
     super.onInit();
   }
 
-  void handleAddToFav(String id) async {
+  void handleRemoveFromFav(String id, RxBool isFav) async {
+    await FavouritesServices.removeFromFav(currentuser.value.id!, id);
+
+    isFav.value = false;
+  }
+
+  void handleAddToFav(String id, RxBool isFav) async {
     await FavouritesServices.addToFav(currentuser.value.id!, id);
+    isFav.value = true;
   }
 
   @override

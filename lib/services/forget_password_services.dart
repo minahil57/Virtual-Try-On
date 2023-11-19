@@ -18,7 +18,6 @@ class FogetPassword {
       showToast('OTP Sent Successfully');
       Get.to(() => const OtpScreen(), arguments: {'email': email});
     } catch (e) {
-      print(e);
       EasyLoading.dismiss();
       showToast('Unexpected error occured');
     }

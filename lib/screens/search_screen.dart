@@ -5,7 +5,6 @@ import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/product_model.dart';
-import 'package:virtual_try_on/screens/product_detail/product_detail_screen.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   final RxList<ProductModel> searchList = <ProductModel>[].obs;
@@ -49,11 +48,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
         ),
         itemBuilder: (context, index) {
           return GridItem(
-            id: searchResults[index].id!,
-            imageUrl: searchResults[index].images![0],
-            text: searchResults[index].name!.capitalizeFirst,
-            rating: 4.5,
-            price: searchResults[index].price!,
+            productData: searchResults[index],
           );
         },
       ),
@@ -108,18 +103,8 @@ class CustomSearchDelegate extends SearchDelegate<String> {
                         childAspectRatio: 3 / 4,
                       ),
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen3State(
-                                product: snapshot.data![index]));
-                          },
-                          child: GridItem(
-                            id: snapshot.data![index].id!,
-                            imageUrl: snapshot.data![index].images![0],
-                            text: snapshot.data![index].name!,
-                            rating: 4.5,
-                            price: snapshot.data![index].price!,
-                          ),
+                        return GridItem(
+                          productData: snapshot.data![index],
                         );
                       },
                     );

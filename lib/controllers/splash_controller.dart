@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/config/supabase.dart';
 import 'package:virtual_try_on/main.dart';
-import 'package:virtual_try_on/models/user_model.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/screens/onboarding_screen.dart';

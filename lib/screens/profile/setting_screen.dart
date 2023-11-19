@@ -1,20 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/components/logout_sheet.dart';
 import 'package:virtual_try_on/controllers/profile_controller.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/main.dart';
-import 'package:virtual_try_on/models/user_model.dart';
 import 'package:virtual_try_on/screens/auth_screens/complete_profile_screen.dart';
 import 'package:virtual_try_on/screens/my_orders_screen.dart';
 import 'package:virtual_try_on/screens/profile/my_profile_screen.dart';
-
-import '../../config/supabase.dart';
 import '../../core/colors.dart';
-import '../auth_screens/login_screen.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
@@ -57,11 +52,14 @@ class ProfileScreen extends GetView<ProfileController> {
                 height: 5.h,
               ),
               Center(
-                  child: Obx(() => Text(
-                        currentuser.value.name!.capitalizeFirst,
-                        style: globalTextStyle(
-                            fontSize: 15, color: AppColors.primary),
-                      ))),
+                child: Obx(
+                  () => Text(
+                    currentuser.value.name!.capitalizeFirst,
+                    style:
+                        globalTextStyle(fontSize: 15, color: AppColors.primary),
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 10.h,
               ),
@@ -143,15 +141,24 @@ class ProfileScreen extends GetView<ProfileController> {
                   color: AppColors.primary,
                 ),
                 onTap: () async {
-                  try {
-                    await supabase.auth.signOut();
-                    currentuser.value = UserModel();
-                    // ignore: invalid_use_of_protected_member
-                    currentuser.refresh();
-                    Get.offAll(() => const LoginScreen());
-                  } catch (e) {
-                    log(e.toString());
-                  }
+                  Get.bottomSheet(
+                    const LogoutSheet(),
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.r),
+                      topRight: Radius.circular(20.r),
+                    )),
+                  );
+                  // try {
+                  //   await supabase.auth.signOut();
+                  //   await Get.offAll(() => const LoginScreen());
+                  //   currentuser.value = UserModel();
+                  //   // ignore: invalid_use_of_protected_member
+                  //   currentuser.refresh();
+                  // } catch (e) {
+                  //   log(e.toString());
+                  // }
                 },
               ),
               SizedBox(

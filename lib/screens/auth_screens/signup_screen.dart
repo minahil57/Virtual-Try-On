@@ -53,58 +53,6 @@ class SignupScreen extends GetView<SignupController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Name',
-                              style: globalTextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.customBlack),
-                            ),
-                            SizedBox(
-                              height: 6.h,
-                            ),
-                            TextFormField(
-                                keyboardType: TextInputType.text,
-                                controller: controller.name_controller,
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: 'John Doe',
-                                  hintStyle: TextStyle(
-                                    color: AppColors.customLightGrey,
-                                    fontSize: 12.sp,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.only(bottom: 15.h, left: 15.w),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your Name';
-                                  } else {
-                                    return null;
-                                  }
-                                }),
                             SizedBox(
                               height: 10.h,
                             ),
@@ -277,7 +225,7 @@ class SignupScreen extends GetView<SignupController> {
                                         controller.email_controller.text,
                                         controller.password_controller.text,
                                         context,
-                                        controller.name_controller.text,
+                                        // controller.name_controller.text,
                                       );
                                     } else {
                                       showToast(
@@ -286,38 +234,6 @@ class SignupScreen extends GetView<SignupController> {
                                   }
                                 },
                               ),
-                            ),
-                            SizedBox(height: 20.h),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Divider(
-                                    indent: 30,
-                                    thickness: 1,
-                                    color: AppColors.customLightGrey,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  'or sign up with',
-                                  style: TextStyle(
-                                      color: AppColors.customGrey,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 20.h),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CircularLogoContainer(
-                                    "assets/images/apple.png"),
-                                CircularLogoContainer(
-                                    "assets/images/Google logo.png"),
-                                CircularLogoContainer(
-                                    "assets/images/facebook logo.png"),
-                              ],
                             ),
                             SizedBox(height: 20.h),
                             Row(
@@ -345,36 +261,6 @@ class SignupScreen extends GetView<SignupController> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CircularLogoContainer extends StatelessWidget {
-  final String logoPath;
-
-  const CircularLogoContainer(this.logoPath, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60, // Adjust the size of the circular container as needed
-      height: 60,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle, // Makes it a circular container
-        border: Border.all(
-          color: Colors.black, // Border color
-          width: 1.0, // Border width
-        ),
-      ),
-      child: ClipOval(
-        child: Center(
-          child: Image.asset(
-            logoPath,
-            width: 40, // Adjust the size of the logo as needed
-            height: 40,
           ),
         ),
       ),

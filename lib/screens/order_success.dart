@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/screens/my_orders_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 

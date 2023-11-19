@@ -1,18 +1,19 @@
-import 'package:virtual_try_on/models/cart_model.dart';
-
 import 'product_model.dart';
 
 class OrderModel {
   String? id;
   String? status;
   int? total;
+  String? orderno;
   List<OrderDetailModel>? ordersDetail;
-  OrderModel({this.id, this.status, this.total, this.ordersDetail});
+  OrderModel(
+      {this.id, this.status, this.total, this.ordersDetail, this.orderno});
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     status = json['status'];
     total = json['price'];
+    orderno = json['order_no'];
     ordersDetail = <OrderDetailModel>[];
     if (json['order_details'] != null) {
       json['order_details'].forEach((v) {

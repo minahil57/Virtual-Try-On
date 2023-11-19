@@ -215,43 +215,6 @@ class LoginScreen extends GetView<LoginController> {
                     }),
               ),
               SizedBox(height: 20.h),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Divider(
-                      indent: 30,
-                      thickness: 1,
-                      color: AppColors.customLightGrey,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'or sign in with',
-                    style: TextStyle(
-                        color: AppColors.customGrey,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Divider(
-                      endIndent: 30,
-                      thickness: 1,
-                      color: AppColors.customLightGrey,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CircularLogoContainer("assets/images/apple.png"),
-                  CircularLogoContainer("assets/images/Google logo.png"),
-                  CircularLogoContainer("assets/images/facebook logo.png"),
-                ],
-              ),
-              SizedBox(height: 20.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -277,32 +240,4 @@ class LoginScreen extends GetView<LoginController> {
   }
 }
 
-class CircularLogoContainer extends StatelessWidget {
-  final String logoPath;
-
-  const CircularLogoContainer(this.logoPath, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60, // Adjust the size of the circular container as needed
-      height: 60,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle, // Makes it a circular container
-        border: Border.all(
-          color: Colors.black, // Border color
-          width: 1.0, // Border width
-        ),
-      ),
-      child: ClipOval(
-        child: Center(
-          child: Image.asset(
-            logoPath,
-            width: 40, // Adjust the size of the logo as needed
-            height: 40,
-          ),
-        ),
-      ),
-    );
-  }
-}
+// 

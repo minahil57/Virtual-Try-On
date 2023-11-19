@@ -15,8 +15,7 @@ import '../config/supabase.dart';
 
 class UserAuthentication {
 //  final LoginController loginController = Get.find();
-  Future<void> registerUser(
-      String email, String password, context, String name) async {
+  Future<void> registerUser(String email, String password, context) async {
     try {
       await EasyLoading.show();
       AuthResponse response = await supabase.auth.signUp(
@@ -40,7 +39,6 @@ class UserAuthentication {
       if (e is Exception) {
         errorMessage = e.toString();
       }
-      print(errorMessage);
       showToast(errorMessage);
     }
   }
@@ -55,7 +53,6 @@ class UserAuthentication {
       if (response.user != null) {
         showToast('Succefully Logged In');
         currentuser.value = await UserServices.fetchUser();
-        currentuser.refresh();
         await EasyLoading.dismiss();
         if (currentuser.value.name == null) {
           showToast('Please complete your profile');
@@ -84,14 +81,13 @@ class UserAuthentication {
 
   Future<void> completeProfiles(
       String name, String number, dynamic gender, File file) async {
-    print(gender);
     try {
       final String publicUrl = await StorageServices.uploadImage(
         bucket: 'profiles',
         name: supabase.auth.currentUser!.id,
         file: file,
       );
-      final response = await supabase.from('profiles').update({
+      await supabase.from('profiles').update({
         'name': name,
         'phone': number,
         'gender': gender,
@@ -103,7 +99,6 @@ class UserAuthentication {
     } catch (e) {
       await EasyLoading.dismiss();
       showToast('Caught an unexpected error');
-      print(e);
     }
   }
 }

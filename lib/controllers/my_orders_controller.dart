@@ -17,12 +17,14 @@ class MyOrdersController extends GetxController
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() async {
         if (!tabController.indexIsChanging) {
-          log('selectedStatus ${selectedStatus.value}');
           selectedStatus.value = tabController.index == 0
               ? 'pending'
               : tabController.index == 1
                   ? 'completed'
-                  : 'cancelled';
+                  : tabController.index == 2
+                      ? 'cancelled'
+                      : '';
+          log('selectedStatus ${selectedStatus.value}');
           orders.value = await OrderServices.fetchOrders(
             id: supabase.auth.currentUser!.id,
             status: selectedStatus.value,
