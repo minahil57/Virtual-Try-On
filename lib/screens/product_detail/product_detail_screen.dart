@@ -5,7 +5,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:virtual_try_on/controllers/cart_controller.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
 import 'package:virtual_try_on/controllers/product_details_controller.dart';
@@ -13,40 +12,8 @@ import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/helpers/get_color.dart';
 import 'package:virtual_try_on/models/product_model.dart';
-import 'package:virtual_try_on/screens/order_screen.dart';
+import 'package:virtual_try_on/screens/model_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
-
-enum ModelType { withClothes, noClothes }
-
-class ModelScreen extends StatelessWidget {
-  final ModelType modelType;
-
-  const ModelScreen({super.key, required this.modelType});
-
-  @override
-  Widget build(BuildContext context) {
-    String modelAsset;
-    String altText;
-
-    modelAsset = 'assets/MyNoclothes.glb'; // Model without clothes
-    altText =
-        "create a model with gray_clothes using cnn_model in assets folder";
-
-    return Scaffold(
-      appBar: AppBar(title: const Text("3D LOOKS")),
-      body: ModelViewer(
-        backgroundColor: const Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
-        src: modelAsset,
-        alt: altText,
-        ar: true,
-        arModes: const ['scene-viewer', 'webxr', 'quick-look'],
-        autoRotate: true,
-        cameraControls: true,
-        iosSrc: 'https://modelviewer.dev/shared-assets/models/Astronaut.usdz',
-      ),
-    );
-  }
-}
 
 class ProductDetailsScreen3State extends GetView<Product_details_controller> {
   final ProductModel product;
@@ -171,7 +138,6 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //Spacer(),
-
                             RatingBarIndicator(
                               rating: 4,
                               itemBuilder: (context, index) => const Icon(
@@ -451,17 +417,23 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                 ],
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: product.model != null
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.center,
                 children: [
-                  CustomButton(
-                    text: 'Try on 3D',
-                    width: 150,
-                    onPressed: () {
-                      Get.to(() => const MyHomePage(
-                            title: 'Check',
-                          ));
-                    },
-                  ),
+                  if (product.model != null)
+                    CustomButton(
+                      text: 'Try on 3D',
+                      width: 150,
+                      onPressed: () {
+                        Get.to(
+                          () => ModelScreen(
+                            model: product.model!,
+                            name: product.name!,
+                          ),
+                        );
+                      },
+                    ),
                   CustomButton(
                       text: 'Add to Cart',
                       width: 150,
