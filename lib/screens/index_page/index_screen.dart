@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:virtual_try_on/components/grid_view.dart';
 import 'package:virtual_try_on/controllers/index_controller.dart';
+import 'package:virtual_try_on/core/text_styles.dart';
 import 'package:virtual_try_on/models/category_model.dart';
 import 'package:virtual_try_on/models/product_model.dart';
 import 'package:virtual_try_on/screens/categories_screen.dart';
@@ -69,6 +70,7 @@ class IndexScreen extends GetView<IndexController> {
                           ),
                           fillColor: Colors.white54,
                           hintText: "Search",
+                          helperStyle: globalTextStyle(fontSize: 10),
                           prefixIcon: const Icon(
                             FlutterRemix.search_2_line,
                             color: AppColors.primary,
@@ -152,7 +154,7 @@ class IndexScreen extends GetView<IndexController> {
                                   children: [
                                     Text(
                                       'Categories',
-                                      style: TextStyle(
+                                      style: globalTextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -162,10 +164,12 @@ class IndexScreen extends GetView<IndexController> {
                                           Get.to(() => const CategoriesScreen(),
                                               arguments: {'index': 0});
                                         },
-                                        child: const Text(
+                                        child: Text(
                                           'View all',
-                                          style: TextStyle(
+                                          style: globalTextStyle(
                                               color: AppColors.primary,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w600,
                                               decoration:
                                                   TextDecoration.underline),
                                         ))
@@ -214,8 +218,14 @@ class IndexScreen extends GetView<IndexController> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text(category.name!),
-                                              ),
+                                                child: Text(
+                                                  category.name!,
+                                                  style: globalTextStyle(
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              )
                                             ])));
                                   },
                                 ),

@@ -17,11 +17,6 @@ class LoginController extends GetxController {
     obscureText.value = !obscureText.value;
   }
 
-  // void checkCredentials() async {
-  //   currentuser.value = await UserServices.fetchUser();
-  //   currentuser.refresh();
-  // }
-
   bool passwordVisible = false;
   void initState() {
     passwordVisible = true;

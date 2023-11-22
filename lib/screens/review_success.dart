@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:virtual_try_on/controllers/bottombar_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/core/text_styles.dart';
-import 'package:virtual_try_on/screens/index_page/index_screen.dart';
+import 'package:virtual_try_on/screens/bottom_nav_screen.dart';
 import 'package:virtual_try_on/widgets/custom_button.dart';
 
 class ReviewSuccess extends StatelessWidget {
@@ -77,8 +78,11 @@ class ReviewSuccess extends StatelessWidget {
               padding: EdgeInsets.all(20.0.h),
               child: CustomButton(
                 width: 350.w,
-                onPressed: () => {
-                  Get.to(() => const IndexScreen()),
+                onPressed: () {
+                  Get.to(() => const BottomNavScreen());
+                  BottomBarController bottomBarController = Get.find();
+                  bottomBarController.selectedIndex.value = 0;
+                  //  BottomBarController bottomBarController = Get.find(),
                 },
                 text: 'Ok',
               ),

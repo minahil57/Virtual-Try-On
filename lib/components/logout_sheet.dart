@@ -93,7 +93,7 @@ class LogoutSheet extends StatelessWidget {
                     ),
                     child: Text(
                       'Logout',
-                      style: TextStyle(
+                      style: globalTextStyle(
                         color: Colors.white, // Change the text color
                         fontSize: 13.sp, // Adjust the font size
                       ),

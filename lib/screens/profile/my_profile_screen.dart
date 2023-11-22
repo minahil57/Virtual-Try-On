@@ -267,7 +267,7 @@ class YourProfile extends GetView<YourProfile> {
                   height: 5.h,
                 ),
                 ListTile(
-                  leading: const Icon(FlutterRemix.genderless_fill,
+                  leading: const Icon(FlutterRemix.user_3_line,
                       color: AppColors.primary),
                   title: Text(
                     currentuser.value.gender!.capitalizeFirst,

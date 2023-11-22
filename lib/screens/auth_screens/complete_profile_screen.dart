@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:virtual_try_on/controllers/complete_profile_controller.dart';
 import 'package:virtual_try_on/core/colors.dart';
 import 'package:virtual_try_on/helpers/show_toast.dart';
@@ -115,15 +114,15 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                                             Navigator.pop(context);
                                           },
                                         ),
-                                        ListTile(
-                                          leading: const Icon(Icons.camera_alt),
-                                          title: const Text('Take a Photo'),
-                                          onTap: () {
-                                            //_getImage(ImageSource.camera);
-                                            //controller.getImage(ImageSource.camera);
-                                            Navigator.pop(context);
-                                          },
-                                        ),
+                                        // ListTile(
+                                        //   leading: const Icon(Icons.camera_alt),
+                                        //   title: const Text('Take a Photo'),
+                                        //   onTap: () {
+                                        //     //_getImage(ImageSource.camera);
+                                        //     //controller.getImage(ImageSource.camera);
+                                        //     Navigator.pop(context);
+                                        //   },
+                                        // ),
                                       ],
                                     ),
                                   );
@@ -208,35 +207,47 @@ class CompleteProfile extends GetView<CompleteProfileController> {
                           ),
                         ),
                         SizedBox(height: 6.h),
-                        InternationalPhoneNumberInput(
-                          maxLength: 12,
-
-                          inputBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.circular(
-                                30), // Adjust the value to control the roundness
-                          ),
-                          spaceBetweenSelectorAndTextField: 0,
-                          onInputChanged: (PhoneNumber number) {
-                            // You can handle input changes here if needed
-                          },
-                          onInputValidated: (bool value) {
-                            // You can handle validation here if needed
-                          },
-                          selectorConfig: const SelectorConfig(
-                            showFlags: false,
-                            selectorType: PhoneInputSelectorType.DROPDOWN,
-                          ),
-                          ignoreBlank: false,
-                          autoValidateMode: AutovalidateMode.disabled,
-                          selectorTextStyle:
-                              const TextStyle(color: Colors.black),
-                          //initialValue: number,
-                          textFieldController: controller.phoneController,
-                          formatInput: true,
-
-                          onSaved: (PhoneNumber number) {},
-                        ),
+                        TextFormField(
+                            controller: controller.phoneController,
+                            keyboardType: TextInputType.number,
+                            maxLength: 11,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: '0333333333',
+                              hintStyle: TextStyle(
+                                color: AppColors.customLightGrey,
+                                fontSize: 12.sp,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              contentPadding:
+                                  EdgeInsets.only(bottom: 15.h, left: 15.w),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your number';
+                              } else {
+                                return null;
+                              }
+                            }),
                         SizedBox(height: 20.h),
                         Text(
                           'Gender',

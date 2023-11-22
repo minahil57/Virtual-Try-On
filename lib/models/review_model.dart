@@ -21,7 +21,7 @@ class ReviewModel {
     return {
       'product_id': productid,
       'user_id': userid,
-      'review': review,
+      'review': review.toString(),
       'rating': rating.toString(),
     };
   }

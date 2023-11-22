@@ -13,7 +13,7 @@ class ReviewController extends GetxController {
       "review": review.text,
       "rating": rating.value,
       "product_id": productid,
-      "user_id": currentuser.value.id,
+      "user_id": currentuser.value.id!,
     });
   }
 

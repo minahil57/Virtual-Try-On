@@ -162,7 +162,7 @@ class CartDeleteSheet extends GetView<Cart_Controller> {
                     ),
                     child: Text(
                       'Yes',
-                      style: TextStyle(
+                      style: globalTextStyle(
                         color: Colors.white, // Change the text color
                         fontSize: 13.sp, // Adjust the font size
                       ),
