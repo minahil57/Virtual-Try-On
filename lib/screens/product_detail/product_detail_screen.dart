@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:collection/collection.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
@@ -409,18 +410,19 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                 ],
               ),
               child: Row(
-                mainAxisAlignment: product.maleModel != null
+                mainAxisAlignment: product.maleModel != null && product.femaleModel != null
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.center,
                 children: [
-                  if (product.maleModel != null)
+                  if (product.maleModel != null && product.femaleModel != null)
                     CustomButton(
                       text: 'Try on 3D',
                       width: 150,
                       onPressed: () {
                         Get.to(
                           () => ModelScreen(
-                            model: product.maleModel!,
+                            maleModel: product.maleModel!,
+                            femaleModel: product.femaleModel!,
                             name: product.name!,
                           ),
                         );
