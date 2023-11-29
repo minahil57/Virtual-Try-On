@@ -409,18 +409,18 @@ class ProductDetailsScreen3State extends GetView<Product_details_controller> {
                 ],
               ),
               child: Row(
-                mainAxisAlignment: product.model != null
+                mainAxisAlignment: product.maleModel != null
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.center,
                 children: [
-                  if (product.model != null)
+                  if (product.maleModel != null)
                     CustomButton(
                       text: 'Try on 3D',
                       width: 150,
                       onPressed: () {
                         Get.to(
                           () => ModelScreen(
-                            model: product.model!,
+                            model: product.maleModel!,
                             name: product.name!,
                           ),
                         );

@@ -20,7 +20,6 @@ class ProductServices {
       return response;
     } catch (e) {
       EasyLoading.dismiss();
-
       return []; // Return an empty list in case of an error
     }
   }
@@ -29,14 +28,12 @@ class ProductServices {
   Future<List<ProductModel>> FetchProducts() async {
     try {
       EasyLoading.show();
-      final productItems = await supabase
-          .from('products')
-          .select('id,name,price,images,sizes,colors,description,model')
-          .withConverter(
-            (data) => List<ProductModel>.from(
-              data.map((item) => ProductModel.fromJson(item)),
-            ),
-          );
+      final productItems =
+          await supabase.from('products').select('*').withConverter(
+                (data) => List<ProductModel>.from(
+                  data.map((item) => ProductModel.fromJson(item)),
+                ),
+              );
       EasyLoading.dismiss();
       // print(productList);
       return productItems; // Return the fetched data
@@ -52,7 +49,7 @@ class ProductServices {
       EasyLoading.show();
       final productItems = await supabase
           .from('products')
-          .select('id,name,price,images,sizes,colors,description')
+          .select('*')
           .textSearch('name', '%$query%')
           .withConverter(
             (data) => List<ProductModel>.from(
