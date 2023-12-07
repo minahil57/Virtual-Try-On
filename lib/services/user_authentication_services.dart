@@ -34,12 +34,17 @@ class UserAuthentication {
       }
     } catch (e) {
       await EasyLoading.dismiss();
-      // Handle exceptions
-      String errorMessage = 'An unknown error occurred';
-      if (e is Exception) {
-        errorMessage = e.toString();
+      log(e.toString());
+
+      final error = e as AuthException;
+
+      log(error.message);
+
+      if (error.message == 'User already registered') {
+        showToast('User already registered with this email');
+      } else {
+        showToast('Failed to signup');
       }
-      showToast(errorMessage);
     }
   }
 
